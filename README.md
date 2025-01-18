@@ -116,6 +116,20 @@ The application uses a **secure and scalable database** to store:
 
 This section provides an overview of the database schema for the **SUHBA Chat Application**. The schema is designed to support user management, messaging, group chats, contacts, and administrative functionalities.
 
+## Schema Diagram
+
+For a visual representation of the database schema, refer to the following diagram:  
+**Relative Path**: `schema.png`
+
+![Database Schema](databaseSchema/schema.png)
+
+## SQL Script
+
+The SQL script for creating the database schema can be found at:  
+**Relative Path**: `mysql.sql`
+
+[View SQL Script](databaseSchema/mysql.sql)
+
 ## Schema Overview
 
 The database consists of the following tables:
@@ -202,20 +216,6 @@ The database consists of the following tables:
 - **Users**:
   - `userId` references `Receivers(receiverId)`
   - `userId` references `Groups_Users(userId)`
-
-## Schema Diagram
-
-For a visual representation of the database schema, refer to the following diagram:  
-**Relative Path**: `schema.png`
-
-![Database Schema](databaseSchema/schema.png)
-
-## SQL Script
-
-The SQL script for creating the database schema can be found at:  
-**Relative Path**: `mysql.sql`
-
-[View SQL Script](databaseSchema/mysql.sql)
 
 ---
 
