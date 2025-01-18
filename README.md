@@ -103,8 +103,6 @@ ui/
 
 ---
 
----
-
 ## Database
 
 The application uses a **secure and scalable database** to store:
@@ -117,8 +115,6 @@ The application uses a **secure and scalable database** to store:
 # Database Schema
 
 This section provides an overview of the database schema for the **SUHBA Chat Application**. The schema is designed to support user management, messaging, group chats, contacts, and administrative functionalities.
-
----
 
 ## Schema Overview
 
@@ -178,8 +174,6 @@ The database consists of the following tables:
 - **Primary Key**: `permissionId`
 - **Indexes**: `permissionId`
 
----
-
 ## Relationships
 
 - **Contacts**:
@@ -209,16 +203,12 @@ The database consists of the following tables:
   - `userId` references `Receivers(receiverId)`
   - `userId` references `Groups_Users(userId)`
 
----
-
 ## Schema Diagram
 
 For a visual representation of the database schema, refer to the following diagram:  
 **Relative Path**: `schema.png`
 
 ![Database Schema](databaseSchema/schema.png)
-
----
 
 ## SQL Script
 
