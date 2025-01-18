@@ -70,7 +70,8 @@ The client UI will provide an intuitive interface for users to interact with the
 3. **Add Contacts**
 
    - Users can search for and add new contacts by entering phone numbers or email addresses.
-     ![chat](UI/Screens/client/addContacts.png)
+
+![chat](UI/Screens/client/addContacts.png)
 
 4. **Groups**
    - Users can create, join, and manage groups for collaborative conversations.
