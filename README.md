@@ -2,7 +2,7 @@
 
 **Project Name**: SUHBA  
 **Slogan**: _"Where Connections Come Alive"_  
-**Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.svg)
+**Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.png)
 
 ---
 

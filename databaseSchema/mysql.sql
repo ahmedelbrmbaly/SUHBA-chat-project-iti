@@ -24,7 +24,6 @@ CREATE TABLE `Contacts`(
     `userId1` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `userId2` BIGINT NOT NULL,
     `contactStatus` ENUM('') NOT NULL,
-    `category` VARCHAR(255) NOT NULL,
     PRIMARY KEY(`userId2`)
 );
 ALTER TABLE
