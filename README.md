@@ -50,42 +50,54 @@ ui/
     └── 5- Settings.png
 ```
 
+### Client UI (To Be Added)
+
+The client UI will provide an intuitive interface for users to interact with the chat application. Details will be added soon.
+
+1. **Sign Up**
+
+![Server Management](UI/Screens/client/signup1.png)
+
+![Server Management](UI/Screens/client/signup2.png)
+
+2. **Sign Up**
+
+![Server Management](UI/Screens/client/signin1.png)
+
+![Server Management](UI/Screens/client/signin2.png)
+
 #### Screens Overview:
 
 1. **Server Management**:
 
    - Monitor server status, start/stop services, and manage active connections.
 
-![SUHBA Logo](UI/Screens/server/1ServerManagement.png)
+![Server Management](UI/Screens/server/1ServerManagement.png)
 
 2. **Statistics**:
 
-- View real-time user activity metrics.
+   - View real-time user activity metrics.
 
-![SUHBA Logo](UI/Screens/server/2Statistics.png)
+![Statistics](UI/Screens/server/2Statistics.png)
 
 3. **Broadcasting**:
 
    - Manage broadcast messages and history.
 
-![SUHBA Logo](UI/Screens/server/3broadcasting.png)
+![Broadcasting](UI/Screens/server/3broadcasting.png)
 
 4. **User Management**:
 
    - Administer user accounts, roles, and permissions.
 
-![SUHBA Logo](UI/Screens/server/4UserManagement.png)
+![User Management](UI/Screens/server/4UserManagement.png)
 
 5. **Settings**:
    - Configure admin settings, notifications, and security preferences.
 
-![SUHBA Logo](UI/Screens/server/5settings.png)
+![Settings](UI/Screens/server/5settings.png)
 
 ---
-
-### Client UI (To Be Added)
-
-The client UI will provide an intuitive interface for users to interact with the chat application. Details will be added soon.
 
 ---
 
