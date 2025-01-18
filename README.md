@@ -78,7 +78,7 @@ ui/
 5. **Settings**:
    - Configure admin settings, notifications, and security preferences.
 
-![SUHBA Logo]("UI/Screens/server/5 - settings.png")
+![SUHBA Logo](UI/Screens/server/5 - settings.png)
 
 ---
 
