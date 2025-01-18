@@ -30,10 +30,10 @@ Our slogan reflects our commitment to creating a platform that brings people clo
 
 The SUHBA logo represents **connection, innovation, and trust**.
 
-![SUHBA Logo](UI\LOGO\suhba-high-resolution-logo-transparent.png)
-![SUHBA Logo](UI\LOGO\suhba-high-resolution-logo-grayscale.png)
-![SUHBA Logo](UI\LOGO\monogram-hq.png)
-![SUHBA Logo](UI\LOGO\monogram-black-hq.png)
+![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.png)
+![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-grayscale.png)
+![SUHBA Logo](UI/LOGO/monogram-hq.png)
+![SUHBA Logo](UI/LOGO/monogram-black-hq.png)
 
 ## UI Structure
 
