@@ -2,8 +2,8 @@
 
 **Project Name**: SUHBA  
 **Slogan**: _"Where Connections Come Alive"_  
-**Logo**: ![SUHBA Logo](UI\LOGO\suhba-high-resolution-logo-transparent.png)
-![SUHBA Logo](UI\LOGO\monogram-hq.png)
+**Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.png)
+![SUHBA Logo](UI/LOGO/monogram-hq.png)
 
 ---
 
@@ -57,28 +57,28 @@ ui/
 
    - Monitor server status, start/stop services, and manage active connections.
 
-![SUHBA Logo]("UI\Screens\server\1- Server Management.png")
+![SUHBA Logo]("UI/Screens/server/1- Server Management.png")
 
 2. **Statistics**:
 
 - View real-time user activity metrics.
 
-![SUHBA Logo]("UI\Screens\server\2- Statistics.png")
+![SUHBA Logo]("UI/Screens/server/2- Statistics.png")
 
 3. **Broadcasting**:
 
    - Manage broadcast messages and history.
-     ![SUHBA Logo]("UI\Screens\server\3- broadcasting.png")
+     ![SUHBA Logo]("UI/Screens/server/3- broadcasting.png")
 
 4. **User Management**:
 
    - Administer user accounts, roles, and permissions.
-     ![SUHBA Logo]("UI\Screens\server\4- User Management.png")
+     ![SUHBA Logo]("UI/Screens/server/4- User Management.png")
 
 5. **Settings**:
    - Configure admin settings, notifications, and security preferences.
 
-![SUHBA Logo]("UI\Screens\server\5 - settings.png")
+![SUHBA Logo]("UI/Screens/server/5 - settings.png")
 
 ---
 
