@@ -2,7 +2,7 @@
 
 **Project Name**: SUHBA  
 **Slogan**: _"Where Connections Come Alive"_  
-**Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.png)
+**Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.svg)
 
 ---
 
@@ -118,8 +118,7 @@ This section provides an overview of the database schema for the **SUHBA Chat Ap
 
 ## Schema Diagram
 
-For a visual representation of the database schema, refer to the following diagram:  
-**Relative Path**: `schema.png`
+For a visual representation of the database schema, refer to the following diagram:
 
 ![Database Schema](databaseSchema/schema.png)
 
