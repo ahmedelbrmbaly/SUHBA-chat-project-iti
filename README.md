@@ -52,7 +52,7 @@ The client UI will provide an intuitive interface for users to interact with the
 
 ![Sign In 2](UI/Screens/Singin-up/signin2.png)
 
-### Client UI (To Be Added)
+### Client UI
 
 The client UI will provide an intuitive interface for users to interact with the chat application. Details will be added soon.
 
