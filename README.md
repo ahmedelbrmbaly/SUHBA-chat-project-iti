@@ -34,6 +34,41 @@ The SUHBA logo represents **connection, innovation, and trust**.
 ![SUHBA Logo](UI/LOGO/monogram-hq.png)
 ![SUHBA Logo](UI/LOGO/monogram-black-hq.png)
 
+---
+
+## Project Management
+
+We use **Trello** and **Discord** for project management and team collaboration. These tools help us stay organized, track progress, and communicate effectively throughout the development process.
+
+- **Trello**: Used for task management, sprint planning, and tracking project milestones.
+- **Discord**: Used for real-time communication, team meetings, and discussions.
+
+---
+
+## Color Palette
+
+![color](UI/color.png)
+
+We use a **calm and professional color palette** to ensure a visually appealing and user-friendly interface. The colors are chosen to provide a clean and modern look while maintaining readability and accessibility.
+
+### Color Palette:
+
+- **#F9F7F7**: Very light gray (used for backgrounds and light mode).
+- **#DBE2EF**: Light blue-gray (used for secondary elements and input fields).
+- **#3F72AF**: Medium blue (used for primary buttons, accents, and highlights).
+- **#112D4E**: Dark navy blue (used for text, dark mode backgrounds, and headers).
+
+### Usage:
+
+- **Backgrounds**: `#F9F7F7` for light mode, `#112D4E` for dark mode.
+- **Text**: `#112D4E` for primary text, `#3F72AF` for accents.
+- **Buttons**: `#3F72AF` for primary buttons, `#DBE2EF` for secondary buttons.
+- **Borders/Dividers**: `#DBE2EF` for subtle borders and dividers.
+
+You can view the color palette on [Color Hunt](https://colorhunt.co/palette/f9f7f7dbe2ef3f72af112d4e).
+
+---
+
 ## UI Structure
 
 ### Sign in/up
