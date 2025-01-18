@@ -57,28 +57,28 @@ ui/
 
    - Monitor server status, start/stop services, and manage active connections.
 
-![Server Management](ui/server/1- Server Management.png)
+![Server Management](ui/server/ServerManagement.png)
 
 2. **Statistics**:
 
 - View real-time user activity metrics.
 
-![SUHBA Logo]("UI/Screens/server/2- Statistics.png")
+![SUHBA Logo](UI/Screens/server/2Statistics.png)
 
 3. **Broadcasting**:
 
    - Manage broadcast messages and history.
-     ![SUHBA Logo]("UI/Screens/server/3- broadcasting.png")
+     ![SUHBA Logo](UI/Screens/server/3broadcasting.png)
 
 4. **User Management**:
 
    - Administer user accounts, roles, and permissions.
-     ![SUHBA Logo]("UI/Screens/server/4- User Management.png")
+     ![SUHBA Logo](UI/Screens/server/4UserManagement.png)
 
 5. **Settings**:
    - Configure admin settings, notifications, and security preferences.
 
-![SUHBA Logo](UI/Screens/server/5 - settings.png)
+![SUHBA Logo](UI/Screens/server/5settings.png)
 
 ---
 
