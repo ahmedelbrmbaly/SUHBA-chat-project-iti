@@ -3,7 +3,6 @@
 **Project Name**: SUHBA  
 **Slogan**: _"Where Connections Come Alive"_  
 **Logo**: ![SUHBA Logo](UI/LOGO/suhba-high-resolution-logo-transparent.png)
-![SUHBA Logo](UI/LOGO/monogram-hq.png)
 
 ---
 
@@ -57,7 +56,7 @@ ui/
 
    - Monitor server status, start/stop services, and manage active connections.
 
-![Server Management](ui/server/1ServerManagement.png)
+![Server Management](ui/Screens/server/1ServerManagement.png)
 
 2. **Statistics**:
 
