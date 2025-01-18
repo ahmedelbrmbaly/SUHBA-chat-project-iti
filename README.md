@@ -57,7 +57,7 @@ ui/
 
    - Monitor server status, start/stop services, and manage active connections.
 
-![SUHBA Logo]("UI/Screens/server/1- Server Management.png")
+![Server Management](ui/server/1- Server Management.png)
 
 2. **Statistics**:
 
