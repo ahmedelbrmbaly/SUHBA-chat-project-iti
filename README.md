@@ -118,7 +118,13 @@ The client UI will provide an intuitive interface for users to interact with the
 
 ![chat](UI/Screens/client/notification.png)
 
-6. **Settings**
+6. **Caht Bot**
+
+   - Users can interact with an AI-powered chatbot for quick assistance and information.
+
+![chat](UI/Screens/client/chatbot.png)
+
+7. **Settings**
    - Users can manage their profile, password, and app preferences.
 
 ![chat](UI/Screens/client/settings1.png)
