@@ -56,6 +56,39 @@ The client UI will provide an intuitive interface for users to interact with the
 
 The client UI will provide an intuitive interface for users to interact with the chat application. Details will be added soon.
 
+1. Chat
+   - Users can engage in one-to-one or group chats with rich text messaging features.
+
+![chat](UI/Screens/client/chat.png)
+
+2. Contacts
+
+   - Displays the user's contact list with status updates (online/offline).
+
+![chat](UI/Screens/client/contacts.png)
+
+3. Add Contacts
+
+   - Users can search for and add new contacts by entering phone numbers or email addresses.
+     ![chat](UI/Screens/client/addContacts.png)
+
+4. Groups
+   - Users can create, join, and manage groups for collaborative conversations.
+
+![chat](UI/Screens/client/group.png)
+
+5. Notifications
+   - Displays notifications for new messages, contact requests, and other updates.
+
+![chat](UI/Screens/client/notification.png)
+
+6. Settings
+   - Users can manage their profile, password, and app preferences.
+
+![chat](UI/Screens/client/settings1.png)
+
+![chat](UI/Screens/client/setting2.png)
+
 ### Server UI
 
 The server UI consists of five main screens for managing and monitoring server activities. Below is the structure:
