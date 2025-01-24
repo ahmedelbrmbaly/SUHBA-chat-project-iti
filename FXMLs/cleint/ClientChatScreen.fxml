@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -72,23 +73,6 @@
                            </image>
                         </ImageView>
                         <Label fx:id="contactsLabel" text="Contacts" textFill="WHITE">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="requestBoxBar" alignment="CENTER" layoutX="40.0" layoutY="129.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
-                     <children>
-                        <ImageView fx:id="requestIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/notification-white.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="RequestsLabel" text="Requests" textFill="WHITE">
                            <font>
                               <Font size="8.0" />
                            </font>
@@ -184,14 +168,36 @@
          <items>
             <VBox accessibleText="People" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;">
                <children>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="256.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="People" textFill="#112d4e">
+                  <GridPane style="-fx-border-width: 0 0 3 0; -fx-border-color: #112D4E;">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="200.0" text="People" textFill="#112d4e">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@images/request.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                     </children>
+                  </GridPane>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="251.0" spacing="5.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0; -fx-cursor: hand;">
@@ -204,7 +210,7 @@
                                           <Image url="@images/user_profile.jpg" />
                                        </image>
                                     </ImageView>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
                                        </children>
@@ -252,7 +258,7 @@
                                           <Image url="@images/user_profile.jpg" />
                                        </image>
                                     </ImageView>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
                                        </children>
@@ -297,7 +303,7 @@
                                           <Image url="@images/user_profile.jpg" />
                                        </image>
                                     </ImageView>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
                                        </children>
@@ -342,7 +348,7 @@
                                           <Image url="@images/user_profile.jpg" />
                                        </image>
                                     </ImageView>
-                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
                                        </children>

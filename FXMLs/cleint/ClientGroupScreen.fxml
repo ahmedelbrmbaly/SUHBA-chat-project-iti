@@ -81,23 +81,6 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="requestBoxBar" alignment="CENTER" layoutX="40.0" layoutY="129.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
-                     <children>
-                        <ImageView fx:id="requestIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/notification-white.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="RequestsLabel" text="Requests" textFill="WHITE">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
                   <VBox fx:id="chatbotBoxBar" alignment="CENTER" layoutX="40.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                      <children>
                         <ImageView fx:id="chatbotIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
