@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +12,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -26,14 +30,14 @@
             <Line endX="90.0" stroke="WHITE" />
             <VBox alignment="CENTER" spacing="9.0">
                <children>
-                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: black;">
+                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
                      <children>
                         <ImageView fx:id="chatIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/chat-white.png" />
+                              <Image url="@images/chat-blue.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="chatLabel" text="Chats" textFill="WHITE">
+                        <Label fx:id="chatLabel" text="Chats" textFill="#112d4e">
                            <font>
                               <Font size="8.0" />
                            </font>
@@ -166,17 +170,6 @@
                </image>
             </ImageView>
             <TextField fx:id="searchTextField" focusTraversable="false" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -186,4 +179,426 @@
          </padding>
       </HBox>
    </top>
+   <center>
+      <SplitPane dividerPositions="0.3" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <VBox accessibleText="People" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;">
+               <children>
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="256.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="People" textFill="#112d4e">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="251.0" spacing="5.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0;">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#30a200" strokeType="INSIDE" />
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/user_profile.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="300.0">
+                                 <children>
+                                    <Label prefWidth="100.0" text="Ghaidaa">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Hello!" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <StackPane>
+                                       <children>
+                                          <Circle fill="#112d4e" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Label text="1" textFill="WHITE" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="12.0" layoutY="15.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0;">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#30a200" strokeType="INSIDE" />
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/user_profile.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="300.0">
+                                 <children>
+                                    <Label prefWidth="100.0" text="Ghaidaa">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Hello!" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <StackPane>
+                                       <children>
+                                          <Circle fill="#112d4e" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Label text="1" textFill="WHITE" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="86.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0;">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#30a200" strokeType="INSIDE" />
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/user_profile.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Circle fill="#30a100" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="300.0">
+                                 <children>
+                                    <Label prefWidth="100.0" text="Ghaidaa">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Hello!" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <StackPane>
+                                       <children>
+                                          <Circle fill="#112d4e" radius="10.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <Label text="1" textFill="WHITE" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <BorderPane>
+               <center>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" style="-fx-background-color: #F9F7F7;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label style="-fx-background-color: #3F72AF; -fx-background-radius: 10;" text="Hey!" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT">
+                                       <children>
+                                          <Label style="-fx-background-color: #112D4E; -fx-background-radius: 10;" text="Helllloooooo" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="83.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT">
+                                       <children>
+                                          <Label style="-fx-background-color: #112D4E; -fx-background-radius: 10;" text="Helllloooooo" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label style="-fx-background-color: #3F72AF; -fx-background-radius: 10;" text="Hey!" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="228.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label style="-fx-background-color: #3F72AF; -fx-background-radius: 10;" text="Hey!" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="155.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT">
+                                       <children>
+                                          <Label style="-fx-background-color: #112D4E; -fx-background-radius: 10;" text="Helllloooooo" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="322.0" prefHeight="50.0" prefWidth="579.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label style="-fx-background-color: #3F72AF; -fx-background-radius: 10;" text="Hey!" textFill="WHITE">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label text="Today, 8:00pm">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </center>
+               <top>
+                  <GridPane prefHeight="60.0" prefWidth="579.0" style="-fx-background-color: #DBE2EF;" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#112d4e" strokeType="INSIDE" />
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/user_profile.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label prefWidth="100.0" text="Ghaidaa">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Online">
+                                       <graphic>
+                                          <Circle fill="#30a100" radius="5.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/video.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/phone-blue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </top>
+               <bottom>
+                  <GridPane alignment="CENTER" prefHeight="49.0" prefWidth="579.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.77774047851562" minWidth="10.0" prefWidth="55.444427490234375" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="550.0" minWidth="10.0" prefWidth="400.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.888916015625" minWidth="10.0" prefWidth="116.66666666666663" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@images/attach-document.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/emoji.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="97.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/camera.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="67.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/microphone.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <TextField focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </bottom>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </center>
 </BorderPane>
