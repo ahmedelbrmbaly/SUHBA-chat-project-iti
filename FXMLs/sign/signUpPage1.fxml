@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <GridPane prefHeight="489.0" prefWidth="480.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="600.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="421.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="138.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="6.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="20.0" prefWidth="138.0" style="-fx-font-weight: bold;" text="Create an account" textFill="#112d4e">
+               <GridPane.margin>
+                  <Insets left="110.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="17.0" prefWidth="104.0" text="Phone Number *" textFill="#112d4e" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="110.0" top="40.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="110.0" left="110.0" right="100.0" top="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="37.0" text="Email" textFill="#112d4e" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="60.0" left="110.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="100.0" left="110.0" right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="72.0" text="Password *" textFill="#112d4e" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="140.0" left="110.0" />
+               </GridPane.margin>
+            </Label>
+            <PasswordField prefWidth="260.0" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets bottom="140.0" left="110.0" right="100.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <Label prefHeight="17.0" prefWidth="119.0" text="Confirm Password *" textFill="#112d4e" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets bottom="75.0" left="110.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </Label>
+            <TextField prefWidth="260.0" GridPane.rowIndex="9">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="110.0" right="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <GridPane prefHeight="93.0" prefWidth="480.0" GridPane.rowIndex="10">
+               <GridPane.margin>
+                  <Insets left="110.0" top="50.0" />
+               </GridPane.margin>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="50.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Label prefHeight="17.0" prefWidth="181.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="50.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="60.0" right="240.0" top="30.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@white.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="198.0" text="Where Connections, Come Alive" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

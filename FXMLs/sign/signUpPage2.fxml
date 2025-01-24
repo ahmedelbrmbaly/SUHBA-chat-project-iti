@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -37,12 +38,15 @@
                   <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="17.0" prefWidth="103.0" text="Create an account" textFill="#112d4e">
+                  <Label prefHeight="20.0" prefWidth="130.0" style="-fx-font-weight: bold;" text="Create an account" textFill="#112d4e">
                      <GridPane.margin>
                         <Insets left="40.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="104.0" text="User Name" GridPane.rowIndex="1">
+                  <Label prefHeight="17.0" prefWidth="104.0" text="User Name" textFill="#112d4e" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="40.0" top="40.0" />
                      </GridPane.margin>
@@ -52,7 +56,7 @@
                         <Insets bottom="110.0" left="40.0" top="30.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="66.0" text="Gender" GridPane.rowIndex="4">
+                  <Label prefHeight="17.0" prefWidth="66.0" text="Gender" textFill="#112d4e" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="60.0" left="40.0" top="60.0" />
                      </GridPane.margin>
@@ -62,12 +66,12 @@
                         <Insets bottom="100.0" left="40.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="182.0" text="Date of Bitrh" GridPane.rowIndex="6">
+                  <Label prefHeight="17.0" prefWidth="182.0" text="Date of Bitrh" textFill="#112d4e" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets bottom="180.0" left="40.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label prefHeight="7.0" prefWidth="49.0" text="Country" GridPane.rowIndex="8">
+                  <Label prefHeight="7.0" prefWidth="49.0" text="Country" textFill="#112d4e" GridPane.rowIndex="8">
                      <GridPane.margin>
                         <Insets bottom="105.0" left="40.0" top="30.0" />
                      </GridPane.margin>
@@ -92,16 +96,22 @@
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
                         </CheckBox>
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Sign up" textFill="WHITE" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
                         </Button>
-                        <Label prefHeight="17.0" prefWidth="181.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
+                        <Label prefHeight="16.0" prefWidth="164.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
                         </Label>
                      </children>
                   </GridPane>
@@ -131,17 +141,17 @@
                 <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="241.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #3f72af;" text="Choose" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3f72af;" text="Choose" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="420.0" />
+                        <Insets bottom="450.0" left="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <ImageView fitHeight="115.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="94.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@mode-portrait%20(4).png" />
                      </image>
                      <GridPane.margin>
-                        <Insets bottom="50.0" />
+                        <Insets bottom="50.0" left="20.0" />
                      </GridPane.margin>
                   </ImageView>
                </children>
