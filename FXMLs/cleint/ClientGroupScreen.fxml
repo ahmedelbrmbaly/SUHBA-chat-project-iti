@@ -184,7 +184,7 @@
          <items>
             <VBox accessibleText="People" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;">
                <children>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="256.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="People" textFill="#112d4e">
+                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="256.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="Groups" textFill="#112d4e">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
