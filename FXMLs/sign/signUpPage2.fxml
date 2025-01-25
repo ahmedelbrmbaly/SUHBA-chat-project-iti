@@ -148,7 +148,7 @@
                   </Button>
                   <ImageView fitHeight="94.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@mode-portrait%20(4).png" />
+                        <Image url="@defaultProfilePhoto.png" />
                      </image>
                      <GridPane.margin>
                         <Insets bottom="50.0" left="20.0" />
@@ -170,7 +170,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@white.png" />
+                  <Image url="@projectName.png" />
                </image>
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
