@@ -1,21 +1,25 @@
+import java.util.List;
+
 public interface UserDAO {
+    //Insert
+    boolean addNewUser(User user);  //
 
-	// Client Operations:
-	User getUserById (int id);
-	User getUserByPhone (String phone);
-	String getUserStatusById (int id);
-	String getUserDisplayNameById (int id);
+    //Read
+    User getUserById(long userId);  //
+    User getUserByPhone(String phone);  //
+    String getUserStatusById(long userId);
+    String getUserDisplayNameById(long userId);
+    List<User> getUsersByCountry(String country);
+    List<User> getUsersByStatus(String status);
+    List<User> getUsersByGender(String gender);
+    List<User> getAllUsers();
 
-	boolean addNewUser(User user);                 //also in server
+    //Update
+    boolean updateUser(User user);
+    boolean updateUserProfileById(long userId);
+    boolean updateUserPasswordById(long userId);
 
-	boolean updateUserProfileById(int id);
-	boolean updateUserPasswordById(int id);
-
-	// Server Operations
-	boolean deleteUserById(int id);
-	List<User> getAllUsers ();
-	List<User> getUsersByCountry(String country);
-	List<User> getUsersByStatus (String status);
-	List<User> getUsersByGender (String gender);
-
+    //Delete
+    boolean deleteUserById(long userId);
 }
+
