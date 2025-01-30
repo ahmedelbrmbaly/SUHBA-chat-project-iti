@@ -1,73 +1,70 @@
+-- Users Table (Phone is mandatory, ENUMs fixed)
 CREATE TABLE `Users`(
     `userId` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `phone` VARCHAR(255) NULL,
+    `phone` VARCHAR(255) NOT NULL,
     `displayName` VARCHAR(255) NOT NULL,
     `userEmail` VARCHAR(255) NULL,
     `password` VARCHAR(255) NOT NULL,
-    `gender` ENUM('') NULL,
+    `gender` ENUM('Male', 'Female', 'Other') NULL,
     `country` VARCHAR(255) NULL,
     `birthday` DATE NULL,
     `bio` VARCHAR(255) NULL,
-    `userStatus` ENUM('') NOT NULL
+    `userStatus` ENUM('Available', 'Busy', 'Away', 'Offline') NOT NULL
 );
-ALTER TABLE
-    `Users` ADD INDEX `users_userid_index`(`userId`);
-ALTER TABLE
-    `Users` ADD INDEX `users_phone_index`(`phone`);
-ALTER TABLE
-    `Users` ADD INDEX `users_useremail_index`(`userEmail`);
-ALTER TABLE
-    `Users` ADD UNIQUE `users_phone_unique`(`phone`);
-ALTER TABLE
-    `Users` ADD UNIQUE `users_useremail_unique`(`userEmail`);
+ALTER TABLE `Users` ADD UNIQUE (`phone`); -- Phone is unique identifier
+ALTER TABLE `Users` ADD UNIQUE (`userEmail`); -- Email uniqueness
+
+-- Contacts Table (Composite PK, valid ENUM)
 CREATE TABLE `Contacts`(
-    `userId1` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `userId2` BIGINT NOT NULL,
-    `contactStatus` ENUM('') NOT NULL,
-    PRIMARY KEY(`userId2`)
+    `userId1` INT UNSIGNED NOT NULL,
+    `userId2` INT UNSIGNED NOT NULL,
+    `contactStatus` ENUM('Pending', 'Accepted', 'Blocked') NOT NULL,
+    PRIMARY KEY (`userId1`, `userId2`),
+    FOREIGN KEY (`userId1`) REFERENCES `Users`(`userId`),
+    FOREIGN KEY (`userId2`) REFERENCES `Users`(`userId`)
 );
-ALTER TABLE
-    `Contacts` ADD INDEX `contacts_userid1_index`(`userId1`);
+
+-- Chats Table (Chat type definition)
+CREATE TABLE `Chats`(
+    `chatId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `chatType` ENUM('Direct', 'Group') NOT NULL -- Direct (1-1) or Group
+);
+
+-- Chats_Users Table (Composite PK for group chats)
+CREATE TABLE `Chats_Users`(
+    `userId` INT UNSIGNED NOT NULL,
+    `chatId` BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (`userId`, `chatId`),
+    FOREIGN KEY (`userId`) REFERENCES `Users`(`userId`),
+    FOREIGN KEY (`chatId`) REFERENCES `Chats`(`chatId`)
+);
+
+-- Messages Table (Status ENUM, formatting support)
 CREATE TABLE `Messages`(
     `messageId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `senderId` BIGINT NOT NULL,
-    `content` MULTILINESTRING NULL,
-    `timeStamp` TIMESTAMP NOT NULL,
-    `messageStatus` ENUM('') NOT NULL,
-    `attachment` VARCHAR(255) NULL
+    `senderId` INT UNSIGNED NOT NULL,
+    `chatId` BIGINT UNSIGNED NOT NULL,
+    `content` TEXT NOT NULL,
+    `formatAttributes` JSON NULL, -- Stores font/style/color as JSON
+    `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `messageStatus` ENUM('Sent', 'Delivered', 'Read') NOT NULL,
+    `attachment` VARCHAR(255) NULL,
+    FOREIGN KEY (`senderId`) REFERENCES `Users`(`userId`),
+    FOREIGN KEY (`chatId`) REFERENCES `Chats`(`chatId`)
 );
-ALTER TABLE
-    `Messages` ADD INDEX `messages_senderid_index`(`senderId`);
-ALTER TABLE
-    `Messages` ADD INDEX `messages_messageid_index`(`messageId`);
-CREATE TABLE `Receivers`(
-    `messageId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `receiverId` BIGINT NOT NULL,
-    `groupId` BIGINT NOT NULL,
-    PRIMARY KEY(`receiverId`)
-);
-ALTER TABLE
-    `Receivers` ADD INDEX `receivers_messageid_index`(`messageId`);
-ALTER TABLE
-    `Receivers` ADD PRIMARY KEY(`groupId`);
+
+-- Groups Table (Category support)
 CREATE TABLE `Groups`(
     `groupId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `groupName` VARCHAR(255) NOT NULL,
     `groupPhoto` VARCHAR(255) NULL,
-    `groupDescription` VARCHAR(255) NULL
+    `groupDescription` VARCHAR(255) NULL,
+    `category` VARCHAR(50) NULL, -- E.g., "Friends", "Family"
+    `chatId` BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (`chatId`) REFERENCES `Chats`(`chatId`)
 );
-ALTER TABLE
-    `Groups` ADD INDEX `groups_groupid_index`(`groupId`);
-CREATE TABLE `Groups_Users`(
-    `groupId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `userId` BIGINT NOT NULL,
-    `userStatus` ENUM('') NOT NULL,
-    PRIMARY KEY(`userId`)
-);
-ALTER TABLE
-    `Groups_Users` ADD INDEX `groups_users_groupid_index`(`groupId`);
-ALTER TABLE
-    `Groups_Users` ADD INDEX `groups_users_userid_index`(`userId`);
+
+-- Admins Table
 CREATE TABLE `Admins`(
     `adminId` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `adminName` VARCHAR(255) NOT NULL,
@@ -75,44 +72,5 @@ CREATE TABLE `Admins`(
     `password` VARCHAR(255) NOT NULL,
     `isActive` BOOLEAN NOT NULL
 );
-ALTER TABLE
-    `Admins` ADD INDEX `admins_adminid_index`(`adminId`);
-ALTER TABLE
-    `Admins` ADD INDEX `admins_adminemail_index`(`adminEmail`);
-ALTER TABLE
-    `Admins` ADD UNIQUE `admins_adminemail_unique`(`adminEmail`);
-CREATE TABLE `Admins_Permissions`(
-    `adminId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `permissionId` INT NOT NULL,
-    PRIMARY KEY(`permissionId`)
-);
-ALTER TABLE
-    `Admins_Permissions` ADD INDEX `admins_permissions_adminid_index`(`adminId`);
-CREATE TABLE `Permissions`(
-    `permissionId` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `type` ENUM('') NOT NULL
-);
-ALTER TABLE
-    `Permissions` ADD INDEX `permissions_permissionid_index`(`permissionId`);
-ALTER TABLE
-    `Permissions` ADD UNIQUE `permissions_type_unique`(`type`);
-ALTER TABLE
-    `Contacts` ADD CONSTRAINT `contacts_userid2_foreign` FOREIGN KEY(`userId2`) REFERENCES `Users`(`userId`);
-ALTER TABLE
-    `Messages` ADD CONSTRAINT `messages_senderid_foreign` FOREIGN KEY(`senderId`) REFERENCES `Users`(`userId`);
-ALTER TABLE
-    `Groups` ADD CONSTRAINT `groups_groupid_foreign` FOREIGN KEY(`groupId`) REFERENCES `Groups_Users`(`groupId`);
-ALTER TABLE
-    `Messages` ADD CONSTRAINT `messages_messageid_foreign` FOREIGN KEY(`messageId`) REFERENCES `Receivers`(`messageId`);
-ALTER TABLE
-    `Admins` ADD CONSTRAINT `admins_adminid_foreign` FOREIGN KEY(`adminId`) REFERENCES `Admins_Permissions`(`adminId`);
-ALTER TABLE
-    `Contacts` ADD CONSTRAINT `contacts_userid1_foreign` FOREIGN KEY(`userId1`) REFERENCES `Users`(`userId`);
-ALTER TABLE
-    `Users` ADD CONSTRAINT `users_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Receivers`(`receiverId`);
-ALTER TABLE
-    `Users` ADD CONSTRAINT `users_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Groups_Users`(`userId`);
-ALTER TABLE
-    `Permissions` ADD CONSTRAINT `permissions_permissionid_foreign` FOREIGN KEY(`permissionId`) REFERENCES `Admins_Permissions`(`permissionId`);
-ALTER TABLE
-    `Groups` ADD CONSTRAINT `groups_groupid_foreign` FOREIGN KEY(`groupId`) REFERENCES `Receivers`(`groupId`);
+ALTER TABLE `Admins` ADD UNIQUE (`adminEmail`);
+
