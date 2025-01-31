@@ -1,5 +1,8 @@
 package com.suhba.models.enums;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 public enum OnlineStatus {
     ONLINE("Online", "#30a100"),
     OFFLINE("Offline", "#cccccc"),
@@ -15,6 +18,15 @@ public enum OnlineStatus {
         this.colorCode = colorCode;
     }
 
-    public String getDisplayName() { return displayName; }
-    public String getColorCode() { return colorCode; }
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public Paint getColor() {
+        return Color.web(colorCode);
+    }
 }

@@ -5,7 +5,6 @@ import com.suhba.models.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,11 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
@@ -133,21 +132,43 @@ public class ChatScreenController implements Initializable{
 
     private ObservableList<Message> listOfMessages; 
 
+    @FXML
+    private ListView<Chat> chatsListView;
+
+    private ObservableList<Chat> listOfChats;
+
+    private Chat currenChat;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        listOfMessages = FXCollections.observableArrayList();
 
+        //Test MessagesList:
+        listOfMessages = FXCollections.observableArrayList();
+        listOfChats = FXCollections.observableArrayList();
+
+        
+        User user1 = new User("ghaidaa");
         User user2 = new User("yousef");
+        Chat chat1 = new Chat("chat-1", user2);
         Message received= new Message(user2,"Test Receive");
+        Message received2= new Message(user2,"Test Receive 2");
+        chat1.getMessages().add(received);
+        chat1.getMessages().add(received2);
+        listOfChats.add(chat1);
         listOfMessages.add(received);
+        listOfMessages.add(received2);
+
+        chatsListView.setItems(listOfChats);
+        chatsListView.setStyle("-fx-background-color:  #F9F7F7;");
 
         messagesArea.setItems(listOfMessages);
         messagesArea.setOrientation(Orientation.VERTICAL);
         messagesArea.setStyle("-fx-background-color: transparent;");
         messagesArea.setSelectionModel(null);
+        
 
-        User user1 = new User("ghaidaa");
+        
 
         // Handle Chat View :
         userMessageTextField.setOnKeyPressed(event ->{
@@ -190,10 +211,10 @@ public class ChatScreenController implements Initializable{
                                         }
                                         if (controller != null ) {
                                             if (msg.getSender().equals(user1)){
-                                            controller.setMessage(msg);
+                                            controller.setMessage(msg,true);
                                             }
                                             else{
-                                            controller.receiveMessage(msg);
+                                            controller.setMessage(msg,false);
                                         }
                                     }
                                     
@@ -204,6 +225,34 @@ public class ChatScreenController implements Initializable{
                 
             }
             
+        });
+
+        chatsListView.setCellFactory(lv -> new ListCell<Chat>() {
+            private ChatUserBoxController controller;
+            private Node rootNode;
+        
+            {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ChatUserBox.fxml"));
+                    rootNode = loader.load();
+                    controller = loader.getController();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        
+            @Override
+            protected void updateItem(Chat chat, boolean empty) {
+                super.updateItem(chat, empty);
+                if (empty || chat == null) {
+                    setGraphic(null);
+                    setText(null);
+                    //setStyle("-fx-background-color:  #F9F7F7;");
+                } else {
+                    controller.setUserChat(chat);
+                    setGraphic(rootNode);
+                }
+            }
         });
 
         
