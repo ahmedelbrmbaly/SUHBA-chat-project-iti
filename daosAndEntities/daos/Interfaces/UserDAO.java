@@ -1,12 +1,14 @@
+package org.example;
+
 import java.util.List;
 
-public interface UserDAO {
-    //Insert
-    boolean addNewUser(User user);  //
+public interface UserDAO {  //CRUD
+    //Create
+    boolean addNewUser(User user);
 
     //Read
-    User getUserById(long userId);  //
-    User getUserByPhone(String phone);  //
+    User getUserById(long userId);
+    User getUserByPhone(String phone);
     String getUserStatusById(long userId);
     String getUserDisplayNameById(long userId);
     List<User> getUsersByCountry(String country);

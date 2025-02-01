@@ -1,43 +1,36 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package org.example;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
-    private Connection connection;
+    private Connectivity connectivity = new Connectivity();
+    Connection connection = null;
 
-    public UserDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
+    public UserDAOImpl() { connection = connectivity.getConnection(); }
 
-    @Override
     public boolean addNewUser(User user) {
-        String sql = "INSERT INTO Users (phone, displayName, userEmail, password, gender, country, birthday, bio, userStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (phone, displayName, userEmail, picture, password, gender, country, birthday, bio, userStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getGender());
-            stmt.setString(6, user.getCountry());
-            stmt.setDate(7, java.sql.Date.valueOf(user.getBirthday()));
-            stmt.setString(8, user.getBio());
-            stmt.setString(9, user.getUserStatus());
-
+            stmt.setBlob(4, user.getPicture());
+            stmt.setString(5, user.getPassword());
+            stmt.setString(6, user.getGender());
+            stmt.setString(7, user.getCountry());
+            stmt.setDate(8, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
+            stmt.setString(9, user.getBio());
+            stmt.setString(10, user.getUserStatus());
             int affectedRows = stmt.executeUpdate();
-
             if (affectedRows > 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
                     if (rs.next()) {
                         user.setUserId(rs.getLong(1));
-                        System.out.println("User inserted successfully with ID: " + user.getUserId());
                         return true;
                     }
                 }
-            } else {
-                System.out.println("Failed to insert user. No rows affected.");
             }
             return false;
         } catch (SQLException e) {
@@ -59,10 +52,11 @@ public class UserDAOImpl implements UserDAO {
                 user.setPhone(rs.getString("phone"));
                 user.setDisplayName(rs.getString("displayName"));
                 user.setUserEmail(rs.getString("userEmail"));
+                user.setPicture(rs.getBlob("picture"));
                 user.setPassword(rs.getString("password"));
                 user.setGender(rs.getString("gender"));
                 user.setCountry(rs.getString("country"));
-                user.setBirthday(rs.getDate("birthday").toLocalDate());
+                user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                 user.setBio(rs.getString("bio"));
                 user.setUserStatus(rs.getString("userStatus"));
                 return user;
@@ -73,27 +67,29 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    @Override
     public User getUserByPhone(String phone) {
         String sql = "SELECT * FROM Users WHERE phone = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, phone);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                User user = new User();
-                user.setUserId(rs.getLong("userId"));
-                user.setPhone(rs.getString("phone"));
-                user.setDisplayName(rs.getString("displayName"));
-                user.setUserEmail(rs.getString("userEmail"));
-                user.setPassword(rs.getString("password"));
-                user.setGender(rs.getString("gender"));
-                user.setCountry(rs.getString("country"));
-                user.setBirthday(rs.getDate("birthday").toLocalDate());
-                user.setBio(rs.getString("bio"));
-                user.setUserStatus(rs.getString("userStatus"));
-                return user;
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(rs.getString("gender"));
+                    user.setCountry(rs.getString("country"));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(rs.getString("userStatus"));
+                    return user;
+                }
             }
         } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -142,10 +138,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender"));
                     user.setCountry(rs.getString("country"));
-                    user.setBirthday(rs.getDate("birthday").toLocalDate());
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
                     user.setUserStatus(rs.getString("userStatus"));
                     users.add(user);
@@ -171,10 +168,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender"));
                     user.setCountry(rs.getString("country"));
-                    user.setBirthday(rs.getDate("birthday").toLocalDate());
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
                     user.setUserStatus(rs.getString("userStatus"));
                     users.add(user);
@@ -200,10 +198,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender"));
                     user.setCountry(rs.getString("country"));
-                    user.setBirthday(rs.getDate("birthday").toLocalDate());
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
                     user.setUserStatus(rs.getString("userStatus"));
                     users.add(user);
@@ -216,7 +215,6 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
-    @Override
     public List<User> getAllUsers() {
         String sql = "SELECT * FROM Users";
         List<User> users = new ArrayList<>();
@@ -228,10 +226,11 @@ public class UserDAOImpl implements UserDAO {
                 user.setPhone(rs.getString("phone"));
                 user.setDisplayName(rs.getString("displayName"));
                 user.setUserEmail(rs.getString("userEmail"));
+                user.setPicture(rs.getBlob("picture"));
                 user.setPassword(rs.getString("password"));
                 user.setGender(rs.getString("gender"));
                 user.setCountry(rs.getString("country"));
-                user.setBirthday(rs.getDate("birthday").toLocalDate());
+                user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                 user.setBio(rs.getString("bio"));
                 user.setUserStatus(rs.getString("userStatus"));
                 users.add(user);
@@ -243,20 +242,20 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
-    @Override
     public boolean updateUser(User user) {
-        String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, password = ?, gender = ?, country = ?, birthday = ?, bio = ?, userStatus = ? WHERE userId = ?";
+        String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, picture = ?, password = ?, gender = ?, country = ?, birthday = ?, bio = ?, userStatus = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getGender());
-            stmt.setString(6, user.getCountry());
-            stmt.setDate(7, java.sql.Date.valueOf(user.getBirthday()));
-            stmt.setString(8, user.getBio());
-            stmt.setString(9, user.getUserStatus());
-            stmt.setLong(10, user.getUserId());
+            stmt.setBlob(4, user.getPicture());
+            stmt.setString(5, user.getPassword());
+            stmt.setString(6, user.getGender());
+            stmt.setString(7, user.getCountry());
+            stmt.setDate(8, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
+            stmt.setString(9, user.getBio());
+            stmt.setString(10, user.getUserStatus());
+            stmt.setLong(11, user.getUserId());
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -268,16 +267,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean updateUserProfileById(long userId) {
-        String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, gender = ?, country = ?, birthday = ?, bio = ? WHERE userId = ?";
+        String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, picture = ?, gender = ?, country = ?, birthday = ?, bio = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, "1234567890");
             stmt.setString(2, "New Display Name");
             stmt.setString(3, "example@gmail.com");
-            stmt.setString(4, "Male");
-            stmt.setString(5, "New country");
-            stmt.setString(6, "20-2-2002");
-            stmt.setString(3, "New Bio");
-            stmt.setLong(4, userId);
+            stmt.setBlob(4, (Blob) null);
+            stmt.setString(5, "Male");
+            stmt.setString(6, "New country");
+            stmt.setDate(7, Date.valueOf("2002-02-10"));
+            stmt.setString(8, "New Bio");
+            stmt.setLong(9, userId);
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -306,9 +306,9 @@ public class UserDAOImpl implements UserDAO {
     public boolean deleteUserById(long userId) {
         String sql = "DELETE FROM Users WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, userId); 
+            stmt.setLong(1, userId);
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; 
+            return affectedRows > 0;
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
