@@ -1,19 +1,29 @@
 package com.suhba.daos.interfaces;
 
-import com.suhba.entities.User;
-import com.suhba.exceptions.DAOException;
-import com.suhba.enums.UserStatus;
+import java.util.List;
 
-public interface UserDAO {
-    // CRUD Operations
-    void createUser(User user) throws DAOException;
-    User getUserById(int userId) throws DAOException;
-    User getUserByPhone(String phone) throws DAOException;
-    User getUserByEmail(String email) throws DAOException;
-    void updateUser(User user) throws DAOException;
-    void updateUserStatus(int userId, UserStatus status) throws DAOException;
-    void deleteUser(int userId) throws DAOException;
+import com.suhba.database.entities.User;
 
-    // Utility
-    List<User> searchUsers(String query) throws DAOException; // For contact search
+public interface UserDAO {  //CRUD
+    //Create
+    boolean addNewUser(User user);
+
+    //Read
+    User getUserById(long userId);
+    User getUserByPhone(String phone);
+    String getUserStatusById(long userId);
+    String getUserDisplayNameById(long userId);
+    List<User> getUsersByCountry(String country);
+    List<User> getUsersByStatus(String status);
+    List<User> getUsersByGender(String gender);
+    List<User> getAllUsers();
+
+    //Update
+    boolean updateUser(User user);
+    boolean updateUserProfileById(long userId);
+    boolean updateUserPasswordById(long userId);
+
+    //Delete
+    boolean deleteUserById(long userId);
 }
+
