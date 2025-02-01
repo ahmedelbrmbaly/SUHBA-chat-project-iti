@@ -1,10 +1,15 @@
+package org.example;
+
+import java.sql.Blob;
 import java.time.LocalDate;
 
 public class User {
+    // Attributes
     private long userId;
     private String phone;
     private String displayName;
     private String userEmail;
+    private Blob picture;
     private String password;
     private String gender;
     private String country;
@@ -21,6 +26,8 @@ public class User {
     public void setDisplayName(String displayName) { this.displayName = displayName; }
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
+    public Blob getPicture() { return picture; }
+    public void setPicture(Blob picture) { this.picture = picture; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     public String getGender() { return gender; }
@@ -33,4 +40,21 @@ public class User {
     public void setBio(String bio) { this.bio = bio; }
     public String getUserStatus() { return userStatus; }
     public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", phone='" + phone + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", picture=" + picture +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", country='" + country + '\'' +
+                ", birthday=" + birthday +
+                ", bio='" + bio + '\'' +
+                ", userStatus='" + userStatus + '\'' +
+                '}';
+    }
 }
