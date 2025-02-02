@@ -168,4 +168,7 @@ public class GroupDaoImpl implements GroupDao {
                 rs.getString("category"),
                 rs.getLong("chatId")
         );
+    }
 }
+
+
