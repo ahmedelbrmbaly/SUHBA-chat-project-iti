@@ -46,4 +46,17 @@ public class Group {
     public void setCategory(String category) { this.category = category; }
     public long getChatId() { return chatId; }
     public void setChatId(long chatId) { this.chatId = chatId; }
+
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", groupPhoto='" + groupPhoto + '\'' +
+                ", groupDescription='" + groupDescription + '\'' +
+                ", category='" + category + '\'' +
+                ", chatId=" + chatId +
+                '}';
+    }
 }

@@ -17,37 +17,77 @@ public class GroupDaoImpl implements GroupDao {
     }
 
 
+    // TESTED >> WORKING
     @Override
-    public Optional<Group> createGroup(Group group) {
-        String sql = "INSERT INTO Groups (groupName, groupPhoto, groupDescription, category, chatId) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, group.getGroupName());
-            stmt.setString(2, group.getGroupPhoto());
-            stmt.setString(3, group.getGroupDescription());
-            stmt.setString(4, group.getCategory());
-            stmt.setLong(5, group.getChatId());
+    public Optional<Group> createGroup(Group group, long creatorId) {
 
-            int affectedRows = stmt.executeUpdate();
+        String createChatSQL = "INSERT INTO `Chats` (chatType) VALUES ('Group')";
+        String addUserToChatSQL = "INSERT INTO `Chats_Users` (userId, chatId) VALUES (?, ?)";
+        String createGroupSQL = "INSERT INTO `Groups` (groupName, groupPhoto, groupDescription, category, chatId) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement createChatStmt = connection.prepareStatement(createChatSQL, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement addUserToChatStmt = connection.prepareStatement(addUserToChatSQL);
+             PreparedStatement createGroupStmt = connection.prepareStatement(createGroupSQL, Statement.RETURN_GENERATED_KEYS)) {
+
+            connection.setAutoCommit(false);
+
+            // Step 1: Create a chat entry
+            createChatStmt.executeUpdate();
+            ResultSet chatKeys = createChatStmt.getGeneratedKeys();
+            if (!chatKeys.next()) {
+                connection.rollback();
+                return Optional.empty();
+            }
+            long chatId = chatKeys.getLong(1);
+
+            // Step 2: Add the creator to the chat
+            addUserToChatStmt.setLong(1, creatorId);
+            addUserToChatStmt.setLong(2, chatId);
+            addUserToChatStmt.executeUpdate();
+
+            // Step 3: Create the group
+            createGroupStmt.setString(1, group.getGroupName());
+            createGroupStmt.setString(2, group.getGroupPhoto());
+            createGroupStmt.setString(3, group.getGroupDescription());
+            createGroupStmt.setString(4, group.getCategory());
+            createGroupStmt.setLong(5, chatId);
+
+            int affectedRows = createGroupStmt.executeUpdate();
             if (affectedRows == 0) {
+                connection.rollback();
                 return Optional.empty();
             }
 
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    group.setGroupId(generatedKeys.getLong(1));
-                    return Optional.of(group);
-                }
+            ResultSet groupKeys = createGroupStmt.getGeneratedKeys();
+            if (groupKeys.next()) {
+                group.setGroupId(groupKeys.getLong(1));
+                group.setChatId(chatId);
+                connection.commit();
+                return Optional.of(group);
             }
+
+            connection.rollback();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            handleSQLException(e);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException autoCommitEx) {
+                handleSQLException(autoCommitEx);
+            }
         }
         return Optional.empty();
-
     }
 
+    // TESTED >> WORKING
     @Override
     public Optional<Group> getGroupById(long groupId) {
-        String sql = "SELECT groupId,groupName, groupPhoto, groupDescription,category, chatId FROM Groups WHERE groupId = ?";
+        String sql = "SELECT groupId, groupName, groupPhoto, groupDescription,category, chatId FROM `Groups` WHERE groupId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, groupId);
             ResultSet rs = stmt.executeQuery();
@@ -55,61 +95,86 @@ public class GroupDaoImpl implements GroupDao {
                 return Optional.of(mapRowToGroup(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            handleSQLException(e);
         }
         return Optional.empty();
     }
 
+    // TESTED >> WORKING
     @Override
     public List<Group> getAllGroups() {
         List<Group> groups = new ArrayList<>();
-        String sql = "SELECT groupId,groupName, groupPhoto, groupDescription,category, chatId FROM Groups";
+        String sql = "SELECT groupId,groupName, groupPhoto, groupDescription,category, chatId FROM `Groups`";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 groups.add(mapRowToGroup(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            handleSQLException(e);
         }
         return groups;
     }
 
+    // TESTED >> WORKING
+    @Override
+    public List<Group> getGroupsByUserId(long userId) {
+        List<Group> groups = new ArrayList<>();
+        String sql = "SELECT g.groupId, g.groupName, g.groupPhoto, g.groupDescription, g.category, g.chatId " +
+                "FROM `Groups` g " +
+                "JOIN Chats_Users cu ON g.chatId = cu.chatId " +
+                "WHERE cu.userId = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    groups.add(mapRowToGroup(rs));
+                }
+            }
+        } catch (SQLException e) {
+            handleSQLException(e); // Consider logging this properly
+        }
+        return groups;
+    }
+
+
+    // TESTED >> WORKING
     @Override
     public boolean updateGroup(Group group) {
-        String sql = "UPDATE Groups SET groupName = ?, groupPhoto = ?, groupDescription = ?, category = ?, chatId = ? WHERE groupId = ?";
+        String sql = "UPDATE `Groups` SET groupName = ?, groupPhoto = ?, groupDescription = ?, category = ? WHERE groupId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, group.getGroupName());
             stmt.setString(2, group.getGroupPhoto());
             stmt.setString(3, group.getGroupDescription());
             stmt.setString(4, group.getCategory());
-            stmt.setLong(5, group.getChatId());
-            stmt.setLong(6, group.getGroupId());
+            stmt.setLong(5, group.getGroupId());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            handleSQLException(e);
             return false;
         }
     }
-
+    // TESTED >> WORKING
     @Override
     public boolean deleteGroup(long groupId) {
-        String sql = "DELETE FROM Groups WHERE groupId = ?";
+        String sql = "DELETE FROM `Groups` WHERE groupId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, groupId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            handleSQLException(e);
             return false;
         }
     }
 
+    // TESTED >> WORKING
     @Override
     public boolean addUserToGroup(long groupId, long userId) {
-       // must call the chatUser Dao
+
         String sql = "INSERT INTO Chats_Users (userId, chatId) " +
-                "VALUES (?, (SELECT chatId FROM Groups WHERE groupId = ?))";
+                "VALUES (?, (SELECT chatId FROM `Groups` WHERE groupId = ?))";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, userId);
             stmt.setLong(2, groupId);
@@ -120,10 +185,11 @@ public class GroupDaoImpl implements GroupDao {
         }
     }
 
+    // TESTED >> WORKING
     @Override
     public boolean removeUserFromGroup(long groupId, long userId) {
         String sql = "DELETE FROM Chats_Users " +
-                "WHERE userId = ? AND chatId = (SELECT chatId FROM Groups WHERE groupId = ?)";
+                "WHERE userId = ? AND chatId = (SELECT chatId FROM `Groups` WHERE groupId = ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, userId);
             stmt.setLong(2, groupId);
@@ -134,10 +200,11 @@ public class GroupDaoImpl implements GroupDao {
         }
     }
 
+    // TESTED >> WORKING
     @Override
     public boolean isUserInGroup(long groupId, long userId) {
         String sql = "SELECT COUNT(*) AS count FROM Chats_Users " +
-                "WHERE userId = ? AND chatId = (SELECT chatId FROM Groups WHERE groupId = ?)";
+                "WHERE userId = ? AND chatId = (SELECT chatId FROM `Groups` WHERE groupId = ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, userId);
             stmt.setLong(2, groupId);
@@ -152,6 +219,28 @@ public class GroupDaoImpl implements GroupDao {
         }
     }
 
+    // TESTED >> WORKING
+    @Override
+    public List<Long> getGroupMembers(long groupId) {
+        List<Long> members = new ArrayList<>();
+        String sql = "SELECT cu.userId FROM Chats_Users cu " +
+                "JOIN `Groups` g ON cu.chatId = g.chatId " +
+                "WHERE g.groupId = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, groupId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    members.add(rs.getLong("userId"));
+                }
+            }
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return members;
+    }
+
+
     private void handleSQLException(SQLException e) {
         // Replace with proper logging
         System.err.println("SQL Error: " + e.getMessage());
@@ -159,6 +248,7 @@ public class GroupDaoImpl implements GroupDao {
         System.err.println("Error Code: " + e.getErrorCode());
     }
 
+    // TESTED >> WORKING
     private Group mapRowToGroup(ResultSet rs) throws SQLException {
         return new Group(
                 rs.getLong("groupId"),
@@ -169,6 +259,7 @@ public class GroupDaoImpl implements GroupDao {
                 rs.getLong("chatId")
         );
     }
+
 }
 
 

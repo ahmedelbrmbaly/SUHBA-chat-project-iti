@@ -1,30 +1,38 @@
 package com.suhba;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.implementation.ChatDAOImpl;
+import com.suhba.daos.implementation.GroupDaoImpl;
 import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.database.entities.Chat;
+import com.suhba.database.entities.Group;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ChatType;
 
 public class Main {
     public static void main(String[] args){
-        UserDAOImpl userDao = new UserDAOImpl();
-        User u1 = userDao.getUserById(1);
-        User u2 = userDao.getUserById(2);
+        GroupDaoImpl groupDao = null;
 
-        // ChatDAOImpl chatDao = new ChatDAOImpl();
-        // Chat chat1 = chatDao.createChat(ChatType.Direct,u1,u2);
+        try {
+            groupDao = new GroupDaoImpl(DatabaseConnection.getInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // System.out.println("Chat = "+ chat1 );
 
-        // List<Chat> chats = chatDao.getChatsByUserId(1);
-        // for(Chat c: chats){
-        //     System.out.println(c);
-        // }
+       // System.out.println(groupDao.createGroup(new Group("NE"), 1));
+        System.out.println(groupDao.getAllGroups());
+
+
+
+
+
 
 
 
