@@ -8,15 +8,22 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.implementation.ChatDAOImpl;
+
 import com.suhba.daos.implementation.GroupDaoImpl;
+
 import com.suhba.daos.implementation.UserDAOImpl;
+import com.suhba.daos.interfaces.MessageDAO;
 import com.suhba.database.entities.Chat;
+
 import com.suhba.database.entities.Group;
+
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ChatType;
+import com.suhba.database.enums.MessageStatus;
 
 public class Main {
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         GroupDaoImpl groupDao = null;
 
         try {
@@ -26,14 +33,8 @@ public class Main {
         }
 
 
-       // System.out.println(groupDao.createGroup(new Group("NE"), 1));
+        // System.out.println(groupDao.createGroup(new Group("NE"), 1));
         System.out.println(groupDao.getAllGroups());
-
-
-
-
-
-
 
 
     }
