@@ -26,6 +26,14 @@ public class Message {
         this.attachment = attachment;
     }
 
+    public Message(long senderId, long chatId, String content, MessageStatus messageStatus, String attachment) {
+        this.senderId = senderId;
+        this.chatId = chatId;
+        this.content = content;
+        this.messageStatus = messageStatus;
+        this.attachment = attachment;
+    }
+
     // Getters and Setters
     public long getMessageId() {
         return messageId;
