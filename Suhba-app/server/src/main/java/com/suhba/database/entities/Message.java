@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.suhba.database.enums.*;
 
 public class Message {
-    private int messageId;
+    private long messageId;
     private long senderId;
     private long chatId;
     private String content;
@@ -16,7 +16,7 @@ public class Message {
     // Constructors
     public Message() {}
 
-    public Message(int messageId, long senderId, long chatId, String content, Timestamp timeStamp, MessageStatus messageStatus, String attachment) {
+    public Message(long messageId, long senderId, long chatId, String content, Timestamp timeStamp, MessageStatus messageStatus, String attachment) {
         this.messageId = messageId;
         this.senderId = senderId;
         this.chatId = chatId;
@@ -27,11 +27,11 @@ public class Message {
     }
 
     // Getters and Setters
-    public int getMessageId() {
+    public long getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(long messageId) {
         this.messageId = messageId;
     }
 
