@@ -22,6 +22,20 @@
             <version>21</version> <!-- Updated to JavaFX 21 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.0</version> <!-- Specify a valid version -->
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version> <!-- Specify a valid version -->
+            <scope>test</scope>
+        </dependency>
+
         <!-- MySQL JDBC Dependency -->
         <dependency>
             <groupId>mysql</groupId>
