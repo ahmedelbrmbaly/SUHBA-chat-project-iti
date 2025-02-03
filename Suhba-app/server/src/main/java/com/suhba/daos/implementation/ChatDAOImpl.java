@@ -41,7 +41,10 @@ public class ChatDAOImpl implements ChatDAO {
                 stmt.setString(1, ChatType.Direct.name());
                 stmt.executeUpdate();
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
-                    if (rs.next()) chat.setChatId(rs.getLong(1));
+                    if (rs.next()) {
+                        chat.setChatId(rs.getLong(1));
+                        chat.setChatType(ChatType.Direct);
+                    }
                 }
             }
 
@@ -140,14 +143,25 @@ public class ChatDAOImpl implements ChatDAO {
 
     @Override
     public boolean isUserInChat(long userId, long chatId) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isUserInChat'");
+        String sql = "SELECT COUNT(*) FROM Chats_Users WHERE userId = ? AND chatId = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setLong(1, userId);
+            statement.setLong(2, chatId);
+
+            try(ResultSet rs = statement.executeQuery()){
+                if(rs.next()){
+                    return rs.getInt(1)>0;
+                }
+                return false;
+            }
+        }
+
     }
 
     @Override
     public Chat getChatById(long chatId) throws SQLException {
         Chat chat = new Chat();
-        String sql= "select chatType from chats where id = ? ";
+        String sql= "select chatType from chats where chatId = ? ";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setLong(1, chatId);
             ResultSet rs = statement.executeQuery();
@@ -159,6 +173,48 @@ public class ChatDAOImpl implements ChatDAO {
             }
         }
         return chat;
+    }
+
+
+
+    @Override
+    public List<User> getChatParticipants(long chatId) throws SQLException {
+        List<User> users = new ArrayList<>();
+        
+        String sql= "select userId from chats_users where chatId = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setLong(1, chatId);
+            try(ResultSet rs = statement.executeQuery()){
+                while(rs.next()) {
+                    long userFoundId = rs.getLong(1);
+                    UserDAOImpl userDAOImpl = new UserDAOImpl();
+                    User user = userDAOImpl.getUserById(userFoundId);
+                    users.add(user);
+                    
+                }
+            }
+        }
+        return users;
+    }
+
+
+
+    @Override
+    public void addUsersToChat(long chatId, List<Long> userIds) throws SQLException {
+        String sql = "Insert into chats_users (chatId, userId) values (?,?)";
+        for (Long userId : userIds) {
+            try(PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setLong(1, chatId);
+                statement.setLong(2, userId);
+                int numOfAdded = statement.executeUpdate();
+                if (numOfAdded>0) {
+                    System.out.println(userId + " Added successfully !");
+                }else{
+                    System.out.println("Failed to add");
+                }
+            }
+        }
+        
     }
     
 }
