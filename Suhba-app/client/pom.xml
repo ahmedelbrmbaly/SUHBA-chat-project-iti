@@ -13,12 +13,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>21</version>
         </dependency>
     </dependencies>
     <build>
@@ -37,6 +37,10 @@
                 <version>0.0.6</version>
                 <executions>
                     <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>    
                         <!-- Default configuration for running -->
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
