@@ -9,14 +9,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.implementation.ChatDAOImpl;
 
-import com.suhba.daos.implementation.GroupDaoImpl;
+import com.suhba.daos.implementation.AdminDAOImpl;
 
 import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.daos.interfaces.MessageDAO;
+import com.suhba.database.entities.Admin;
 import com.suhba.database.entities.Chat;
 
 import com.suhba.database.entities.Group;
 
+import com.suhba.database.entities.Admin;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ChatType;
 import com.suhba.database.enums.MessageStatus;
@@ -24,17 +26,15 @@ import com.suhba.database.enums.MessageStatus;
 public class Main {
 
     public static void main(String[] args) {
-        GroupDaoImpl groupDao = null;
+        AdminDAOImpl adminDAO = new AdminDAOImpl();
 
-        try {
-            groupDao = new GroupDaoImpl(DatabaseConnection.getInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Admin admin;
+        admin = adminDAO.getAdminByEmail("ahmde@example.com");
+        adminDAO.deleteAdmin(admin.getAdminId());
+
+        System.out.println(adminDAO.getAllAdmins());
 
 
-        // System.out.println(groupDao.createGroup(new Group("NE"), 1));
-        System.out.println(groupDao.getAllGroups());
 
 
     }
