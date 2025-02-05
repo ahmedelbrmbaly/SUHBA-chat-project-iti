@@ -21,7 +21,7 @@ public interface UserDAO {  //CRUD
     List<User> getUsersByStatus(String status);
     List<User> getUsersByGender(String gender);
 
-    Map<Country,Long> getUsersCountries();
+    Map<String,Long> getUsersCountries();
     Map<UserStatus, Long> getUsersStatus();
     Map<Gender,Long> getUsersGenders();
     

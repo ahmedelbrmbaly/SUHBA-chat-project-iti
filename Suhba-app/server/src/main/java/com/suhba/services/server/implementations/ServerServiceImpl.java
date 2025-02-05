@@ -156,7 +156,7 @@ public class ServerServiceImpl implements ServerService {
      * @return
      */
     @Override
-    public Map<Country, Long> getCountryStatistics() {
+    public Map<String, Long> getCountryStatistics() {
         return userDAO.getUsersCountries();
     }
 }

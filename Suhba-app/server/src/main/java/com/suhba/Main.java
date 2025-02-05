@@ -22,17 +22,19 @@ import com.suhba.database.entities.Admin;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ChatType;
 import com.suhba.database.enums.MessageStatus;
-
+import com.suhba.services.server.implementations.ServerServiceImpl;
 public class Main {
 
     public static void main(String[] args) {
-        AdminDAOImpl adminDAO = new AdminDAOImpl();
+        ServerServiceImpl serverService = new ServerServiceImpl();
+        Admin admin = new Admin("ahmed", "a@a.com", "123", true);
+        System.out.println(serverService.getCountryStatistics());
+        System.out.println(serverService.getGenderStatistics());
+        System.out.println(  serverService.getUserStatus());
 
-        Admin admin;
-        admin = adminDAO.getAdminByEmail("ahmde@example.com");
-        adminDAO.deleteAdmin(admin.getAdminId());
 
-        System.out.println(adminDAO.getAllAdmins());
+
+
 
 
 

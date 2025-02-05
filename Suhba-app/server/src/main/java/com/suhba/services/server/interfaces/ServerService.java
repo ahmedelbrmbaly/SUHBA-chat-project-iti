@@ -32,7 +32,7 @@ public interface ServerService {
 
     public Map<Gender,Long> getGenderStatistics();
 
-    public Map<Country,Long> getCountryStatistics();
+    public Map<String,Long> getCountryStatistics();
 
 
 

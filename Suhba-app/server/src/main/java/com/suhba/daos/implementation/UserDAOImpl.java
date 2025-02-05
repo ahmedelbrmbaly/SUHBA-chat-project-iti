@@ -233,17 +233,17 @@ public class UserDAOImpl implements UserDAO {
      * @return
      */
     @Override
-    public Map<Country, Long> getUsersCountries() {
+    public Map<String, Long> getUsersCountries() {
         String sql = "SELECT country, COUNT(*) AS count FROM Users GROUP BY country";
-        Map<Country, Long> countryCounts = new HashMap<>();
+        Map<String, Long> countryCounts = new HashMap<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 String countryName = rs.getString("country");
                 long count = rs.getLong("count");
-                Country country = Country.valueOf(countryName.toUpperCase());
-                countryCounts.put(country, count);
+
+                countryCounts.put(countryName, count);
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
