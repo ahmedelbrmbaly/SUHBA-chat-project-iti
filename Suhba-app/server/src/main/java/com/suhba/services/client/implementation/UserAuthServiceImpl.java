@@ -18,7 +18,6 @@ import java.util.Enumeration;
 public class UserAuthServiceImpl implements UserAuthService {
     UserDAOImpl myObj;
     Validation myValidation;
-    boolean validPhone, validEmail, validPassword, validGender, validStatus;
     Hashing myHashing;
     User myUser;
     UserSession userSession;
@@ -27,11 +26,6 @@ public class UserAuthServiceImpl implements UserAuthService {
     public UserAuthServiceImpl() {
         this.myObj = new UserDAOImpl();
         this.myValidation = new Validation();
-        this.validPhone = true;
-        this.validEmail = true;
-        this.validPassword = true;
-        this.validGender = true;
-        this.validStatus = true;
         this.myHashing = new Hashing();
         this.myUser = new User();
         this.userSession = new UserSession();
@@ -39,33 +33,22 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, InvalidGenderException, InvalidStatusException {
-        if (!myValidation.validatePhone((user.getPhone())))  validPhone = false;
-
-        if (!myValidation.validateEmail((user.getUserEmail())))  validEmail = false;
-
+    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, InvalidGenderException, InvalidStatusException, NoSuchAlgorithmException {
         String passowrd = user.getPassword();
-        if (!myValidation.validatePassword(passowrd))  validPassword = false;
-        try {
+        if (myValidation.validatePassword(passowrd)){
             passowrd = myHashing.doHashing(passowrd);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            user.setPassword(passowrd);
         }
 
-        if (!myValidation.validateGender((user.getGender())))  validGender = false;
-
-        if (!myValidation.validateStatus(user.getUserStatus()))  validStatus = false;
-
-        user.setPhone(user.getPhone());
+        if (myValidation.validatePhone((user.getPhone())))  user.setPhone(user.getPhone());
         user.setDisplayName(user.getDisplayName());
-        user.setUserEmail(user.getUserEmail());
+        if (myValidation.validateEmail((user.getUserEmail())))  user.setUserEmail(user.getUserEmail());
         user.setPicture(null);
-        user.setPassword(passowrd);
-        user.setGender(user.getGender());
+        if (myValidation.validateGender((user.getGender())))  user.setGender(user.getGender());
         user.setCountry(user.getCountry());
         user.setBirthday(user.getBirthday()); //LocalDate.parse("2002-02-02")
         user.setBio(user.getBio());
-        user.setUserStatus(user.getUserStatus());
+        if (myValidation.validateStatus(user.getUserStatus()))  user.setUserStatus(user.getUserStatus());
 
         myObj.addNewUser(user);
         return user;
@@ -107,8 +90,9 @@ public class UserAuthServiceImpl implements UserAuthService {
         return null;
     }
 
+    // To add the current user session to the sessionFile
     public void writeSession (String macAddress, String phoneNumber) throws IOException {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("sessionFile.txt"))){
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("sessionFile.txt"))){ //append is false by default
             bufferedWriter.write(macAddress + " --> " + phoneNumber);
         }
     }
@@ -118,6 +102,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             return (findMacAddressInFile(macAddress) && userSessionDAOImpl.getIsActiveByUserIdAndMacAddress(userId, macAddress));
     }
 
+    // To check whether the current user session (mac address) is registered in the sessionFile
     public boolean findMacAddressInFile (String macAddress) throws IOException {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader("sessionFile.txt"))) {
             String curLine = null, storedMacAddress = null;
@@ -132,19 +117,23 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public void logout(String macAddress, long userId) throws IOException {
-        userSessionDAOImpl.updateIsActiveByUserIdAndMacAddress(userId, macAddress, false);
-        clearSessionFile();
+        if (isSessionActive(macAddress, userId)) {
+            userSessionDAOImpl.updateIsActiveByUserIdAndMacAddress(userId, macAddress, false);
+            clearSessionFile();
+        }
     }
 
+    // To delete the current user session from sessionFile
     public void clearSessionFile () throws IOException {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("sessionFile.txt"))){
             bufferedWriter.write("");
         }
     }
 
+    // To check whether the user is still in the system (he just exits the app)
     @Override
     public boolean exit() throws IOException {
         String macAddress = getMacAddress();
-        return findMacAddressInFile(macAddress);
+        return (macAddress != null && findMacAddressInFile(macAddress));
     }
 }

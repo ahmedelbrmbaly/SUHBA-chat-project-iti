@@ -1,5 +1,6 @@
 package com.suhba;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import com.suhba.services.client.implementation.UserAuthServiceImpl;
 
 public class Main {
 
-    public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidStatusException, InvalidGenderException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException {
+    public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidStatusException, InvalidGenderException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException, NoSuchAlgorithmException {
         UserAuthServiceImpl myObj = new UserAuthServiceImpl();
         User user = new User();
 
