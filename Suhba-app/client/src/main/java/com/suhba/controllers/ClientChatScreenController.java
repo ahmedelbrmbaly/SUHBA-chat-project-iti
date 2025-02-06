@@ -2,13 +2,16 @@ package com.suhba.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
-public class ClientGroupScreen {
+public class ClientChatScreenController {
 
     @FXML
     private Label GroupsLabel;
@@ -29,6 +32,12 @@ public class ClientGroupScreen {
     private Label chatLabel;
 
     @FXML
+    private Label chatNameLabel;
+
+    @FXML
+    private ImageView chatPicture;
+
+    @FXML
     private VBox chatbotBoxBar;
 
     @FXML
@@ -36,6 +45,12 @@ public class ClientGroupScreen {
 
     @FXML
     private Label chatbotLabel;
+
+    @FXML
+    private ListView<?> chatsListView;
+
+    @FXML
+    private VBox chatsVBox;
 
     @FXML
     private VBox contactsBoxBar;
@@ -65,7 +80,7 @@ public class ClientGroupScreen {
     private Label logoutLabel;
 
     @FXML
-    private TextField messageField;
+    private ListView<?> messagesArea;
 
     @FXML
     private ImageView micBtn;
@@ -74,7 +89,7 @@ public class ClientGroupScreen {
     private ImageView phoneBtn;
 
     @FXML
-    private TextField searchField;
+    private TextField searchTextField;
 
     @FXML
     private VBox settingBoxBar;
@@ -86,6 +101,18 @@ public class ClientGroupScreen {
     private Label settingLabel;
 
     @FXML
+    private ImageView showRequestsBtn;
+
+    @FXML
+    private Circle userChatStatusCircle;
+
+    @FXML
+    private Label userChatStatusLabel;
+
+    @FXML
+    private TextField userMessageTextField;
+
+    @FXML
     private Label userNameLabel;
 
     @FXML
@@ -93,6 +120,11 @@ public class ClientGroupScreen {
 
     @FXML
     private ImageView videoBtn;
+
+    @FXML
+    void handleSearch(ActionEvent event) {
+
+    }
 
     @FXML
     void handleAttachBtn(MouseEvent event) {
@@ -115,23 +147,15 @@ public class ClientGroupScreen {
     }
 
     @FXML
-    void handlePhoneBtn(MouseEvent event) {
-
-    }
-
-    @FXML
-    void handleSearch(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleSendMessage(ActionEvent event) {
-
-    }
-
-    @FXML
     void handleVideoBtn(MouseEvent event) {
 
     }
+
+    @FXML
+    void handlephoneBtn(MouseEvent event) {
+
+    }
+
+
 
 }

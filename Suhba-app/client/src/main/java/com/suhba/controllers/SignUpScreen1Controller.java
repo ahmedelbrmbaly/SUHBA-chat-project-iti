@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class SignUpScreen1 {
+public class SignUpScreen1Controller {
 
     @FXML
     private TextField PhoneSignUpField;

@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
-public class ClientContactScreen {
+public class ClientContactScreenController {
 
     @FXML
     private Label GroupsLabel;

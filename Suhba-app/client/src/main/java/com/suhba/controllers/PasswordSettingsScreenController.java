@@ -3,21 +3,12 @@ package com.suhba.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class ProfileSettingsScreen {
-
-    @FXML
-    private TextArea bioField;
-
-    @FXML
-    private DatePicker birthdayDataPicker;
+public class PasswordSettingsScreenController {
 
     @FXML
     private VBox chatBoxBar;
@@ -38,6 +29,9 @@ public class ProfileSettingsScreen {
     private Label chatbotLabel;
 
     @FXML
+    private PasswordField confirmNewPasswordField;
+
+    @FXML
     private VBox contactsBoxBar;
 
     @FXML
@@ -47,19 +41,10 @@ public class ProfileSettingsScreen {
     private Label contactsLabel;
 
     @FXML
-    private ComboBox<?> countryComboBox;
+    private PasswordField currentPasswordField;
 
     @FXML
     private Button editBtn;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField fullNameField;
-
-    @FXML
-    private ComboBox<?> genderComboBox;
 
     @FXML
     private VBox groupBoxBar;
@@ -80,13 +65,7 @@ public class ProfileSettingsScreen {
     private Label logoutLabel;
 
     @FXML
-    private TextField phoneField;
-
-    @FXML
-    private Button photoBtn;
-
-    @FXML
-    private ImageView profileImage;
+    private PasswordField newPasswordField;
 
     @FXML
     private VBox settingBoxBar;
@@ -104,17 +83,12 @@ public class ProfileSettingsScreen {
     private ImageView userProfilePic;
 
     @FXML
-    void handleBirthdaySelect(ActionEvent event) {
+    void handleConfirmNewPasswordField(ActionEvent event) {
 
     }
 
     @FXML
-    void handleChangePicture(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleCountrySelect(ActionEvent event) {
+    void handleCurrentPasswordField(ActionEvent event) {
 
     }
 
@@ -124,23 +98,9 @@ public class ProfileSettingsScreen {
     }
 
     @FXML
-    void handleEmailField(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleFullNameField(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleGenderSelect(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handlePhoneField(ActionEvent event) {
+    void handleNewPasswordField(ActionEvent event) {
 
     }
 
 }
+

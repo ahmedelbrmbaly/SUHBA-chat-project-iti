@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class SignUpScreen2 {
+public class SignUpScreen2Controller {
 
     @FXML
     private Button chooseImageBtn;

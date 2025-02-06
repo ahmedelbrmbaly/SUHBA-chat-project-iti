@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class SignInScreen1 {
+public class SignInScreen1Controller {
 
     @FXML
     private TextField PhoneSignInField;

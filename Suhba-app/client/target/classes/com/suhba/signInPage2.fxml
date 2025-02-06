@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="signInScreen2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="signInScreen2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignInScreen2Controller">
    <center>
       <GridPane prefHeight="489.0" prefWidth="480.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -63,7 +63,7 @@
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <Button fx:id="signInButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSignInButton" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Sign in" textFill="WHITE" GridPane.rowIndex="4">
+            <Button fx:id="signInBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSignInBtn" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Sign in" textFill="WHITE" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="50.0" left="110.0" />
                </GridPane.margin>

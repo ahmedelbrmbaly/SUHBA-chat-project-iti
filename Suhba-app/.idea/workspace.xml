@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="230018e1-b0e5-4e49-b80d-90d7e1c410aa" name="Changes" comment="" />
+    <list default="true" id="230018e1-b0e5-4e49-b80d-90d7e1c410aa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientChatScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientChatScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientContactScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientContactScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientGroupScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ClientGroupScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/PasswordSettingsScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/PasswordSettingsScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ProfileSettingsScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/ProfileSettingsScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignInScreen1.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignInScreen1Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignInScreen2.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignInScreen2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignUpScreen1.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignUpScreen1Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignUpScreen2.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/com/suhba/controllers/SignUpScreen2Controller.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +34,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "AMGUI",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Ahmed Mamdouh/Software Engineer/ITI/Enterprise and Web Application Development (Java)/Project/Chat Project/FXML/SUHBA-chat-project-iti/Suhba-app/client"
   }

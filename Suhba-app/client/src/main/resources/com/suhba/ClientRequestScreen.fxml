@@ -13,10 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ClientRequestScreen">
    <center>
       <ScrollPane prefHeight="460.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <content>
@@ -101,24 +100,22 @@
       </ScrollPane>
    </center>
    <top>
-      <GridPane prefHeight="61.0" prefWidth="270.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="47.0" prefWidth="450.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="47.99999504089355" minHeight="10.0" prefHeight="47.99999504089355" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="39.20000305175781" minHeight="10.0" prefHeight="13.600004959106442" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="AddNewLAbel" prefHeight="38.0" prefWidth="206.0" text="Friend Requests" textFill="#112d4e" GridPane.halignment="CENTER">
+            <Label fx:id="AddNewLAbel" prefHeight="38.0" prefWidth="149.0" text="Friend Requests" textFill="#112d4e" GridPane.halignment="CENTER">
                <font>
-                  <Font name="System Bold" size="26.0" />
+                  <Font name="Times New Roman Bold" size="20.0" />
                </font>
                <padding>
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <Line endX="100.0" startX="-100.0" stroke="#112d4e" strokeWidth="3.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </top>

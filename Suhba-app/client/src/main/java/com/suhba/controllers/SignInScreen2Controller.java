@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class SignInScreen2 {
+public class SignInScreen2Controller {
 
     @FXML
     private Label forgetPassLabel;
