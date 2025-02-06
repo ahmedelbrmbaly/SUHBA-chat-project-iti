@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="signUpScreen1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SignUpScreen1">
    <center>
       <GridPane prefHeight="489.0" prefWidth="480.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -47,7 +47,7 @@
                   <Insets left="110.0" top="40.0" />
                </GridPane.margin>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
+            <TextField fx:id="PhoneSignUpField" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="110.0" left="110.0" right="100.0" top="30.0" />
                </GridPane.margin>
@@ -57,7 +57,7 @@
                   <Insets bottom="60.0" left="110.0" top="60.0" />
                </GridPane.margin>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="5">
+            <TextField fx:id="emailField" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="100.0" left="110.0" right="100.0" />
                </GridPane.margin>
@@ -67,7 +67,7 @@
                   <Insets bottom="140.0" left="110.0" />
                </GridPane.margin>
             </Label>
-            <PasswordField prefWidth="260.0" GridPane.rowIndex="7">
+            <PasswordField fx:id="passSignUpField" prefWidth="260.0" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets bottom="140.0" left="110.0" right="100.0" />
                </GridPane.margin>
@@ -80,7 +80,7 @@
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <TextField prefWidth="260.0" GridPane.rowIndex="9">
+            <TextField fx:id="confirmPassSignUpField" prefWidth="260.0" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets bottom="50.0" left="110.0" right="100.0" />
                </GridPane.margin>
@@ -98,12 +98,12 @@
                   <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="continueSignUpBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleContinueSignUpBtn" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <Label prefHeight="17.0" prefWidth="181.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
+                  <Label fx:id="signIpLabel" onMouseClicked="#handleSignIp" prefHeight="17.0" prefWidth="181.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
@@ -124,7 +124,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@projectName.png" />
+                  <Image url="@../../images/projectName.png" />
                </image>
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
