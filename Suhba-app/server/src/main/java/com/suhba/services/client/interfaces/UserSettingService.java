@@ -7,5 +7,4 @@ public interface UserSettingService {
     // Settings Screen
     public boolean updateUserProfile(User user);
     public boolean updateUserPassword(String newPassword); // Password must be hashed
-    
 } 

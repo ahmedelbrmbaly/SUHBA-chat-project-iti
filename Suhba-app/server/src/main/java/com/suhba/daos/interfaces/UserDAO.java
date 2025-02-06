@@ -16,6 +16,7 @@ public interface UserDAO {  //CRUD
     List<User> getUsersByCountry(String country);
     List<User> getUsersByStatus(String status);
     List<User> getUsersByGender(String gender);
+    List<User> getUsersByEmail(String email);
     List<User> getAllUsers();
 
     //Update

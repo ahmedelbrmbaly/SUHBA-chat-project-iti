@@ -18,13 +18,17 @@ import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Group;
 
 import com.suhba.database.entities.User;
-import com.suhba.database.enums.ChatType;
-import com.suhba.database.enums.MessageStatus;
+import com.suhba.exceptions.*;
+import com.suhba.services.client.implementation.UserAuthServiceImpl;
 
 public class Main {
 
-    public static void main(String[] args) {
-        GroupDaoImpl groupDao = null;
+    public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidStatusException, InvalidGenderException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException {
+        UserAuthServiceImpl myObj = new UserAuthServiceImpl();
+        User user = new User();
+
+        myObj.signup(user);
+        /*GroupDaoImpl groupDao = null;
 
         try {
             groupDao = new GroupDaoImpl(DatabaseConnection.getInstance());
@@ -34,7 +38,7 @@ public class Main {
 
 
         // System.out.println(groupDao.createGroup(new Group("NE"), 1));
-        System.out.println(groupDao.getAllGroups());
+        System.out.println(groupDao.getAllGroups());*/
 
 
     }

@@ -6,18 +6,20 @@ import java.util.List;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.*;
+import com.suhba.database.entities.User;
 
 
 public class UserDAOImpl implements UserDAO {
-    Connection connection ;
+    Connection connection;
 
-    public UserDAOImpl() { try {
-        connection = DatabaseConnection.getInstance();
-    } catch (ClassNotFoundException | SQLException e) {
-        System.out.println("Error in Connection");
-        e.printStackTrace();
-    } }
+    public UserDAOImpl() {
+        try {
+            connection = DatabaseConnection.getInstance();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error in Connection");
+            e.printStackTrace();
+        }
+    }
 
     public boolean addNewUser(User user) {
         String sql = "INSERT INTO Users (phone, displayName, userEmail, picture, password, gender, country, birthday, bio, userStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -200,6 +202,36 @@ public class UserDAOImpl implements UserDAO {
         List<User> users = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, gender);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(rs.getString("gender"));
+                    user.setCountry(rs.getString("country"));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(rs.getString("userStatus"));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByEmail(String userEmail) {
+        String sql = "SELECT * FROM Users WHERE userEmail = ?";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, userEmail);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     User user = new User();
