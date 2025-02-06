@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -16,11 +17,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addNewFriendScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.AddNewGroupController">
+<BorderPane fx:id="addNewFriendScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.AddNewGroupController">
    <top>
-      <GridPane prefHeight="139.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="154.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.20001220703125" minWidth="10.0" prefWidth="393.60003662109375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.39996337890625" minWidth="10.0" prefWidth="206.39996337890625" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="29.599996948242186" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,9 +31,9 @@
             <RowConstraints maxHeight="39.20000305175781" minHeight="10.0" prefHeight="32.799993896484374" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="searchField" onAction="#handleSearch" prefHeight="64.0" prefWidth="230.0" promptText="Search" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <TextField fx:id="searchField" onAction="#handleSearch" prefHeight="28.0" prefWidth="174.0" promptText="Search" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="120.0" right="100.0" />
+                  <Insets bottom="5.0" left="120.0" right="50.0" />
                </GridPane.margin>
             </TextField>
             <Label prefHeight="19.0" prefWidth="98.0" text="Group Name" textFill="#112d4e" GridPane.halignment="LEFT" GridPane.rowIndex="2">
@@ -42,9 +44,9 @@
                   <Insets bottom="5.0" left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="groupNameField" onAction="#handleGroupName" prefWidth="222.0" GridPane.rowIndex="2">
+            <TextField fx:id="groupNameField" onAction="#handleGroupName" prefHeight="26.0" prefWidth="159.0" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="3.0" left="120.0" right="100.0" />
+                  <Insets bottom="3.0" left="120.0" right="50.0" />
                </GridPane.margin>
             </TextField>
             <Label prefHeight="19.0" prefWidth="123.0" text="Add Friend" textFill="#112d4e" GridPane.rowIndex="3">
@@ -55,14 +57,23 @@
                   <Font name="Times New Roman Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="23.0" prefWidth="146.0" text="Add New Group" textFill="#112d4e" GridPane.halignment="CENTER">
+            <Label prefHeight="23.0" prefWidth="123.0" text="Create Group" textFill="#112d4e" GridPane.halignment="CENTER">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
                </font>
                <GridPane.margin>
-                  <Insets top="10.0" />
+                  <Insets left="100.0" top="10.0" />
                </GridPane.margin>
             </Label>
+            <ImageView fx:id="imageGroup" fitHeight="97.0" fitWidth="97.0" onMouseClicked="#handleImageGroup" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="3">
+               <image>
+                  <Image url="@../../images/picture.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </ImageView>
+            <Button fx:id="chooseImageGroup" mnemonicParsing="false" onAction="#handleChooseImageGroup" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #112d4e; -fx-cursor: hand;" text="Choose Picture" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </top>
@@ -71,7 +82,7 @@
          <content>
             <FlowPane fx:id="friendContainer" prefHeight="454.0" prefWidth="434.0" vgap="15.0">
                <children>
-                  <GridPane fx:id="newFriend_1" prefHeight="60.0" prefWidth="434.0" style="-fx-background-color: #DBE2EF; -fx-background-radius: 10;">
+                  <GridPane fx:id="newFriend_1" prefHeight="60.0" prefWidth="586.0" style="-fx-background-color: #DBE2EF; -fx-background-radius: 10;">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.39996337890625" minWidth="10.0" prefWidth="165.79998779296875" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.4000244140625" minWidth="10.0" prefWidth="268.20001220703125" />
@@ -80,7 +91,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="242.0" spacing="20.0" GridPane.columnIndex="1">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="339.0" spacing="20.0" GridPane.columnIndex="1">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
