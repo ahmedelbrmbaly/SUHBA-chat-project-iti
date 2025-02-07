@@ -2,19 +2,15 @@ package com.suhba.daos.implementation;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.*;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
-import com.suhba.database.entities.User;
-
 
 
 public class UserDAOImpl implements UserDAO {
@@ -159,107 +155,6 @@ public class UserDAOImpl implements UserDAO {
         return "";
     }
 
-    /**
-     * @param country
-     * @return
-     */
-    @Override
-    public List<User> getUsersByCountry(String country) {
-        String sql = "SELECT * FROM Users WHERE country = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, country);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
-
-    /**
-     * @param status
-     * @return
-     */
-    @Override
-    public List<User> getUsersByStatus(String status) {
-        String sql = "SELECT * FROM Users WHERE userStatus = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
-    /**
-     * @param gender
-     * @return
-     */
-    @Override
-    public List<User> getUsersByGender(String gender) {
-        String sql = "SELECT * FROM Users WHERE gender = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, gender);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
-
     @Override
     public List<User> getUsersByCountry(Country country) {
         String sql = "SELECT * FROM Users WHERE country = ?";
@@ -378,79 +273,6 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return users;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public Map<String, Long> getUsersCountries() {
-        String sql = "SELECT country, COUNT(*) AS count FROM Users GROUP BY country";
-        Map<String, Long> countryCounts = new HashMap<>();
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                String countryName = rs.getString("country");
-                long count = rs.getLong("count");
-
-                countryCounts.put(countryName, count);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return countryCounts;
-    }
-
-
-    /**
-     * @return
-     */
-    @Override
-    public Map<UserStatus, Long> getUsersStatus() {
-        String sql = "SELECT userStatus, COUNT(*) AS count FROM Users GROUP BY userStatus";
-        Map<UserStatus, Long> statusCounts = new HashMap<>();
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                String statusName = rs.getString("userStatus");
-                long count = rs.getLong("count");
-                UserStatus status = UserStatus.valueOf(statusName.toUpperCase());
-                statusCounts.put(status, count);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return statusCounts;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public Map<Gender, Long> getUsersGenders() {
-        String sql = "SELECT gender, COUNT(*) AS count FROM Users GROUP BY gender";
-        Map<Gender, Long> genderCounts = new HashMap<>();
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                String genderName = rs.getString("gender");
-                long count = rs.getLong("count");
-                Gender gender = Gender.valueOf(genderName.toUpperCase());
-                genderCounts.put(gender, count);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return genderCounts;
     }
 
     public List<User> getAllUsers() {
