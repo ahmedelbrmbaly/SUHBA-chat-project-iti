@@ -1,6 +1,5 @@
 package com.suhba.controllers;
 
-import com.suhba.services.controllers.PasswordSettingsService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,11 +22,9 @@ public class SignInScreen1Controller {
     @FXML
     private Label signUpLabel;
 
-    PasswordSettingsService my = new PasswordSettingsService();
-
     @FXML
     void handlePhoneNumberSubmit(ActionEvent event) {
-        my.fun();
+
     }
 
     @FXML
