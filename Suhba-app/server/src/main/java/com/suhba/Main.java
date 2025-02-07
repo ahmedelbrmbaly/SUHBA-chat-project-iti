@@ -25,21 +25,7 @@ import com.suhba.services.client.implementation.UserAuthServiceImpl;
 public class Main {
 
     public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException, NoSuchAlgorithmException {
-        UserAuthServiceImpl myObj = new UserAuthServiceImpl();
-        User user = new User();
-
-        myObj.signup(user);
-        /*GroupDaoImpl groupDao = null;
-
-        try {
-            groupDao = new GroupDaoImpl(DatabaseConnection.getInstance());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        // System.out.println(groupDao.createGroup(new Group("NE"), 1));
-        System.out.println(groupDao.getAllGroups());*/
+        
 
 
     }
