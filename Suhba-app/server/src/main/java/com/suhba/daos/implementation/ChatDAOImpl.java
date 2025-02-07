@@ -93,7 +93,7 @@ public class ChatDAOImpl implements ChatDAO {
     }
 
     @Override
-    public User getDirectChatPartner(long chatId, long currentUser) throws SQLException {
+    public User getDirectChatPartner(long chatId, User currentUser) throws SQLException {
        String sql = "SELECT cu.userId " +
                  "FROM Chats_Users cu " +
                  "JOIN Chats c ON cu.chatId = c.chatId " +
@@ -103,7 +103,7 @@ public class ChatDAOImpl implements ChatDAO {
 
              try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setLong(1, chatId);
-                stmt.setLong(2, currentUser);
+                stmt.setLong(2, currentUser.getUserId());
                 ResultSet rs = stmt.executeQuery();
                 if(rs.next()) {
                     long partnerId = rs.getLong("userId");
@@ -200,9 +200,8 @@ public class ChatDAOImpl implements ChatDAO {
 
 
     @Override
-    public boolean addUsersToChat(long chatId, List<Long> userIds) throws SQLException {
+    public void addUsersToChat(long chatId, List<Long> userIds) throws SQLException {
         String sql = "Insert into chats_users (chatId, userId) values (?,?)";
-        int totalAdded=0;
         for (Long userId : userIds) {
             try(PreparedStatement statement = connection.prepareStatement(sql)){
                 statement.setLong(1, chatId);
@@ -210,114 +209,12 @@ public class ChatDAOImpl implements ChatDAO {
                 int numOfAdded = statement.executeUpdate();
                 if (numOfAdded>0) {
                     System.out.println(userId + " Added successfully !");
-                    totalAdded++;
                 }else{
                     System.out.println("Failed to add");
                 }
             }
         }
-        if(totalAdded == userIds.size()){
-            return true;
-        }
-        return false;
         
-    }
-
-
-
-    @Override
-    public Chat getDirectChatPartnerByUserId(long userId, long secondUserId) throws SQLException {
-        Chat chat = null;
-        String sql = """
-        SELECT c.chatId, c.chatType FROM Chats c
-        JOIN Chats_Users cu1 ON c.chatId = cu1.chatId
-        JOIN Chats_Users cu2 ON c.chatId = cu2.chatId
-        WHERE c.chatType = 'Direct' 
-        AND cu1.userId = ? 
-        AND cu2.userId = ?""";
-
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-        stmt.setLong(1, userId);
-        stmt.setLong(2, secondUserId);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                chat = new Chat();
-                chat.setChatId(rs.getLong("chatId"));
-                chat.setChatType(ChatType.Direct);
-            }
-        }
-    }
-
-        return chat;
-    }
-
-
-
-    @Override
-    public boolean hasDirectChatBetween(long user1, long user2) throws SQLException {
-        String sql = """
-            SELECT COUNT(*) FROM Chats c
-            JOIN Chats_Users cu1 ON c.chatId = cu1.chatId
-            JOIN Chats_Users cu2 ON c.chatId = cu2.chatId
-            WHERE c.chatType = 'Direct' 
-            AND cu1.userId = ? 
-            AND cu2.userId = ?""";
-            
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, user1);
-            stmt.setLong(2, user2);
-            try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next() && rs.getInt(1) > 0;
-            }
-        }
-    }
-
-
-
-    @Override
-    public List<Chat> getAllDirectChatsByUserId(long userId) throws SQLException {
-        // Return all chats (Direct)
-        List<Chat> chats = new ArrayList<>();
-        String sql = "select * from chats where chatId In ( select chatId from chats_users where userId = ?) and chatType = 'Direct'";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setLong(1, userId);
-            ResultSet rs = statement.executeQuery();
-            while(rs.next()) {
-                Chat chat = new Chat();
-                chat.setChatId(rs.getLong("chatId"));
-                chat.setChatType(ChatType.Direct);
-                chats.add(chat);
-            }
-        }
-        catch(SQLException e){
-            System.out.println("SQL Exception at getting direct Chats for user");
-            e.printStackTrace();
-        }
-        return chats;
-    }
-
-
-
-    @Override
-    public List<Chat> getAllGroupChatsByUserId(long userId) throws SQLException {
-       // Return all chats (Group)
-       List<Chat> chats = new ArrayList<>();
-       String sql = "select * from chats where chatId In ( select chatId from chats_users where userId = ?) and chatType = 'Group'";
-       try(PreparedStatement statement = connection.prepareStatement(sql)){
-           statement.setLong(1, userId);
-           ResultSet rs = statement.executeQuery();
-           while(rs.next()) {
-               Chat chat = new Chat();
-               chat.setChatId(rs.getLong("chatId"));
-               chat.setChatType(ChatType.Group);
-               chats.add(chat);
-           }
-       }
-       catch(SQLException e){
-           System.out.println("SQL Exception at getting direct Chats for user");
-           e.printStackTrace();
-       }
-       return chats;
     }
     
 }

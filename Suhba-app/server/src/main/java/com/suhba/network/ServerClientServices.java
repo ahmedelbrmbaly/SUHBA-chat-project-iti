@@ -1,88 +1,92 @@
 package com.suhba.network;
 
-import java.io.IOException;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
-import com.suhba.database.entities.*;
+import com.suhba.database.entities.Group;
+import com.suhba.database.entities.Message;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
-import com.suhba.exceptions.*;
-import com.suhba.services.client.interfaces.ChatService;
-import com.suhba.services.client.interfaces.ContactService;
-import com.suhba.services.client.interfaces.UserAuthService;
-import com.suhba.services.client.interfaces.UserSettingService;
 
-public interface ServerClientServices extends Remote {
-    //Common
-    public List<Message> getMessages(long chatId) throws RemoteException; //(done)
-    public Message sendMessage (Message msg) throws RemoteException; // (done)
-    // File trasnfer handling >> To Be Searched
+public interface ServerClientServices {
+    // 1- Signup (Take User Info and return the user id)
+    //DTOS
+    // Upload the photo picture  >> how
 
-    // CHAT SCREEN METHODS
-
-    public long createPrivateChat(long userId1, long userId2) throws Exception, RemoteException;  //(done)
-
-    public Map <User, Message> getUserChats(long userId) throws RemoteException ; //(done)
-    public User getUserById(long userId) throws RemoteException; //(done)
-    public Chat getDirectChatBetween(long currentUserId, long otherUserId) throws RemoteException; //(done)
-    public User getPrivateUserPartnerByChat(long chatId, long userId) throws Exception, RemoteException;  // (done)
-
-
-    // GROUP SCREEEN
-    public Group createGroupChat(Group group, List<Long> userId) throws Exception, RemoteException; //(done)
-
-    public Map<Group, Message> getUserGroups(long userId) throws RemoteException; // (done)
-    public List<User> getGroupMembers(long groupId) throws Exception, RemoteException; // (done)
-    public Group getGroupByChat(long chatId) throws Exception, RemoteException; // (done)
-    public Group getGroupByGroupId(long groupId) throws RemoteException;
-
-    public boolean addUsersToGroup(long groupId, List<Long> userId) throws Exception, RemoteException; //(done)
-    public boolean removeUsersFromGroup(long chatId, List<Long> userId) throws RemoteException;
-
-    // public boolean leaveGroup(long userId, long chatId);
-
-    // public List<Chat> getUserChats(long userId) ;
-    // public long createPrivateChat(long userId);  ---> I need the userId and the other
-
-    // Contact Screen
-    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
-    public boolean sendFriendRequest(long userId) throws RemoteException;
-
-    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
-    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
-
-    public List<User> getAllPendingRequests(long userId) throws RemoteException;
-    public List<User> getAllFriends(long userId) throws RemoteException;
-
-    boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException;
-
-    boolean updateRequestStatusFromPendingToDeclined(Contact contact, ContactStatus status) throws RemoteException;
-
-    public boolean deleteContact(Contact contact) throws RemoteException;
-
-
-    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
-
+    public User signup(User user);
+    
     // >> Remeber me XML SESSION >> To BE REVIEWED
-    public boolean isPhoneRegistered(String phoneNumber) throws RemoteException;
+    public boolean isPhoneRegistered(String phoneNumder);
 
-    public User login(String phoneNumber, String password) throws NoSuchAlgorithmException, UserNotFoundException, IncorrectPasswordException, IOException, RemoteException;
+    public User login(String phoneNumder , String password) ;
 
-    public boolean isSessionActive(String macAddress, long userId) throws IOException, RemoteException;
+    public boolean isSessionActive(String macAddress, long userId);
 
     // forget password >> To BE REVIEWED (bouns)
 
     // Logout >> To BE REVIEWED
-    void logout(String macAddress, long userId) throws IOException, RemoteException;
+    public boolean logout();
 
     // Exit >> To BE REVIEWED
-    public boolean exit() throws IOException, RemoteException;
+    public boolean exit();
 
+/////////////////////////////////////////////////////////////////////////////////
+
+    // CHAT SCREEN METHODS
+
+    // public List<Chat> getUserChats(long userId) ;
+    public long createPrivateChat(long userId);
+
+    public  Map <User, Message> getUserChats(long userId) ;
+
+
+    // Message Oject needs sender name >>>
+    public List<Message> getMessages(long chatId);
+    public  User getUserById(long userId);
+    public User getPrivateUserPartnerByChat(long chatId);
+
+    // File trasnfer handling >> To Be Searched
+    public Message sendMessage (Message msg);
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+    // GROUP SCREEEN
+
+    public Map<Group, Message> getUserGroups(long userId);
+    public List<User> getGroupMembers(long groupId);
+//    public List<Message> getMessages(long chatId); >> Method defined in chat above
+    //public Message sendMessage (Message msg); >> Method defined in chat above
+    public Group createGroupChat(Group group, List<Long> userId);
+    public Group getGroupByChat(long chatId);
+    public boolean addUsersToGroup(long chatId, List<Long> userId);
+    public boolean removeUsersFromGroup(long chatId, List<Long> userId);
+
+//////////////////////////////////////////////////////////////////////////////
+
+    // Contact Screen
+    public boolean sendFriendRequest(String phoneNumber);
+    public boolean sendFriendRequest(long userId);
+
+    public boolean sendFriendRequests(List<String> phoneNumber);
+    public boolean sendFriendRequestsById(List<Long> userId);
+
+    public List<User> getAllPendingRequests(long userId);
+    public List<User> getAllFriends(long userId);
+
+    public boolean updateRequestStatus(long userId, ContactStatus status );
+
+    public boolean deleteContact(long userId);
+
+//////////////////////////////////////////////////////////////////////////////
 
     // Settings Screen
-    public boolean updateUserProfile(User user) throws RemoteException;
-    public boolean updateUserPassword(long userId, String newPassword) throws RemoteException; // Password must be hashed
+    public boolean updateUserProfile(User user);
+    public boolean updateUserPassword(String newPassword); // Password must be hashed
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
 }

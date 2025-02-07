@@ -1,10 +1,8 @@
 package com.suhba.database.entities;
 
-import java.io.Serializable;
-
 import com.suhba.database.enums.*;
 
-public class Chat implements Serializable{
+public class Chat {
     private long chatId;
     private ChatType chatType;
 
