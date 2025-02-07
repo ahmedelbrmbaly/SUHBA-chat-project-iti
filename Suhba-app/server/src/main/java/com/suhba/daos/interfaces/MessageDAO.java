@@ -13,7 +13,7 @@ public interface MessageDAO {
 	void updateMessageStatus(long messageId, MessageStatus status) throws SQLException;
 	int getUnreadCount(long userId, long chatId) throws SQLException;
 	
-	// Message getLastMessageInChat(long chatId) throws SQLException; // Optional
+	Message getLastMessageInChat(long chatId) throws SQLException; // Optional
 
 
 	//Future Work:

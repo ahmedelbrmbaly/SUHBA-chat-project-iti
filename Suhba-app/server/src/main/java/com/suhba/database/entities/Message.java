@@ -1,10 +1,11 @@
 package com.suhba.database.entities;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.suhba.database.enums.*;
 
-public class Message {
+public class Message implements Serializable, Comparable<Message> {
     private long messageId;
     private long senderId;
     private long chatId;
@@ -102,5 +103,10 @@ public class Message {
                 ", messageStatus=" + messageStatus +
                 ", attachment='" + attachment + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Message msg) {
+        return this.timeStamp.compareTo(msg.getTimeStamp());
     }
 }
