@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.UserDAO;
@@ -12,17 +13,21 @@ import com.suhba.database.entities.*;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
+import com.suhba.database.entities.User;
+
 
 
 public class UserDAOImpl implements UserDAO {
-    Connection connection ;
+    Connection connection;
 
-    public UserDAOImpl() { try {
-        connection = DatabaseConnection.getInstance();
-    } catch (ClassNotFoundException | SQLException e) {
-        System.out.println("Error in Connection");
-        e.printStackTrace();
-    } }
+    public UserDAOImpl() {
+        try {
+            connection = DatabaseConnection.getInstance();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error in Connection");
+            e.printStackTrace();
+        }
+    }
 
     public boolean addNewUser(User user) {
         String sql = "INSERT INTO Users (phone, displayName, userEmail, picture, password, gender, country, birthday, bio, userStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -32,11 +37,11 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(3, user.getUserEmail());
             stmt.setBlob(4, user.getPicture());
             stmt.setString(5, user.getPassword());
-            stmt.setString(6, user.getGender());
-            stmt.setString(7, user.getCountry());
+            stmt.setString(6, String.valueOf(user.getGender()));
+            stmt.setString(7, String.valueOf(user.getCountry()));
             stmt.setDate(8, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
             stmt.setString(9, user.getBio());
-            stmt.setString(10, user.getUserStatus());
+            stmt.setString(10, String.valueOf(user.getUserStatus()));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
@@ -68,11 +73,11 @@ public class UserDAOImpl implements UserDAO {
                 user.setUserEmail(rs.getString("userEmail"));
                 user.setPicture(rs.getBlob("picture"));
                 user.setPassword(rs.getString("password"));
-                user.setGender(rs.getString("gender"));
-                user.setCountry(rs.getString("country"));
+                user.setGender(Gender.valueOf(rs.getString("gender")));
+                user.setCountry(Country.valueOf(rs.getString("country")));
                 user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                 user.setBio(rs.getString("bio"));
-                user.setUserStatus(rs.getString("userStatus"));
+                user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                 return user;
             }
         } catch (SQLException e) {
@@ -94,11 +99,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setUserEmail(rs.getString("userEmail"));
                     user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
-                    user.setGender(rs.getString("gender"));
-                    user.setCountry(rs.getString("country"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
                     user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
-                    user.setUserStatus(rs.getString("userStatus"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                     return user;
                 }
             }
@@ -110,18 +115,33 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public String getUserStatusById(long userId) {
-        String sql = "SELECT userStatus FROM Users WHERE userId = ?";
+    public long getUserIdByPhone(String phone) {
+        String sql = "SELECT userId FROM Users WHERE phone = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, userId);
+            stmt.setString(1, phone);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next())  return rs.getString("userStatus");
+                if (rs.next())  return rs.getLong("userId");
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
-        return "";
+        return 0;
+    }
+
+    @Override
+    public UserStatus getUserStatusById(long userId) {
+        String sql = "SELECT userStatus FROM Users WHERE userId = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())  return UserStatus.valueOf(rs.getString("userStatus"));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return UserStatus.valueOf("");
     }
 
     @Override
@@ -139,6 +159,10 @@ public class UserDAOImpl implements UserDAO {
         return "";
     }
 
+    /**
+     * @param country
+     * @return
+     */
     @Override
     public List<User> getUsersByCountry(String country) {
         String sql = "SELECT * FROM Users WHERE country = ?";
@@ -154,11 +178,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setUserEmail(rs.getString("userEmail"));
                     user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
-                    user.setGender(rs.getString("gender"));
-                    user.setCountry(rs.getString("country"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
                     user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
-                    user.setUserStatus(rs.getString("userStatus"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                     users.add(user);
                 }
             }
@@ -169,6 +193,10 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    /**
+     * @param status
+     * @return
+     */
     @Override
     public List<User> getUsersByStatus(String status) {
         String sql = "SELECT * FROM Users WHERE userStatus = ?";
@@ -184,11 +212,11 @@ public class UserDAOImpl implements UserDAO {
                     user.setUserEmail(rs.getString("userEmail"));
                     user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
-                    user.setGender(rs.getString("gender"));
-                    user.setCountry(rs.getString("country"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
                     user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
-                    user.setUserStatus(rs.getString("userStatus"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                     users.add(user);
                 }
             }
@@ -198,7 +226,10 @@ public class UserDAOImpl implements UserDAO {
         }
         return users;
     }
-
+    /**
+     * @param gender
+     * @return
+     */
     @Override
     public List<User> getUsersByGender(String gender) {
         String sql = "SELECT * FROM Users WHERE gender = ?";
@@ -214,11 +245,131 @@ public class UserDAOImpl implements UserDAO {
                     user.setUserEmail(rs.getString("userEmail"));
                     user.setPicture(rs.getBlob("picture"));
                     user.setPassword(rs.getString("password"));
-                    user.setGender(rs.getString("gender"));
-                    user.setCountry(rs.getString("country"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
                     user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
-                    user.setUserStatus(rs.getString("userStatus"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByCountry(Country country) {
+        String sql = "SELECT * FROM Users WHERE country = ?";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, String.valueOf(country));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByStatus(UserStatus status) {
+        String sql = "SELECT * FROM Users WHERE userStatus = ?";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, String.valueOf(status));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByGender(Gender gender) {
+        String sql = "SELECT * FROM Users WHERE gender = ?";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, String.valueOf(gender));
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByEmail(String userEmail) {
+        String sql = "SELECT * FROM Users WHERE userEmail = ?";
+        List<User> users = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, userEmail);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                     users.add(user);
                 }
             }
@@ -315,15 +466,56 @@ public class UserDAOImpl implements UserDAO {
                 user.setUserEmail(rs.getString("userEmail"));
                 user.setPicture(rs.getBlob("picture"));
                 user.setPassword(rs.getString("password"));
-                user.setGender(rs.getString("gender"));
-                user.setCountry(rs.getString("country"));
+                user.setGender(Gender.valueOf(rs.getString("gender")));
+                user.setCountry(Country.valueOf(rs.getString("country")));
                 user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                 user.setBio(rs.getString("bio"));
-                user.setUserStatus(rs.getString("userStatus"));
+                user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
                 users.add(user);
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersById(List<Long> userIds) {
+        if (userIds == null || userIds.isEmpty()) {
+            return List.of();
+        }
+
+        // Construct the SQL query with the appropriate number of placeholders
+        String placeholders = userIds.stream().map(id -> "?").collect(Collectors.joining(","));
+        String sql = "SELECT * FROM Users WHERE userId IN (" + placeholders + ")";
+
+        List<User> users = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // Set the user IDs in the prepared statement
+            for (int i = 0; i < userIds.size(); i++) {
+                stmt.setLong(i + 1, userIds.get(i));
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return users;
@@ -337,11 +529,11 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(3, user.getUserEmail());
             stmt.setBlob(4, user.getPicture());
             stmt.setString(5, user.getPassword());
-            stmt.setString(6, user.getGender());
-            stmt.setString(7, user.getCountry());
+            stmt.setString(6, String.valueOf(user.getGender()));
+            stmt.setString(7, String.valueOf(user.getCountry()));
             stmt.setDate(8, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
             stmt.setString(9, user.getBio());
-            stmt.setString(10, user.getUserStatus());
+            stmt.setString(10, String.valueOf(user.getUserStatus()));
             stmt.setLong(11, user.getUserId());
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
@@ -353,18 +545,18 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserProfileById(long userId) {
+    public boolean updateUserProfile(User user) {
         String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, picture = ?, gender = ?, country = ?, birthday = ?, bio = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "1234567890");
-            stmt.setString(2, "New Display Name");
-            stmt.setString(3, "example@gmail.com");
-            stmt.setBlob(4, (Blob) null);
-            stmt.setString(5, "Male");
-            stmt.setString(6, "New country");
-            stmt.setDate(7, Date.valueOf("2002-02-10"));
-            stmt.setString(8, "New Bio");
-            stmt.setLong(9, userId);
+            stmt.setString(1, user.getPhone());
+            stmt.setString(2, user.getDisplayName());
+            stmt.setString(3, user.getUserEmail());
+            stmt.setBlob(4, user.getPicture());
+            stmt.setString(5, String.valueOf(user.getGender()));
+            stmt.setString(6, String.valueOf(user.getCountry()));
+            stmt.setDate(7, Date.valueOf(user.getBirthday()));
+            stmt.setString(8, user.getBio());
+            stmt.setLong(9, user.getUserId());
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -375,10 +567,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserPasswordById(long userId) {
+    public boolean updateUserPassword(long userId, String newPassword) {
         String sql = "UPDATE Users SET password = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "New password");
+            stmt.setString(1, newPassword);
             stmt.setLong(2, userId);
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
