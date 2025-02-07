@@ -79,6 +79,6 @@ public interface ServerClientServices extends Remote {
 
 
     // Settings Screen
-    public boolean updateUserProfile(User user) throws RemoteException;
-    public boolean updateUserPassword(long userId, String newPassword) throws RemoteException; // Password must be hashed
+    public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
+    public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
 }

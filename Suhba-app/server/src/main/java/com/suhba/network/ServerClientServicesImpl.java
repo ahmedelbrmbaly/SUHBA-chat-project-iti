@@ -175,12 +175,12 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
-    public boolean updateUserProfile(User user) throws RemoteException {
+    public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException {
         return mySettingImpl.updateUserProfile(user);
     }
 
     @Override
-    public boolean updateUserPassword(long userId, String newPassword) throws RemoteException {
+    public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException {
         return mySettingImpl.updateUserPassword(userId, newPassword);
     }
 }

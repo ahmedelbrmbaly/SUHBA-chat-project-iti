@@ -2,15 +2,19 @@ package com.suhba.daos.implementation;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.User;
+import com.suhba.database.entities.*;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
+import com.suhba.database.entities.User;
+
 
 
 public class UserDAOImpl implements UserDAO {
@@ -155,6 +159,9 @@ public class UserDAOImpl implements UserDAO {
         return "";
     }
 
+
+
+
     @Override
     public List<User> getUsersByCountry(Country country) {
         String sql = "SELECT * FROM Users WHERE country = ?";
@@ -273,6 +280,80 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return users;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Map<Country, Long> getUsersCountries() {
+        String sql = "SELECT country, COUNT(*) AS count FROM Users GROUP BY country";
+        Map<Country, Long> countryCounts = new HashMap<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String countryName = rs.getString("country");
+                Country country = Country.valueOf(countryName.toUpperCase());
+                long count = rs.getLong("count");
+
+                countryCounts.put(country, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return countryCounts;
+    }
+
+
+    /**
+     * @return
+     */
+    @Override
+    public Map<UserStatus, Long> getUsersStatus() {
+        String sql = "SELECT userStatus, COUNT(*) AS count FROM Users GROUP BY userStatus";
+        Map<UserStatus, Long> statusCounts = new HashMap<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String statusName = rs.getString("userStatus");
+                long count = rs.getLong("count");
+                UserStatus status = UserStatus.valueOf(statusName.toUpperCase());
+                statusCounts.put(status, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return statusCounts;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public Map<Gender, Long> getUsersGenders() {
+        String sql = "SELECT gender, COUNT(*) AS count FROM Users GROUP BY gender";
+        Map<Gender, Long> genderCounts = new HashMap<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String genderName = rs.getString("gender");
+                long count = rs.getLong("count");
+                Gender gender = Gender.valueOf(genderName.toUpperCase());
+                genderCounts.put(gender, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return genderCounts;
     }
 
     public List<User> getAllUsers() {

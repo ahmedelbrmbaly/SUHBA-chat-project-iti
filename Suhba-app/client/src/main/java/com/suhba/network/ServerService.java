@@ -1,5 +1,7 @@
 package com.suhba.network;
 
+import com.suhba.database.entities.User;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -31,8 +33,6 @@ public class ServerService {
     public static void main(String[] args) {
         ServerClientServices serverService = ServerService.getInstance();
         try {
-            User chatId = serverService.getUserById(3);
-            System.out.println("Chat ID: " + chatId);
         } catch (RemoteException e) {
             throw new RuntimeException("Error creating private chat", e);
         } catch (Exception e) {

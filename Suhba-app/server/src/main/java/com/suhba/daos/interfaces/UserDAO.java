@@ -1,6 +1,7 @@
 package com.suhba.daos.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
@@ -23,6 +24,10 @@ public interface UserDAO {  //CRUD
     List<User> getUsersByEmail(String email);
     List<User> getAllUsers();
     List<User> getUsersById(List<Long> userIds);
+
+    public Map<Country, Long> getUsersCountries();
+    public Map<UserStatus, Long> getUsersStatus();
+    public Map<Gender, Long> getUsersGenders();
 
     //Update
     boolean updateUser(User user);
