@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="signInScreen1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignInScreen1Controller">
    <center>
       <GridPane prefHeight="489.0" prefWidth="480.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -61,7 +61,7 @@
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <TextField prefWidth="260.0" GridPane.rowIndex="3">
+            <TextField fx:id="PhoneSignInField" onAction="#handlePhoneSignInSubmit" prefWidth="260.0" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="110.0" right="100.0" top="20.0" />
                </GridPane.margin>
@@ -79,12 +79,12 @@
                   <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="continueSignInBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handlePhoneNumberSubmit" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <Label prefHeight="17.0" prefWidth="181.0" text="Don't have an account?  Sign up " textFill="#3f72af" GridPane.rowIndex="2">
+                  <Label fx:id="signUpLabel" onMouseClicked="#navigateToSignUp" prefHeight="17.0" prefWidth="181.0" style="-fx-cursor: hand;" text="Don't have an account?  Sign up " textFill="#3f72af" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
@@ -105,7 +105,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@projectName.png" />
+                  <Image url="@../../images/projectName.png" />
                </image>
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />
