@@ -1,2 +1,0 @@
-Suhba-app/server/.idea/
-.idea/
