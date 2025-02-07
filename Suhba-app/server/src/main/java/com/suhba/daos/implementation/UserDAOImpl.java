@@ -159,106 +159,8 @@ public class UserDAOImpl implements UserDAO {
         return "";
     }
 
-    /**
-     * @param country
-     * @return
-     */
-    @Override
-    public List<User> getUsersByCountry(String country) {
-        String sql = "SELECT * FROM Users WHERE country = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, country);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
 
-    /**
-     * @param status
-     * @return
-     */
-    @Override
-    public List<User> getUsersByStatus(String status) {
-        String sql = "SELECT * FROM Users WHERE userStatus = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
-    /**
-     * @param gender
-     * @return
-     */
-    @Override
-    public List<User> getUsersByGender(String gender) {
-        String sql = "SELECT * FROM Users WHERE gender = ?";
-        List<User> users = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, gender);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    User user = new User();
-                    user.setUserId(rs.getLong("userId"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setDisplayName(rs.getString("displayName"));
-                    user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
-                    user.setPassword(rs.getString("password"));
-                    user.setGender(Gender.valueOf(rs.getString("gender")));
-                    user.setCountry(Country.valueOf(rs.getString("country")));
-                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
-                    user.setBio(rs.getString("bio"));
-                    user.setUserStatus(UserStatus.valueOf(rs.getString("userStatus")));
-                    users.add(user);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return users;
-    }
+
 
     @Override
     public List<User> getUsersByCountry(Country country) {
@@ -384,17 +286,18 @@ public class UserDAOImpl implements UserDAO {
      * @return
      */
     @Override
-    public Map<String, Long> getUsersCountries() {
+    public Map<Country, Long> getUsersCountries() {
         String sql = "SELECT country, COUNT(*) AS count FROM Users GROUP BY country";
-        Map<String, Long> countryCounts = new HashMap<>();
+        Map<Country, Long> countryCounts = new HashMap<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 String countryName = rs.getString("country");
+                Country country = Country.valueOf(countryName.toUpperCase());
                 long count = rs.getLong("count");
 
-                countryCounts.put(countryName, count);
+                countryCounts.put(country, count);
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());

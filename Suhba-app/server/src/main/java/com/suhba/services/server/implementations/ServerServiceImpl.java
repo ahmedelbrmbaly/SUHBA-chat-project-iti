@@ -43,9 +43,9 @@ public class ServerServiceImpl implements ServerService {
 
     /**
      * @param newAdmin
-     * @return Admin 
+     * @return Admin
      */
-    
+
     @Override
     public Admin addNewAdmin(Admin newAdmin) {
         if(adminDAO.addAdmin(newAdmin))
@@ -65,7 +65,7 @@ public class ServerServiceImpl implements ServerService {
     public boolean logout(Admin admin) {
         admin.setActive(false);
         return adminDAO.updateAdmin(admin);
-        
+
 
     }
 
@@ -156,7 +156,7 @@ public class ServerServiceImpl implements ServerService {
      * @return
      */
     @Override
-    public Map<String, Long> getCountryStatistics() {
+    public Map<Country, Long> getCountryStatistics() {
         return userDAO.getUsersCountries();
     }
 }
