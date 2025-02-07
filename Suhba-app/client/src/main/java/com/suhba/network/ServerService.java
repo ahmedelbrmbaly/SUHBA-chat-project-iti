@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import com.suhba.database.entities.User;
+
 public class ServerService {
     private static ServerClientServices instance;
 
@@ -31,8 +33,6 @@ public class ServerService {
     public static void main(String[] args) {
         ServerClientServices serverService = ServerService.getInstance();
         try {
-            User user = serverService.getUserById(5);
-            System.out.println("Chat ID: " + user);
         } catch (RemoteException e) {
             throw new RuntimeException("Error creating private chat", e);
         } catch (Exception e) {
