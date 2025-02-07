@@ -3,11 +3,10 @@ import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
 
-import java.io.Serializable;
 import java.sql.Blob;
 import java.time.LocalDate;
 
-public class User implements Serializable {
+public class User {
     // Attributes
     private long userId;
     private String phone;

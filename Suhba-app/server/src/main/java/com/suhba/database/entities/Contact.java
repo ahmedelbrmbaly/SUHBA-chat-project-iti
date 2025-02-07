@@ -2,9 +2,7 @@ package com.suhba.database.entities;
 
 import com.suhba.database.enums.ContactStatus;
 
-import java.io.Serializable;
-
-public class Contact implements Serializable {
+public class Contact {
     private long userId1;
     private long userId2;
     private ContactStatus contactStatus;

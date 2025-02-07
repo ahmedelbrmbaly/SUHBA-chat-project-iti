@@ -1,8 +1,6 @@
 package com.suhba.database.entities;
 
-import java.io.Serializable;
-
-public class Group implements Serializable {
+public class Group {
     private long groupId;
     private String groupName;
     private String groupPhoto;
@@ -10,7 +8,6 @@ public class Group implements Serializable {
     private String category;
     private long chatId;
 
-    public Group(){}
 
     public Group(String groupName) {
         this.groupName = groupName;
