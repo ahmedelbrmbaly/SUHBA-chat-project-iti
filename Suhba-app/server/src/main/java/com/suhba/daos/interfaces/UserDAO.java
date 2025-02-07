@@ -26,8 +26,8 @@ public interface UserDAO {  //CRUD
 
     //Update
     boolean updateUser(User user);
-    boolean updateUserProfileById(long userId);
-    boolean updateUserPasswordById(long userId);
+    boolean updateUserProfile(User user);
+    boolean updateUserPassword(long userId, String newPassword);
 
     //Delete
     boolean deleteUserById(long userId);

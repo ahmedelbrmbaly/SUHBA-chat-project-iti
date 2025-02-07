@@ -367,18 +367,18 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserProfileById(long userId) {
+    public boolean updateUserProfile(User user) {
         String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, picture = ?, gender = ?, country = ?, birthday = ?, bio = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "1234567890");
-            stmt.setString(2, "New Display Name");
-            stmt.setString(3, "example@gmail.com");
-            stmt.setBlob(4, (Blob) null);
-            stmt.setString(5, "Male");
-            stmt.setString(6, "New country");
-            stmt.setDate(7, Date.valueOf("2002-02-10"));
-            stmt.setString(8, "New Bio");
-            stmt.setLong(9, userId);
+            stmt.setString(1, user.getPhone());
+            stmt.setString(2, user.getDisplayName());
+            stmt.setString(3, user.getUserEmail());
+            stmt.setBlob(4, user.getPicture());
+            stmt.setString(5, String.valueOf(user.getGender()));
+            stmt.setString(6, String.valueOf(user.getCountry()));
+            stmt.setDate(7, Date.valueOf(user.getBirthday()));
+            stmt.setString(8, user.getBio());
+            stmt.setLong(9, user.getUserId());
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -389,10 +389,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserPasswordById(long userId) {
+    public boolean updateUserPassword(long userId, String newPassword) {
         String sql = "UPDATE Users SET password = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "New password");
+            stmt.setString(1, newPassword);
             stmt.setLong(2, userId);
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;

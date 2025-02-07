@@ -24,7 +24,7 @@ import com.suhba.services.client.implementation.UserAuthServiceImpl;
 
 public class Main {
 
-    public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidStatusException, InvalidGenderException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException, NoSuchAlgorithmException {
+    public static void main(String[] args) throws InvalidPhoneException, RepeatedPhoneException, InvalidPasswordException, InvalidEmailException, RepeatedEmailException, NoSuchAlgorithmException {
         UserAuthServiceImpl myObj = new UserAuthServiceImpl();
         User user = new User();
 
