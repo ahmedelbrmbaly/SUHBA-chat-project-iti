@@ -28,5 +28,4 @@ public interface ChatService {
     public Group getGroupByChat(long chatId);
     public boolean addUsersToGroup(long chatId, List<Long> userId);
     public boolean removeUsersFromGroup(long chatId, List<Long> userId);
-
 }

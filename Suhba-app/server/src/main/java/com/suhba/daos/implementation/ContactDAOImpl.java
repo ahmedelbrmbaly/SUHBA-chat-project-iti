@@ -94,6 +94,23 @@ public class ContactDAOImpl implements ContactDAO {
         return contacts;
     }
 
+    @Override
+    public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus) {
+        String sql = "SELECT userId1 FROM Contact WHERE userId2 = ? and contactStatus = ?";
+        List<Long> ids = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, userId2);
+            stmt.setString(2, String.valueOf(ContactStatus.PENDING));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())  ids.add(rs.getLong("userId1"));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
     // @Override
     // public List<User> getAllUsersInContactByUserID(long userId) {
         

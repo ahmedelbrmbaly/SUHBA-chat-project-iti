@@ -13,6 +13,7 @@ public class Contact {
     public Contact(long userId1, long userId2, ContactStatus contactStatus) {
         this.userId1 = userId1;
         this.userId2 = userId2;
+        this.contactStatus = contactStatus;
     }
 
     // Getters and Setters
