@@ -1,8 +1,9 @@
-package com.suhba.services.server;
+package com.suhba.services.server.interfaces;
 
 import java.util.List;
 import java.util.Map;
 
+import com.suhba.database.entities.Admin;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
@@ -10,10 +11,10 @@ import com.suhba.database.enums.UserStatus;
 
 public interface ServerService {
 
-    public boolean login(String username, String password);
-    // public Admin addNewAdmin(Admin newAdmin);
-    public boolean logout();
-    // public boolean updateAdmin(Admin admin);    
+    public Admin login(String username, String password);
+    public Admin addNewAdmin(Admin newAdmin);
+    public boolean logout(Admin admin);
+    public boolean updateAdmin(Admin admin);
 
     public boolean startServer();
     public boolean stopServer();
