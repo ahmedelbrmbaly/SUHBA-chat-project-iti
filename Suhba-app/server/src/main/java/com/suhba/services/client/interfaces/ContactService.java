@@ -2,6 +2,7 @@ package com.suhba.services.client.interfaces;
 
 import java.util.List;
 
+import com.suhba.database.entities.Contact;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
 
@@ -17,7 +18,9 @@ public interface ContactService {
     public List<User> getAllPendingRequests(long userId);
     public List<User> getAllFriends(long userId);
 
-    public boolean updateRequestStatus(long userId, ContactStatus status );
+    boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status);
 
-    public boolean deleteContact(long userId);
+    boolean updateRequestStatusFromPendingToDeclined(Contact contact, ContactStatus status);
+
+    public boolean deleteContact(Contact contact);
 }

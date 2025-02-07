@@ -41,4 +41,5 @@ public interface ChatService {
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
+
 }
