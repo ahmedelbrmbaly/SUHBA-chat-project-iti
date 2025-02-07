@@ -1,9 +1,8 @@
 package com.suhba.database.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class UserSession implements Serializable {
+public class UserSession {
     private long userId;
     private String macAddress;
     private boolean isActive;

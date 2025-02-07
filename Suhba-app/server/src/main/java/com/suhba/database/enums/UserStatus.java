@@ -1,5 +1,5 @@
 package com.suhba.database.enums;
 
 public enum UserStatus {
-    Offline,Available,Busy,Away
+    OFFLINE, AWAY, AVAILABLE, BUSY, ONLINE
 }
