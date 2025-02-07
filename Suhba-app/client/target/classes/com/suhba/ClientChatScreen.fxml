@@ -19,11 +19,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatScreenController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ClientChatScreenController">
    <left>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="130.0" spacing="6.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="userProfilePic" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="userProfilePic" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/user_profile.jpg" />
+               </image></ImageView>
             <Label fx:id="userNameLabel" text="User Name" textFill="WHITE" />
             <Line endX="90.0" stroke="WHITE" />
             <VBox alignment="CENTER" spacing="9.0">
@@ -218,7 +221,10 @@
                               <StackPane prefHeight="150.0" prefWidth="50.0">
                                  <children>
                                     <Circle fill="#1f93ff00" radius="30.0" stroke="#112d4e" strokeType="INSIDE" />
-                                    <ImageView fx:id="chatPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="chatPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/user_profile.jpg" />
+                                       </image></ImageView>
                                  </children>
                               </StackPane>
                               <VBox alignment="CENTER_LEFT">
@@ -239,12 +245,12 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                            <children>
-                              <ImageView fx:id="videoBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                              <ImageView fx:id="videoBtn" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleVideoBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>
                                     <Image url="@../../images/video.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="phoneBtn" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                              <ImageView fx:id="phoneBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#handlephoneBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>
                                     <Image url="@../../images/phone-blue.png" />
                                  </image>
@@ -268,24 +274,24 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="attachBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <ImageView fx:id="attachBtn" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleAttachBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../../images/attach-document.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <children>
-                              <ImageView fx:id="emojiBtn" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                              <ImageView fx:id="emojiBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#handleEmojiBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>
                                     <Image url="@../../images/emoji.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="cameraBtn" fitHeight="25.0" fitWidth="25.0" layoutX="97.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                              <ImageView fx:id="cameraBtn" fitHeight="25.0" fitWidth="25.0" layoutX="97.0" layoutY="20.0" onMouseClicked="#handleCameraBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>
                                     <Image url="@../../images/camera.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="micBtn" fitHeight="25.0" fitWidth="25.0" layoutX="67.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                              <ImageView fx:id="micBtn" fitHeight="25.0" fitWidth="25.0" layoutX="67.0" layoutY="20.0" onMouseClicked="#handleMicBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>
                                     <Image url="@../../images/microphone.png" />
                                  </image>

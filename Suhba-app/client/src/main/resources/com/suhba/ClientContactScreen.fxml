@@ -19,13 +19,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ClientContactScreenController">
    <left>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="130.0" spacing="6.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="userProfilePic" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/user_profile.jpg" />
+                  <Image url="@../../images/user_profile.jpg" />
                </image></ImageView>
             <Label fx:id="userNameLabel" text="User Name" textFill="WHITE" />
             <Line endX="90.0" stroke="WHITE" />
@@ -35,7 +35,7 @@
                      <children>
                         <ImageView fx:id="chatIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                            <image>
-                              <Image url="@images/chat-white.png" />
+                              <Image url="@../../images/chat-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="chatLabel" text="Chats" textFill="WHITE">
@@ -52,7 +52,7 @@
                      <children>
                         <ImageView fx:id="groupIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/group-white.png" />
+                              <Image url="@../../images/group-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="GroupsLabel" text="Groups" textFill="WHITE">
@@ -69,7 +69,7 @@
                      <children>
                         <ImageView fx:id="contactsIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: black;">
                            <image>
-                              <Image url="@images/contacts-white.png" />
+                              <Image url="@../../images/contacts-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="contactsLabel" text="Contacts" textFill="WHITE">
@@ -86,7 +86,7 @@
                      <children>
                         <ImageView fx:id="requestIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/notification-white.png" />
+                              <Image url="@../../images/notification-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="RequestsLabel" text="Requests" textFill="WHITE">
@@ -103,7 +103,7 @@
                      <children>
                         <ImageView fx:id="chatbotIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/chatbot-white.png" />
+                              <Image url="@../../images/chatbot-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="chatbotLabel" text="Chatbot" textFill="WHITE">
@@ -120,7 +120,7 @@
                      <children>
                         <ImageView fx:id="settingIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/settings-white.png" />
+                              <Image url="@../../images/settings-white.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="settingLabel" text="Settings" textFill="WHITE">
@@ -140,7 +140,7 @@
                <children>
                   <ImageView fx:id="logoutIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/logout-white.png" />
+                        <Image url="@../../images/logout-white.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="logoutLabel" text="Logout" textFill="WHITE">
@@ -167,10 +167,10 @@
                   <Insets />
                </HBox.margin>
                <image>
-                  <Image url="@images/white.png" />
+                  <Image url="@../../images/white.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchTextField" focusTraversable="false" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
+            <TextField fx:id="searchField" focusTraversable="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -187,342 +187,18 @@
                <content>
                   <FlowPane hgap="25.0" prefHeight="550.0" prefWidth="850.0" vgap="25.0">
                      <children>
-                        <HBox prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend1" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend11" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block1" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage1" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus1" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo1" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName1" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio1" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen1" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone1" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail1" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="261.0" layoutY="10.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend111" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block11" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage11" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus11" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo11" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName11" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio11" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen11" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone11" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail11" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="512.0" layoutY="10.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend1111" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block111" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage111" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus111" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo111" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName111" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio111" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen111" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone111" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail111" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="261.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend11111" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block1111" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage1111" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus1111" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo1111" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName1111" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio1111" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen1111" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone1111" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail1111" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
                         <HBox layoutX="311.0" layoutY="311.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
                            <children>
-                              <AnchorPane fx:id="friend111111" prefHeight="250.0" prefWidth="250.0">
+                              <AnchorPane fx:id="friend_1" prefHeight="250.0" prefWidth="250.0">
                                  <children>
-                                    <ImageView fx:id="block11111" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
+                                    <ImageView fx:id="blockIcon" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" onMouseClicked="#handleBlockIcon" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
                                        <image>
-                                          <Image url="@images/block.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="friendImage11111" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
-                                       <image>
-                                          <Image url="@images/user_profile.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Circle fx:id="friendStatus11111" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
-                                    <GridPane fx:id="friendInfo11111" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <Label fx:id="friendName11111" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio11111" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen11111" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone11111" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail11111" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/email.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                          <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
-                                             <image>
-                                                <Image url="@images/phone-call.png" />
-                                             </image>
-                                             <GridPane.margin>
-                                                <Insets left="15.0" />
-                                             </GridPane.margin>
-                                          </ImageView>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="311.0" layoutY="311.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #ffffff;">
-                           <children>
-                              <AnchorPane fx:id="friend111112" prefHeight="250.0" prefWidth="250.0">
-                                 <children>
-                                    <ImageView fx:id="block11112" fitHeight="28.0" fitWidth="25.0" layoutX="211.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="14.400000000000006" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="@images/block.png" />
+                                          <Image url="@../../images/block.png" />
                                        </image>
                                     </ImageView>
                                     <ImageView fx:id="friendImage11112" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
                                        <image>
-                                          <Image url="@images/user_profile.jpg" />
+                                          <Image url="@../../images/user_profile.jpg" />
                                        </image>
                                     </ImageView>
                                     <Circle fx:id="friendStatus11112" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
@@ -538,14 +214,14 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label fx:id="friendName11112" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendBio11112" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendlastSeen11112" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendPhone11112" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                                          <Label fx:id="friendEmail11112" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                          <Label fx:id="friendName_1" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                                          <Label fx:id="friendBio_1" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                          <Label fx:id="friendlastSeen_1" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                                          <Label fx:id="friendPhone_1" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                                          <Label fx:id="friendEmail_1" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                           <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
                                              <image>
-                                                <Image url="@images/email.png" />
+                                                <Image url="@../../images/email.png" />
                                              </image>
                                              <GridPane.margin>
                                                 <Insets left="15.0" />
@@ -553,7 +229,7 @@
                                           </ImageView>
                                           <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
                                              <image>
-                                                <Image url="@images/phone-call.png" />
+                                                <Image url="@../../images/phone-call.png" />
                                              </image>
                                              <GridPane.margin>
                                                 <Insets left="15.0" />
@@ -591,7 +267,7 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="18.0" prefWidth="134.0" style="-fx-background-color: #112D4E;" text="Add New" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <Button fx:id="addNewBtn" mnemonicParsing="false" onAction="#handleAddNewFriend" prefHeight="18.0" prefWidth="134.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Add Friend" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <GridPane.margin>
                         <Insets bottom="10.0" right="25.0" />
                      </GridPane.margin>
