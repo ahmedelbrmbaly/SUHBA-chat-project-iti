@@ -153,7 +153,7 @@
                   <Image url="@../../images/white.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchTextField" focusTraversable="false" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
+            <TextField fx:id="searchTextField" focusTraversable="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
          </children>
          <BorderPane.margin>
             <Insets />

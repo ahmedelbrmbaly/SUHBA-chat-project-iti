@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -167,13 +168,16 @@
          <items>
             <VBox accessibleText="People" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;">
                <children>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="256.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="Groups" textFill="#112d4e">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="70.0" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="178.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 3 0;" text="Groups" textFill="#112d4e">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <graphic>
+                        <Button fx:id="addNewGroup" mnemonicParsing="false" onAction="#handleAddNewGroup" prefHeight="33.0" prefWidth="94.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Add Group" textFill="WHITE" />
+                     </graphic>
                   </Label>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="251.0" spacing="5.0">
                      <children>

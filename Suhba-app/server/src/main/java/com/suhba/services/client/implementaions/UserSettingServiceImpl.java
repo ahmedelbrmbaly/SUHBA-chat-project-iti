@@ -1,4 +1,4 @@
-package com.suhba.services.client.implementation;
+package com.suhba.services.client.implementaions;
 
 import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.database.entities.User;
