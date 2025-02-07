@@ -1,4 +1,8 @@
 package com.suhba.database.entities;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
+
 import java.sql.Blob;
 import java.time.LocalDate;
 
@@ -10,11 +14,11 @@ public class User {
     private String userEmail;
     private Blob picture;
     private String password;
-    private String gender;
-    private String country;
+    private Gender gender;
+    private Country country;
     private LocalDate birthday;
     private String bio;
-    private String userStatus;
+    private UserStatus userStatus;
 
     // Getters and Setters
     public long getUserId() { return userId; }
@@ -29,16 +33,16 @@ public class User {
     public void setPicture(Blob picture) { this.picture = picture; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
+    public Gender getGender() { return gender; }
+    public void setGender(Gender gender) { this.gender = gender; }
+    public Country getCountry() { return country; }
+    public void setCountry(Country country) { this.country = country; }
     public LocalDate getBirthday() { return birthday; }
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
-    public String getUserStatus() { return userStatus; }
-    public void setUserStatus(String userStatus) { this.userStatus = userStatus; }
+    public UserStatus getUserStatus() { return userStatus; }
+    public void setUserStatus(UserStatus userStatus) { this.userStatus = userStatus; }
 
     @Override
     public String toString() {

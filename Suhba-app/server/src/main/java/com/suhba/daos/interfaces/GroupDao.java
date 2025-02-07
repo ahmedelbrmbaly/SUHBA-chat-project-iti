@@ -2,15 +2,18 @@ package com.suhba.daos.interfaces;
 
 import com.suhba.database.entities.Group;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
+
 
 public interface GroupDao {
-    Optional<Group> createGroup(Group group, long creatorId);
+    // Group createGroup(Group group, long creatorId);
+    Group createGroup(Group group);
 
-    Optional<Group> getGroupById(long groupId);
+    Group getGroupById(long groupId);
+    Group getGroupByChatId(long chatId);
     List<Group> getAllGroups();
-    List<Group> getGroupsByUserId(long userId);
+    List<Group> getGroupsByUserId(long userId) throws SQLException;
 
     boolean updateGroup(Group group);
     boolean deleteGroup(long groupId);
