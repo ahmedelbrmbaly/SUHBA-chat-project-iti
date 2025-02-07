@@ -33,7 +33,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, InvalidGenderException, InvalidStatusException, NoSuchAlgorithmException {
+    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
         String passowrd = user.getPassword();
         if (myValidation.validatePassword(passowrd)){
             passowrd = myHashing.doHashing(passowrd);
@@ -44,11 +44,11 @@ public class UserAuthServiceImpl implements UserAuthService {
         user.setDisplayName(user.getDisplayName());
         if (myValidation.validateEmail((user.getUserEmail())))  user.setUserEmail(user.getUserEmail());
         user.setPicture(null);
-        if (myValidation.validateGender((user.getGender())))  user.setGender(user.getGender());
+        user.setGender(user.getGender());
         user.setCountry(user.getCountry());
         user.setBirthday(user.getBirthday()); //LocalDate.parse("2002-02-02")
         user.setBio(user.getBio());
-        if (myValidation.validateStatus(user.getUserStatus()))  user.setUserStatus(user.getUserStatus());
+        user.setUserStatus(user.getUserStatus());
 
         myObj.addNewUser(user);
         return user;
@@ -99,7 +99,7 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public boolean isSessionActive(String macAddress, long userId) throws IOException {
-            return (findMacAddressInFile(macAddress) && userSessionDAOImpl.getIsActiveByUserIdAndMacAddress(userId, macAddress));
+        return (findMacAddressInFile(macAddress) && userSessionDAOImpl.getIsActiveByUserIdAndMacAddress(userId, macAddress));
     }
 
     // To check whether the current user session (mac address) is registered in the sessionFile

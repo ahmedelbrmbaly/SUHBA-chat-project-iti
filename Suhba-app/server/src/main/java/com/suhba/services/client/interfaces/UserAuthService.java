@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface UserAuthService {
 
-    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, InvalidGenderException, InvalidStatusException, NoSuchAlgorithmException;
+    public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
     
     // >> Remeber me XML SESSION >> To BE REVIEWED
     public boolean isPhoneRegistered(String phoneNumber);
