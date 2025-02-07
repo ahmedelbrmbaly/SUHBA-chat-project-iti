@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ClientChatScreenController">
+   <left>
+      <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="130.0" spacing="6.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="userProfilePic" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/user_profile.jpg" />
+               </image></ImageView>
+            <Label fx:id="userNameLabel" text="User Name" textFill="WHITE" />
+            <Line endX="90.0" stroke="WHITE" />
+            <VBox alignment="CENTER" spacing="9.0">
+               <children>
+                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
+                     <children>
+                        <ImageView fx:id="chatIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/chat-blue.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="chatLabel" text="Chats" textFill="#112d4e">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="groupBoxBar" alignment="CENTER" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                     <children>
+                        <ImageView fx:id="groupIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/group-white.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="GroupsLabel" text="Groups" textFill="WHITE">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="contactsBoxBar" alignment="CENTER" layoutX="40.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                     <children>
+                        <ImageView fx:id="contactsIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/contacts-white.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="contactsLabel" text="Contacts" textFill="WHITE">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="chatbotBoxBar" alignment="CENTER" layoutX="40.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                     <children>
+                        <ImageView fx:id="chatbotIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/chatbot-white.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="chatbotLabel" text="Chatbot" textFill="WHITE">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="settingBoxBar" alignment="CENTER" layoutX="40.0" layoutY="247.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                     <children>
+                        <ImageView fx:id="settingIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/settings-white.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="settingLabel" text="Settings" textFill="WHITE">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" prefHeight="129.0" prefWidth="110.0" />
+            <VBox fx:id="logoutBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+               <children>
+                  <ImageView fx:id="logoutIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/logout-white.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="logoutLabel" text="Logout" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="980.0" prefHeight="50.0" prefWidth="200.0" spacing="50.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView accessibleText="logo" fitHeight="40.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../images/white.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="searchTextField" focusTraversable="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.3" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <VBox accessibleText="People" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;">
+               <children>
+                  <GridPane style="-fx-border-width: 0 0 3 0; -fx-border-color: #112D4E;">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="200.0" text="People" textFill="#112d4e">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="showRequestsBtn" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../../images/request.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+                  <VBox fx:id="chatsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="498.0" prefWidth="251.0" spacing="5.0">
+                     <children>
+                        <ListView fx:id="chatsListView" prefHeight="491.0" prefWidth="251.0" style="-fx-background-color: #F9F7F7;" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <BorderPane>
+               <top>
+                  <GridPane prefHeight="60.0" prefWidth="579.0" style="-fx-background-color: #DBE2EF;" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="50.0">
+                                 <children>
+                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#112d4e" strokeType="INSIDE" />
+                                    <ImageView fx:id="chatPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/user_profile.jpg" />
+                                       </image></ImageView>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label fx:id="chatNameLabel" prefWidth="100.0" text="Ghaidaa">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="userChatStatusLabel" text="Online">
+                                       <graphic>
+                                          <Circle fx:id="userChatStatusCircle" fill="#30a100" radius="5.0" stroke="#30a200" strokeType="INSIDE" strokeWidth="0.0" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
+                           <children>
+                              <ImageView fx:id="videoBtn" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleVideoBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                                 <image>
+                                    <Image url="@../../images/video.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="phoneBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#handlephoneBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                                 <image>
+                                    <Image url="@../../images/phone-blue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </top>
+               <bottom>
+                  <GridPane alignment="CENTER" prefHeight="49.0" prefWidth="579.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.77774047851562" minWidth="10.0" prefWidth="55.444427490234375" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="550.0" minWidth="10.0" prefWidth="400.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.888916015625" minWidth="10.0" prefWidth="116.66666666666663" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fx:id="attachBtn" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleAttachBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../../images/attach-document.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <children>
+                              <ImageView fx:id="emojiBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#handleEmojiBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                                 <image>
+                                    <Image url="@../../images/emoji.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="cameraBtn" fitHeight="25.0" fitWidth="25.0" layoutX="97.0" layoutY="20.0" onMouseClicked="#handleCameraBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                                 <image>
+                                    <Image url="@../../images/camera.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="micBtn" fitHeight="25.0" fitWidth="25.0" layoutX="67.0" layoutY="20.0" onMouseClicked="#handleMicBtn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                                 <image>
+                                    <Image url="@../../images/microphone.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <TextField fx:id="userMessageTextField" focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </bottom>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;" BorderPane.alignment="CENTER">
+                     <children>
+                        <ListView fx:id="messagesArea" prefHeight="440.0" prefWidth="586.0" style="-fx-background-color: #F9F7F7;" />
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>

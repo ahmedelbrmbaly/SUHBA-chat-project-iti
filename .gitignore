@@ -1,0 +1,8 @@
+# Ignore target directories
+Suhba-app/client/target/
+Suhba-app/server/target/
+
+# Ignore IDE configuration directories
+.idea/
+Suhba-app/client/.idea/
+Suhba-app/server/.idea/
