@@ -2,6 +2,8 @@ package com.suhba.network;
 
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.implementaions.ChatServiceImpl;
 import com.suhba.services.client.implementaions.ContactServiceImpl;
@@ -12,6 +14,8 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -172,6 +176,16 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean exit() throws IOException, RemoteException {
         return myAuthImpl.exit();
+    }
+
+    @Override
+    public void saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        myAuthImpl.saveFirstPart(phone, email, password);
+    }
+
+    @Override
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) {
+        myAuthImpl.saveLastPart(name, gender, DOB, country, picture);
     }
 
     @Override

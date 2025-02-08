@@ -1,13 +1,18 @@
 package com.suhba.services.client.interfaces;
 
 import com.suhba.database.entities.User;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
+import javafx.scene.chart.PieChart;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
 
 public interface UserAuthService {
 
@@ -27,4 +32,8 @@ public interface UserAuthService {
 
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
+
+    public void saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
+
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException;
 }

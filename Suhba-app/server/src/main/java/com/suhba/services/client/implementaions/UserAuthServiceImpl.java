@@ -4,6 +4,8 @@ import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.daos.implementation.UserSessionDAOImpl;
 import com.suhba.database.entities.User;
 import com.suhba.database.entities.UserSession;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.interfaces.UserAuthService;
 import com.suhba.utils.Hashing;
@@ -13,6 +15,9 @@ import java.io.*;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class UserAuthServiceImpl implements UserAuthService {
@@ -22,6 +27,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     User myUser;
     UserSession userSession;
     UserSessionDAOImpl userSessionDAOImpl;
+    User userTobeInserted;
 
     public UserAuthServiceImpl() {
         this.myObj = new UserDAOImpl();
@@ -30,6 +36,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         this.myUser = new User();
         this.userSession = new UserSession();
         this.userSessionDAOImpl = new UserSessionDAOImpl();
+        this.userTobeInserted = new User();
     }
 
     @Override
@@ -135,5 +142,32 @@ public class UserAuthServiceImpl implements UserAuthService {
     public boolean exit() throws IOException {
         String macAddress = getMacAddress();
         return (macAddress != null && findMacAddressInFile(macAddress));
+    }
+
+    @Override
+    public void saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        if (myValidation.validatePhone(phone))  userTobeInserted.setPhone(phone);
+        if (myValidation.validateEmail(email))  userTobeInserted.setUserEmail(email);
+        if (myValidation.validatePassword(password))  userTobeInserted.setPassword(myHashing.doHashing(password));
+        System.out.println("saveFirstPart method in UserAuthServiceImpl is called");
+        System.out.println("Phone: " + userTobeInserted.getPhone());
+        System.out.println("Email: " + userTobeInserted.getUserEmail());
+        System.out.println("Password: " + userTobeInserted.getPassword());
+    }
+
+    @Override
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) {
+        userTobeInserted.setDisplayName(name);
+        userTobeInserted.setGender(gender);
+        userTobeInserted.setBirthday(DOB);
+        userTobeInserted.setCountry(country);
+        userTobeInserted.setPicture(picture);
+      //  myObj.addNewUser(userTobeInserted);
+        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
+        System.out.println("Name: " + userTobeInserted.getDisplayName());
+        System.out.println("Gender: " + userTobeInserted.getGender());
+        System.out.println("DOB: " + userTobeInserted.getBirthday());
+        System.out.println("Country: " + userTobeInserted.getCountry());
+        System.out.println("Picture: " + userTobeInserted.getPicture());
     }
 }

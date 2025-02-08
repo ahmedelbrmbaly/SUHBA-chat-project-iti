@@ -1,13 +1,10 @@
 package com.suhba.controllers;
 
+import com.suhba.database.enums.Gender;
+import com.suhba.services.controllers.SignUp2Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -23,9 +20,6 @@ public class SignUpScreen2Controller {
     private DatePicker dateOfBirthPicker;
 
     @FXML
-    private TextField genderField;
-
-    @FXML
     private Label signInLabel;
 
     @FXML
@@ -39,6 +33,11 @@ public class SignUpScreen2Controller {
 
     @FXML
     private TextField usernameField;
+
+    @FXML
+    private RadioButton maleRadiobtn, femaleRadiobtn;
+
+    SignUp2Service myServices = new SignUp2Service();
 
     @FXML
     void handleChooseImage(ActionEvent event) {
@@ -57,7 +56,10 @@ public class SignUpScreen2Controller {
 
     @FXML
     void handleSignUp(ActionEvent event) {
-
+        Gender gender = null;
+        if (maleRadiobtn.isSelected())  gender = Gender.valueOf(maleRadiobtn.getText());
+        else if (femaleRadiobtn.isSelected())  gender = Gender.valueOf(femaleRadiobtn.getText());
+        else  myServices.showErrorAlert("It is not required to ");
     }
 
     @FXML

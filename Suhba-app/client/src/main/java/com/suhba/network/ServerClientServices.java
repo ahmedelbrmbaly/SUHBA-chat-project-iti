@@ -2,12 +2,16 @@ package com.suhba.network;
 
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +47,9 @@ public interface ServerClientServices extends Remote {
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
+
     // Contact Screen
+
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
 
@@ -59,6 +65,8 @@ public interface ServerClientServices extends Remote {
 
     public boolean deleteContact(Contact contact) throws RemoteException;
 
+
+    // Signup & Signin Screens & Logout
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
 
@@ -77,8 +85,13 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
+    public void saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
+
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException;
+
 
     // Settings Screen
+
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
 }

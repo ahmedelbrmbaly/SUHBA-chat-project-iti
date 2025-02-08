@@ -279,7 +279,7 @@ public class UserDAOImpl implements UserDAO {
             System.out.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
         }
-        return users;
+        return users.isEmpty() ? null : users;
     }
 
     /**
