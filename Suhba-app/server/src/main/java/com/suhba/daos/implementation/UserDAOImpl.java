@@ -41,7 +41,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(7, String.valueOf(user.getCountry()));
             stmt.setDate(8, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
             stmt.setString(9, user.getBio());
-            stmt.setString(10, String.valueOf(user.getUserStatus()));
+            stmt.setString(10, user.getUserStatus() == null ? null : String.valueOf(user.getUserStatus()));
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {

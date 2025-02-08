@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="signUpScreen2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignUpScreen2Controller">
@@ -157,17 +158,14 @@
                <children>
                   <Button fx:id="chooseImageBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleChooseImage" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Choose" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="450.0" left="20.0" />
+                        <Insets bottom="450.0" left="22.0" />
                      </GridPane.margin>
                   </Button>
-                  <ImageView fitHeight="94.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/defaultProfilePhoto.png" />
-                     </image>
+                  <Circle fx:id="pictureImageview" fill="DODGERBLUE" radius="44.0" stroke="BLACK" strokeType="INSIDE">
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="20.0" />
+                        <Insets bottom="40.0" left="20.0" />
                      </GridPane.margin>
-                  </ImageView>
+                  </Circle>
                </children>
                <BorderPane.margin>
                   <Insets right="30.0" />

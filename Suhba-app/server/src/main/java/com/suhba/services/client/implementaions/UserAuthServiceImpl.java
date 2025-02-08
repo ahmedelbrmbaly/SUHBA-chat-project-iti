@@ -14,10 +14,10 @@ import com.suhba.utils.Validation;
 import java.io.*;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Enumeration;
 
 public class UserAuthServiceImpl implements UserAuthService {
@@ -145,29 +145,59 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public void saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+    public boolean saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        System.out.println("saveFirstPart method in UserAuthServiceImpl is called");
         if (myValidation.validatePhone(phone))  userTobeInserted.setPhone(phone);
         if (myValidation.validateEmail(email))  userTobeInserted.setUserEmail(email);
         if (myValidation.validatePassword(password))  userTobeInserted.setPassword(myHashing.doHashing(password));
-        System.out.println("saveFirstPart method in UserAuthServiceImpl is called");
         System.out.println("Phone: " + userTobeInserted.getPhone());
         System.out.println("Email: " + userTobeInserted.getUserEmail());
         System.out.println("Password: " + userTobeInserted.getPassword());
+        return true;
     }
 
     @Override
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) {
+        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
         userTobeInserted.setDisplayName(name);
         userTobeInserted.setGender(gender);
         userTobeInserted.setBirthday(DOB);
         userTobeInserted.setCountry(country);
         userTobeInserted.setPicture(picture);
-      //  myObj.addNewUser(userTobeInserted);
-        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
+        myObj.addNewUser(userTobeInserted);
         System.out.println("Name: " + userTobeInserted.getDisplayName());
         System.out.println("Gender: " + userTobeInserted.getGender());
         System.out.println("DOB: " + userTobeInserted.getBirthday());
         System.out.println("Country: " + userTobeInserted.getCountry());
-        System.out.println("Picture: " + userTobeInserted.getPicture());
+        System.out.println("Picture: " + (userTobeInserted.getPicture() != null ? "Exists" : "Null"));
     }
+
+    @Override
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) {
+        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
+        userTobeInserted.setDisplayName(name);
+        userTobeInserted.setGender(gender);
+        userTobeInserted.setBirthday(DOB);
+        userTobeInserted.setCountry(country);
+        userTobeInserted.setPicture(null);
+        userTobeInserted.setUserStatus(null);
+        myObj.addNewUser(userTobeInserted);
+        System.out.println("Name: " + userTobeInserted.getDisplayName());
+        System.out.println("Gender: " + userTobeInserted.getGender());
+        System.out.println("DOB: " + userTobeInserted.getBirthday());
+        System.out.println("Country: " + userTobeInserted.getCountry());
+        System.out.println("Picture: " + (userTobeInserted.getPicture() != null ? "Exists" : "Null"));
+    }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        return myObj.getUserByPhone(phoneNumber);
+    }
+
+    @Override
+    public boolean isPasswordMatchUser(long userId, String password) throws RemoteException, NoSuchAlgorithmException {
+        return myObj.getUserById(userId).getPassword().equals(myHashing.doHashing(password));
+    }
+
+
 }

@@ -89,13 +89,18 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
-    public void saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
+    public boolean saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException;
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) throws RemoteException;
 
 
     // Settings Screen
 
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
+
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
+
+    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
 }

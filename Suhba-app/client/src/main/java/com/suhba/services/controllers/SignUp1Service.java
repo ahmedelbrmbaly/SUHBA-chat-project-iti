@@ -28,7 +28,7 @@ public class SignUp1Service {
 
     public boolean checkInfo (String phone, String email, String password) {
         try {
-            serverService.saveFirstPart(phone, email, password);
+            return serverService.saveFirstPart(phone, email, password);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (InvalidPhoneException e) {

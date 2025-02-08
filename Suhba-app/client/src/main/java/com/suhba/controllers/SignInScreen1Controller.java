@@ -1,5 +1,7 @@
 package com.suhba.controllers;
 
+import com.suhba.App;
+import com.suhba.services.controllers.SignIn1Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+
+import java.rmi.RemoteException;
 
 public class SignInScreen1Controller {
 
@@ -22,19 +26,18 @@ public class SignInScreen1Controller {
     @FXML
     private Label signUpLabel;
 
-    @FXML
-    void handlePhoneNumberSubmit(ActionEvent event) {
-
-    }
+    SignIn1Service myServices = new SignIn1Service();
 
     @FXML
-    void handlePhoneSignInSubmit(ActionEvent event) {
-
+    void handlePhoneNumberSubmit(ActionEvent event) throws RemoteException {
+        if (myServices.checkIfExist(PhoneSignInField.getText().toString()))
+            myServices.moveToNextPage(event, "signInPage2.fxml");
+        else App.myStage.close();
     }
 
     @FXML
     void navigateToSignUp(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "signUpPage1.fxml");
     }
 
 }

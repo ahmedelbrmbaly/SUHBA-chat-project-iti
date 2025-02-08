@@ -179,13 +179,18 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
-    public void saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
-        myAuthImpl.saveFirstPart(phone, email, password);
+    public boolean saveFirstPart(String phone, String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        return myAuthImpl.saveFirstPart(phone, email, password);
     }
 
     @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) {
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException{
         myAuthImpl.saveLastPart(name, gender, DOB, country, picture);
+    }
+
+    @Override
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) throws RemoteException{
+        myAuthImpl.saveLastPart(name, gender, DOB, country);
     }
 
     @Override
@@ -196,5 +201,15 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException {
         return mySettingImpl.updateUserPassword(userId, newPassword);
+    }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException {
+        return myAuthImpl.getUserByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public boolean isPasswordMatchUser(long userId, String password) throws RemoteException, NoSuchAlgorithmException {
+        return myAuthImpl.isPasswordMatchUser(userId, password);
     }
 }
