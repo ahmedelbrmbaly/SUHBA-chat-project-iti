@@ -65,6 +65,7 @@ public interface ServerClientServices extends Remote {
     public  User getUserByPhone(String phone)throws InvalidPhoneException, RemoteException;
     public void setContactCuurentUSer(User user);
     public boolean sendFriendRequest(Contact contact);
+    public ContactStatus getContactStatus(long userId1, long userId2);
 
     // >> Remeber me XML SESSION >> To BE REVIEWED
     public boolean isPhoneRegistered(String phoneNumber) throws RemoteException;

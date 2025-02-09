@@ -15,7 +15,9 @@ public interface ContactDAO {
 
     public List<Contact> getContactsByUserId(long userId);
 
-//    public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus);
+    public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus);
+
+    public ContactStatus getContactStatus(long userId1, long userId2);
 
     // public List<User> getAllUsersInContactByUserID(long userId);
 

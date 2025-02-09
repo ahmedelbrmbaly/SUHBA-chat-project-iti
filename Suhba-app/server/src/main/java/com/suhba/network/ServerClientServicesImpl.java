@@ -146,6 +146,14 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public boolean deleteContact(Contact contact) throws RemoteException {
         return myContactImpl.deleteContact(contact);
     }
+    //
+
+    public ContactStatus getContactStatus(long userId1, long userId2) throws RemoteException{
+        return myContactImpl.getContactStatus(userId1, userId2);
+    }
+
+
+    //
 
     public void setContactCuurentUSer(User user)
     {

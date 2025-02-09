@@ -65,6 +65,11 @@ public interface ServerClientServices extends Remote {
 
     public boolean deleteContact(Contact contact) throws RemoteException;
 
+    //
+    public ContactStatus getContactStatus(long userId1, long userId2) throws RemoteException;
+
+    //
+
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
 

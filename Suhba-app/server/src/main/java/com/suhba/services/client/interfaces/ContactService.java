@@ -29,4 +29,6 @@ public interface ContactService {
 
     public User getUserByPhone(String phone) throws InvalidPhoneException, RemoteException ;
     public void setContactCurrentUSer(User user) throws RemoteException;
+
+    public ContactStatus getContactStatus(long userId1, long userId2) throws RemoteException;
 }

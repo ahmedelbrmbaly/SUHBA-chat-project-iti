@@ -24,7 +24,7 @@ public class AddNewFriendController {
     private GridPane addNewFriendBox;
 
     @FXML
-    private ImageView blockFriend;
+    private ImageView acceptFriend;
 
     @FXML
     private ImageView imageFriend;
@@ -44,11 +44,13 @@ public class AddNewFriendController {
     User currentUser = new User();
     Contact contact = new Contact();
 
+    ContactStatus status = contactsServices.getContactStatus(currentUser.getUserId(),friendUser.getUserId());
 
     @FXML
     void handleAddFriend(MouseEvent event) {
         boolean isRequestSuccessful = false;
-        Contact contact = new Contact();
+        System.out.println(currentUser.getUserId());
+        System.out.println(friendUser.getUserId());
         contact.setUserId1(currentUser.getUserId());
         contact.setUserId2(friendUser.getUserId());
         contact.setContactStatus(ContactStatus.PENDING);
@@ -62,31 +64,31 @@ public class AddNewFriendController {
 
     @FXML
     void handleBlockFriend(MouseEvent event) {
-        boolean isRequestSuccessful = false;
-        Contact contact = new Contact();
-        contact.setUserId1(currentUser.getUserId());
-        contact.setUserId2(friendUser.getUserId());
-        contact.setContactStatus(ContactStatus.BLOCKED);
-        try {
-            isRequestSuccessful = contactsServices.(contact);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+//        boolean isRequestSuccessful = false;
+//        Contact contact = new Contact();
+//        contact.setUserId1(currentUser.getUserId());
+//        contact.setUserId2(friendUser.getUserId());
+//        contact.setContactStatus(ContactStatus.BLOCKED);
+//        try {
+//            isRequestSuccessful = contactsServices.;
+//        } catch (RemoteException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 
     @FXML
     void handleRejectFriend(MouseEvent event) {
-        boolean isRequestSuccessful = false;
-        Contact contact = new Contact();
-        contact.setUserId1(currentUser.getUserId());
-        contact.setUserId2(friendUser.getUserId());
-        contact.setContactStatus(ContactStatus.PE);
-        try {
-            isRequestSuccessful = contactsServices.sendFriendRequest(contact);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+//        boolean isRequestSuccessful = false;
+//        Contact contact = new Contact();
+//        contact.setUserId1(currentUser.getUserId());
+//        contact.setUserId2(friendUser.getUserId());
+//        contact.setContactStatus(ContactStatus.PE);
+//        try {
+//            isRequestSuccessful = contactsServices.sendFriendRequest(contact);
+//        } catch (RemoteException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     // I think no need to implemnet the below

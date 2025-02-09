@@ -91,4 +91,14 @@ public class ContactServiceImpl implements ContactService {
     public User getUserByPhone(String phone) throws InvalidPhoneException, RemoteException {
         return myUserDao.getUserByPhone(phone);
     }
+
+    @Override
+    public ContactStatus getContactStatus(long userId1, long userId2)
+    {
+        return myContactDao.getContactStatus(userId1, userId2);
+    }
+
+
+
+
 }

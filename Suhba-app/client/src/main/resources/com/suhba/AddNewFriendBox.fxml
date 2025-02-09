@@ -34,9 +34,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="blockFriend" fitHeight="25.0" fitWidth="25.0" layoutX="134.0" layoutY="25.0" onMouseClicked="#handleBlockFriend" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+            <ImageView fx:id="acceptFriend" fitHeight="25.0" fitWidth="25.0" layoutX="134.0" layoutY="25.0" onMouseClicked="#handleBlockFriend" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
-                  <Image url="@../../images/block(Blue).png" />
+                  <Image url="@../../images/accept.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
