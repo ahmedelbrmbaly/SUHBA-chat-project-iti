@@ -1,32 +1,35 @@
 package com.suhba.daos.implementation;
 
+import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.GroupDao;
 import com.suhba.database.entities.Group;
 
 import java.util.List;
-import java.util.Optional;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class GroupDaoImpl implements GroupDao {
-    private final Connection connection;
+    private  Connection connection;
 
-    public GroupDaoImpl(Connection connection) {
-        this.connection = connection;
+    public GroupDaoImpl() {
+        try {
+        connection = DatabaseConnection.getInstance();
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println("Error in Connection");
+        e.printStackTrace();
+    } 
     }
 
 
     // TESTED >> WORKING
     @Override
-    public Optional<Group> createGroup(Group group, long creatorId) {
+    public Group createGroup(Group group) {
 
         String createChatSQL = "INSERT INTO `Chats` (chatType) VALUES ('Group')";
-        String addUserToChatSQL = "INSERT INTO `Chats_Users` (userId, chatId) VALUES (?, ?)";
         String createGroupSQL = "INSERT INTO `Groups` (groupName, groupPhoto, groupDescription, category, chatId) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement createChatStmt = connection.prepareStatement(createChatSQL, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement addUserToChatStmt = connection.prepareStatement(addUserToChatSQL);
              PreparedStatement createGroupStmt = connection.prepareStatement(createGroupSQL, Statement.RETURN_GENERATED_KEYS)) {
 
             connection.setAutoCommit(false);
@@ -36,16 +39,12 @@ public class GroupDaoImpl implements GroupDao {
             ResultSet chatKeys = createChatStmt.getGeneratedKeys();
             if (!chatKeys.next()) {
                 connection.rollback();
-                return Optional.empty();
+                return null;
             }
             long chatId = chatKeys.getLong(1);
 
-            // Step 2: Add the creator to the chat
-            addUserToChatStmt.setLong(1, creatorId);
-            addUserToChatStmt.setLong(2, chatId);
-            addUserToChatStmt.executeUpdate();
 
-            // Step 3: Create the group
+            // Step 2: Create the group
             createGroupStmt.setString(1, group.getGroupName());
             createGroupStmt.setString(2, group.getGroupPhoto());
             createGroupStmt.setString(3, group.getGroupDescription());
@@ -55,7 +54,7 @@ public class GroupDaoImpl implements GroupDao {
             int affectedRows = createGroupStmt.executeUpdate();
             if (affectedRows == 0) {
                 connection.rollback();
-                return Optional.empty();
+                return null;
             }
 
             ResultSet groupKeys = createGroupStmt.getGeneratedKeys();
@@ -63,7 +62,7 @@ public class GroupDaoImpl implements GroupDao {
                 group.setGroupId(groupKeys.getLong(1));
                 group.setChatId(chatId);
                 connection.commit();
-                return Optional.of(group);
+                return group;
             }
 
             connection.rollback();
@@ -81,23 +80,23 @@ public class GroupDaoImpl implements GroupDao {
                 handleSQLException(autoCommitEx);
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     // TESTED >> WORKING
     @Override
-    public Optional<Group> getGroupById(long groupId) {
+    public Group getGroupById(long groupId) {
         String sql = "SELECT groupId, groupName, groupPhoto, groupDescription,category, chatId FROM `Groups` WHERE groupId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, groupId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return Optional.of(mapRowToGroup(rs));
+                return (mapRowToGroup(rs));
             }
         } catch (SQLException e) {
             handleSQLException(e);
         }
-        return Optional.empty();
+        return null;
     }
 
     // TESTED >> WORKING
@@ -259,6 +258,29 @@ public class GroupDaoImpl implements GroupDao {
                 rs.getLong("chatId")
         );
     }
+
+
+    @Override
+    public Group getGroupByChatId(long chatId) {
+        String sql = "SELECT groupId, groupName, groupPhoto, groupDescription,category, chatId FROM `Groups` WHERE chatId = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, chatId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return (mapRowToGroup(rs));
+            }
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return null;
+    }
+
+
+    // @Override
+    // public Group createGroup(Group group) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'createGroup'");
+    // }
 
 }
 
