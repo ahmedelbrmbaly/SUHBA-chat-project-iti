@@ -5,8 +5,10 @@ import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.database.entities.Contact;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.exceptions.InvalidPhoneException;
 import com.suhba.services.client.interfaces.ContactService;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
@@ -18,8 +20,18 @@ public class ContactServiceImpl implements ContactService {
 
     public ContactServiceImpl() {
         this.myContactDao = new ContactDAOImpl();
-        myUser = new User();
-        myUserDao = new UserDAOImpl();
+        this.myUser = new User();
+        this.myUserDao = new UserDAOImpl();
+    }
+
+    @Override
+    public void setContactCurrentUSer(User user)
+    {
+        this.myUser = user;
+    }
+    @Override
+    public boolean sendFriendRequest(Contact contact) {
+        return myContactDao.addContact(contact);
     }
 
     @Override
@@ -73,5 +85,10 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public boolean deleteContact(Contact contact) {
         return myContactDao.deleteContact(contact);
+    }
+
+    @Override
+    public User getUserByPhone(String phone) throws InvalidPhoneException, RemoteException {
+        return myUserDao.getUserByPhone(phone);
     }
 }

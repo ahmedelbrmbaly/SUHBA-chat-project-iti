@@ -48,6 +48,8 @@ public interface ServerClientServices extends Remote {
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
     // Contact Screen
+
+    public boolean sendFriendRequest(Contact contact) throws RemoteException;
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
 
@@ -65,6 +67,10 @@ public interface ServerClientServices extends Remote {
 
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
+
+    public  User getUserByPhone(String phone)throws InvalidPhoneException, RemoteException;
+
+    public void setContactCuurentUSer(User user);
 
     // >> Remeber me XML SESSION >> To BE REVIEWED
     public boolean isPhoneRegistered(String phoneNumber) throws RemoteException;

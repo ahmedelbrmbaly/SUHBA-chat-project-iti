@@ -62,6 +62,10 @@ public interface ServerClientServices extends Remote {
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
 
+    public  User getUserByPhone(String phone)throws InvalidPhoneException, RemoteException;
+    public void setContactCuurentUSer(User user);
+    public boolean sendFriendRequest(Contact contact);
+
     // >> Remeber me XML SESSION >> To BE REVIEWED
     public boolean isPhoneRegistered(String phoneNumber) throws RemoteException;
 

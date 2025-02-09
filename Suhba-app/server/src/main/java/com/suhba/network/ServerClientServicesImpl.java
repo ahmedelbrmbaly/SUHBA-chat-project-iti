@@ -118,7 +118,10 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException {
         return myContactImpl.sendFriendRequestsById(userId);
     }
-
+    @Override
+    public boolean sendFriendRequest(Contact contact){
+        return myContactImpl.sendFriendRequest(contact);
+    }
     @Override
     public List<User> getAllPendingRequests(long userId) throws RemoteException {
         return myContactImpl.getAllPendingRequests(userId);
@@ -144,9 +147,19 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         return myContactImpl.deleteContact(contact);
     }
 
+    public void setContactCuurentUSer(User user)
+    {
+        myContactImpl.setContactCurrentUSer(user);
+    }
     @Override
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException {
         return myAuthImpl.signup(user);
+    }
+
+    @Override
+    public User getUserByPhone(String phone) throws InvalidPhoneException, RemoteException {
+
+        return myContactImpl.getUserByPhone(phone) ;
     }
 
     @Override

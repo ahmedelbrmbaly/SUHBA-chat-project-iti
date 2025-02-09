@@ -28,7 +28,7 @@ public class ContactDAOImpl implements ContactDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1,contact.getUserId1());
             preparedStatement.setLong(2, contact.getUserId2());
-            preparedStatement.setString(3, contact.getContactStatus().name());
+            preparedStatement.setString(3, ContactStatus.PENDING.toString());
             int added = preparedStatement.executeUpdate();
             if(added>1) return true;
         } catch (SQLException e) {
@@ -36,6 +36,7 @@ public class ContactDAOImpl implements ContactDAO {
         }
         return false;
     }
+
 
     @Override
     public boolean updateContactStatus(Contact contact, ContactStatus newStatus) {
@@ -66,26 +67,57 @@ public class ContactDAOImpl implements ContactDAO {
         return false;
     }
 
+//    @Override
+//    public List<Contact> getContactsByUserId(long userId) {
+//        List<Contact> contacts = new ArrayList<>();
+//
+//        String query = """
+//            SELECT c.userId1, c.userId2, c.contactStatus AS contactDisplayName,
+//                   u.phone AS contactPhone, u.userEmail AS contactEmail
+//            FROM Contacts c
+//            JOIN Users u ON u.userId = c.userId2
+//            WHERE c.userId1 = ?
+//        """;
+//        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+//            preparedStatement.setLong(1, userId);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                long user1 = resultSet.getLong(1);
+//                long user2 = resultSet.getLong(2);
+//                ContactStatus status = ContactStatus.valueOf(resultSet.getString(2));
+//                Contact c = new Contact(user1,user2,status);
+//                contacts.add(c);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return contacts;
+//    }
+
+
     @Override
     public List<Contact> getContactsByUserId(long userId) {
         List<Contact> contacts = new ArrayList<>();
 
         String query = """
-            SELECT c.userId1, c.userId2, c.contactStatus AS contactDisplayName, 
-                   u.phone AS contactPhone, u.userEmail AS contactEmail
-            FROM Contacts c
-            JOIN Users u ON u.userId = c.userId2
-            WHERE c.userId1 = ?
-        """;
+        SELECT c.userId1, c.userId2, c.contactStatus
+        FROM Contacts c
+        WHERE c.userId1 = ? OR c.userId2 = ?
+    """;
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
+            preparedStatement.setLong(2, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-                long user1 = resultSet.getLong(1);
-                long user2 = resultSet.getLong(2);
-                ContactStatus status = ContactStatus.valueOf(resultSet.getString(2));
-                Contact c = new Contact(user1,user2,status);
-                contacts.add(c);
+                long user1 = resultSet.getLong("userId1");
+                long user2 = resultSet.getLong("userId2");
+                ContactStatus status = ContactStatus.valueOf(resultSet.getString("contactStatus"));
+
+                Contact contact = new Contact(user1, user2, status);
+                contacts.add(contact);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,22 +126,25 @@ public class ContactDAOImpl implements ContactDAO {
         return contacts;
     }
 
-    @Override
-    public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus) {
-        String sql = "SELECT userId1 FROM Contact WHERE userId2 = ? and contactStatus = ?";
-        List<Long> ids = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setLong(1, userId2);
-            stmt.setString(2, String.valueOf(ContactStatus.PENDING));
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next())  ids.add(rs.getLong("userId1"));
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return ids;
-    }
+
+
+
+//    @Override
+//    public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus) {
+//        String sql = "SELECT userId1 FROM Contact WHERE userId2 = ? and contactStatus = ?";
+//        List<Long> ids = new ArrayList<>();
+//        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+//            stmt.setLong(1, userId2);
+//            stmt.setString(2, String.valueOf(ContactStatus.PENDING));
+//            try (ResultSet rs = stmt.executeQuery()) {
+//                if (rs.next())  ids.add(rs.getLong("userId1"));
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("SQL Error: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return ids;
+//    }
 
     // @Override
     // public List<User> getAllUsersInContactByUserID(long userId) {
