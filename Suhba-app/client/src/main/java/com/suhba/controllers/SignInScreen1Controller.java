@@ -30,9 +30,14 @@ public class SignInScreen1Controller {
 
     @FXML
     void handlePhoneNumberSubmit(ActionEvent event) throws RemoteException {
-        if (myServices.checkIfExist(PhoneSignInField.getText().toString()))
+        if (myServices.checkIfExist(PhoneSignInField.getText().toString())) {
+            System.out.println(myServices.getCurUserId());
             myServices.moveToNextPage(event, "signInPage2.fxml");
-        else App.myStage.close();
+        }
+        else {
+            myServices.showErrorAlert("The phone number you entered does not exist!");
+            App.myStage.close();
+        }
     }
 
     @FXML

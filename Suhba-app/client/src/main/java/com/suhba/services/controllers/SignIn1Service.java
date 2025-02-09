@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -16,7 +17,7 @@ import java.rmi.RemoteException;
 
 public class SignIn1Service {
     ServerClientServices serverService = ServerService.getInstance();
-    User curUser;
+    static User curUser;
 
     public boolean checkIfExist (String phone) throws RemoteException {
         curUser = serverService.getUserByPhoneNumber(phone);
@@ -24,7 +25,7 @@ public class SignIn1Service {
     }
 
     public long getCurUserId () {
-        return curUser.getUserId();
+        return curUser == null ? -1 : curUser.getUserId();
     }
 
     public void moveToNextPage (ActionEvent event, String destinationPage) {
@@ -51,5 +52,12 @@ public class SignIn1Service {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void showErrorAlert (String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
