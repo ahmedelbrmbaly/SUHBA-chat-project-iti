@@ -34,12 +34,9 @@ public class SignInScreen2Controller {
 
     @FXML
     void handleSignInBtn(ActionEvent event) throws NoSuchAlgorithmException, RemoteException {
-        if (myServices.checkIfMatch(passSignInField.getText().toString())) {
+        if (myServices.checkIfMatch(passSignInField.getText().toString()))
             myServices.moveToNextPage(event, "ClientChatScreen.fxml");
-        }
-        else {
-            myServices.showErrorAlert("Incorrect password!");
-        }
+        else  myServices.showErrorAlert("Incorrect password!");
     }
 
 }

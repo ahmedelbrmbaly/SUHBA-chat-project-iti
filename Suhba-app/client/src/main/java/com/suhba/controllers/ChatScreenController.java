@@ -28,6 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Callback;
@@ -149,6 +150,8 @@ public class ChatScreenController implements Initializable {
     ChatScreenService chatScreenService;
 
     long currentChatId;
+
+    ChatScreenService myServices = new ChatScreenService();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -324,6 +327,12 @@ public class ChatScreenController implements Initializable {
         // Stage stage = (Stage) nameTextField.getScene().getWindow();
         // stage.setScene(new Scene(root));
         // stage.show();
+    }
+
+    @FXML
+    void handleLogout(MouseEvent event) throws IOException {
+        myServices.logoutService();
+        myServices.moveToNextPage(event, "signInPage1.fxml");
     }
 
 }

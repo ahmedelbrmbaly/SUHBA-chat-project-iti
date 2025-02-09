@@ -60,12 +60,12 @@ public class SignUp2Service {
         stage.show();
     }
 
-    public boolean checkInfo (String name, Gender gender, LocalDate DOB, Country country) {
+    public boolean checkInfo (String name, Gender gender, LocalDate DOB, Country country, byte[] picture) {
         try {
             //serverService.saveLastPart(name, gender, DOB, country, picture);
-            serverService.saveLastPart(name, gender, DOB, country);
+            serverService.saveLastPart(name, gender, DOB, country, picture);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            System.out.println("A problem in BLOB!!");
         }
         return true;
     }

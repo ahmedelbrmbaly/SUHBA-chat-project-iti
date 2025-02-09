@@ -35,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
-            stmt.setBlob(4, user.getPicture() == null ? null : user.getPicture());
+            stmt.setBytes(4, user.getPicture() == null ? null : user.getPicture());
             stmt.setString(5, user.getPassword());
             stmt.setString(6, user.getGender() == null ? null : String.valueOf(user.getGender()));
             stmt.setString(7, user.getCountry() == null ? null : String.valueOf(user.getCountry()));
@@ -71,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
                 user.setPhone(rs.getString("phone"));
                 user.setDisplayName(rs.getString("displayName"));
                 user.setUserEmail(rs.getString("userEmail"));
-                user.setPicture(rs.getBlob("picture"));
+                user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                 user.setPassword(rs.getString("password"));
                 user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                 user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -97,7 +97,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -172,7 +172,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -202,7 +202,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -232,7 +232,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -262,7 +262,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -364,7 +364,7 @@ public class UserDAOImpl implements UserDAO {
                 user.setPhone(rs.getString("phone"));
                 user.setDisplayName(rs.getString("displayName"));
                 user.setUserEmail(rs.getString("userEmail"));
-                user.setPicture(rs.getBlob("picture"));
+                user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                 user.setPassword(rs.getString("password"));
                 user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                 user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -405,7 +405,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setPhone(rs.getString("phone"));
                     user.setDisplayName(rs.getString("displayName"));
                     user.setUserEmail(rs.getString("userEmail"));
-                    user.setPicture(rs.getBlob("picture"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
                     user.setPassword(rs.getString("password"));
                     user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
                     user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
@@ -427,7 +427,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
-            stmt.setBlob(4, user.getPicture());
+            stmt.setBytes(4, user.getPicture() == null ? null : user.getPicture());
             stmt.setString(5, user.getPassword());
             stmt.setString(6, user.getGender() == null ? null : String.valueOf(user.getGender()));
             stmt.setString(7, user.getCountry() == null ? null : String.valueOf(user.getCountry()));
@@ -451,7 +451,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
-            stmt.setBlob(4, user.getPicture());
+            stmt.setBytes(4, user.getPicture() == null ? null : user.getPicture());
             stmt.setString(5, user.getGender() == null ? null : String.valueOf(user.getGender()));
             stmt.setString(6, user.getCountry() == null ? null : String.valueOf(user.getCountry()));
             stmt.setDate(7, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);

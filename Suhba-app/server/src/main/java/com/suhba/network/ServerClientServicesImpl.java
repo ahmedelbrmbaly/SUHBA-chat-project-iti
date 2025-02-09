@@ -11,6 +11,7 @@ import com.suhba.services.client.implementaions.UserAuthServiceImpl;
 import com.suhba.services.client.implementaions.UserSettingServiceImpl;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
@@ -179,18 +180,18 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public String getMacAddress() throws RemoteException, SocketException {
+        return myAuthImpl.getMacAddress();
+    }
+
+    @Override
     public boolean saveFirstPart(String phone, String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
         return myAuthImpl.saveFirstPart(phone, email, password);
     }
 
     @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException{
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException{
         myAuthImpl.saveLastPart(name, gender, DOB, country, picture);
-    }
-
-    @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) throws RemoteException{
-        myAuthImpl.saveLastPart(name, gender, DOB, country);
     }
 
     @Override

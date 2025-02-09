@@ -26,25 +26,29 @@ public class SignUp1Service {
         alert.showAndWait();
     }
 
-    public boolean checkInfo (String phone, String email, String password) {
+    public boolean checkInfo (String phone, String email, String password) throws RemoteException {
         try {
             return serverService.saveFirstPart(phone, email, password);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (InvalidPhoneException e) {
             showErrorAlert(e.getMessage());
+            return false;
         } catch (RepeatedPhoneException e) {
             showErrorAlert(e.getMessage());
+            return false;
         } catch (InvalidEmailException e) {
             showErrorAlert(e.getMessage());
+            return false;
         } catch (RepeatedEmailException e) {
             showErrorAlert(e.getMessage());
+            return false;
         } catch (InvalidPasswordException e) {
             showErrorAlert(e.getMessage());
+            return false;
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        return true;
     }
 
     public void moveToNextPage (ActionEvent event, String destinationPage) {

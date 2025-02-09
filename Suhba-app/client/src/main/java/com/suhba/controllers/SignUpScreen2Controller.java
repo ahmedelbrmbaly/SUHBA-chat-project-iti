@@ -24,6 +24,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -69,24 +70,25 @@ public class SignUpScreen2Controller implements Initializable {
     List<Country> countryList = new ArrayList<>(Arrays.asList(Country.values()));
 
     Image myImage;
-
-    Blob imageBlob;
-
-    ImageConvertion imageConvertion;
+    byte[] imageBlob;
+    private final ImageConvertion imageConvertion = new ImageConvertion();
+    private byte[] imageBytes;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(countryList);
         countryComboBox.getItems().addAll(countryList);
 
+        /*pictureImageview.setStroke(Color.valueOf("#3f72af"));
+        myImage = new Image(getClass().getResource("/images/profile.png").toExternalForm());
+        pictureImageview.setFill(new ImagePattern(myImage));*/
+
         pictureImageview.setStroke(Color.valueOf("#3f72af"));
         myImage = new Image(getClass().getResource("/images/profile.png").toExternalForm());
         pictureImageview.setFill(new ImagePattern(myImage));
-
-        imageConvertion = new ImageConvertion();
     }
 
-    @FXML
+  /*  @FXML
     void handleChooseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select an Image");
@@ -113,6 +115,29 @@ public class SignUpScreen2Controller implements Initializable {
             }
         }
 
+    }*/
+
+
+    @FXML
+    void handleChooseImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
+
+        File selectedFile = fileChooser.showOpenDialog(App.myStage);
+        if (selectedFile != null) {
+            try {
+                myImage = new Image(selectedFile.toURI().toString());
+                pictureImageview.setFill(new ImagePattern(myImage));
+                imageBytes = Files.readAllBytes(selectedFile.toPath());
+                System.out.println("Image uploaded successfully!");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No file selected!");
+        }
     }
 
     @FXML
@@ -130,11 +155,9 @@ public class SignUpScreen2Controller implements Initializable {
         Gender gender = null;
         if (maleRadiobtn.isSelected())  gender = Gender.valueOf(maleRadiobtn.getText());
         else if (femaleRadiobtn.isSelected())  gender = Gender.valueOf(femaleRadiobtn.getText());
-       /* if (myServices.checkInfo(usernameField.getText(), gender, LocalDate.parse(dateOfBirthPicker.getValue().toString()), countryComboBox.getValue(), imageBlob))
+        if (myServices.checkInfo(usernameField.getText(), gender, dateOfBirthPicker.getValue(), countryComboBox.getValue(), imageBytes)) {
             myServices.moveToNextPage(event, "signInPage1.fxml");
-*/
-        if (myServices.checkInfo(usernameField.getText(), gender, LocalDate.parse(dateOfBirthPicker.getValue().toString()), countryComboBox.getValue()))
-            myServices.moveToNextPage(event, "signInPage1.fxml");
+        }
     }
 
     @FXML

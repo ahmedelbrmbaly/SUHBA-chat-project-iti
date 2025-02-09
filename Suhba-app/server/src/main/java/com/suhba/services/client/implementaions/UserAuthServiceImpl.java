@@ -81,6 +81,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         return myUser;
     }
 
+    @Override
     public String getMacAddress() throws SocketException {
         Enumeration<NetworkInterface> networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();
 
@@ -156,31 +157,16 @@ public class UserAuthServiceImpl implements UserAuthService {
         return true;
     }
 
-    @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) {
-        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
-        userTobeInserted.setDisplayName(name);
-        userTobeInserted.setGender(gender);
-        userTobeInserted.setBirthday(DOB);
-        userTobeInserted.setCountry(country);
-        userTobeInserted.setPicture(picture);
-        myObj.addNewUser(userTobeInserted);
-        System.out.println("Name: " + userTobeInserted.getDisplayName());
-        System.out.println("Gender: " + userTobeInserted.getGender());
-        System.out.println("DOB: " + userTobeInserted.getBirthday());
-        System.out.println("Country: " + userTobeInserted.getCountry());
-        System.out.println("Picture: " + (userTobeInserted.getPicture() != null ? "Exists" : "Null"));
-    }
+
 
     @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) {
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) {
         System.out.println("saveLastPart method in UserAuthServiceImpl is called");
         userTobeInserted.setDisplayName(name);
         userTobeInserted.setGender(gender);
         userTobeInserted.setBirthday(DOB);
         userTobeInserted.setCountry(country);
-        userTobeInserted.setPicture(null);
-        userTobeInserted.setUserStatus(null);
+        userTobeInserted.setPicture(picture == null ? null : picture);
         myObj.addNewUser(userTobeInserted);
         System.out.println("Name: " + userTobeInserted.getDisplayName());
         System.out.println("Gender: " + userTobeInserted.getGender());

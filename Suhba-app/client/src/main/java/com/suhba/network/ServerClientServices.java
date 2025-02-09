@@ -7,10 +7,10 @@ import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -85,10 +85,11 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
+    public String getMacAddress() throws RemoteException, SocketException;
+
     public boolean saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, Blob picture) throws RemoteException;
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country) throws RemoteException;
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
 
 
     // Settings Screen
