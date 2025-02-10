@@ -1,10 +1,8 @@
 package com.suhba.controllers;
 
 import com.suhba.services.controllers.ClientAddContactScreenService;
-import com.suhba.utils.FXMLLoader;
+import com.suhba.utils.FXMLHelper;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,35 +37,51 @@ public class ClientAddContactScreenController implements Initializable {
     Map<Integer, String> recipients;
     int indx;
 
+
+    //Lazy Initialization
+    private static ClientAddContactScreenController instance;
+    public ClientAddContactScreenController() {}
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // recipients.clear();
+        if (instance == null)  instance = this;
+
         recipients = new HashMap<>();
         indx = 0;
         friendContainer.setOrientation(Orientation.VERTICAL);
     }
 
-    public void sendRequest(MouseEvent mouseEvent) throws RemoteException {
-        System.out.println("In send a friend request to a person");
-        Platform.runLater(() -> {
-            try {
-                if (myServices.sendFriendRequest(recipients.get(2))) {
-                    recipients.remove(2);
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    public static FlowPane getContainer() {
+        if (instance != null) return instance.friendContainer;
+        return null;
     }
 
     public void handleAddToListBtn(ActionEvent actionEvent) throws IOException {
         System.out.println("In add to listview");
         if (searchField.getText().length() > 0) {
             recipients.put(indx++, searchField.getText());
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            Pane curView = fxmlLoader.getPane("AddNewFriendBox");
-            Label label = new Label(searchField.getText());
+
+            FXMLHelper fxmlHelper = new FXMLHelper();
+            Pane curView = fxmlHelper.getPane("AddNewFriendBox");
+
+            AddNewFriendController controller = (AddNewFriendController) fxmlHelper.getController();
+            if (controller != null) {
+                String friendName = myServices.getDisplayNamePhoneNumber(searchField.getText());
+                if (friendName == null) {
+                    myServices.showErrorAlert("There is no user with this phone number");
+                    searchField.clear();
+                    return;
+                }
+                String phoneNumber = searchField.getText();
+                controller.setNewFriendData(friendName, phoneNumber);
+
+                curView.setUserData(phoneNumber);
+            } else {
+                System.out.println("Error: Controller is null!");
+            }
+
             friendContainer.getChildren().add(curView);
+            searchField.clear();
         }
     }
 
@@ -76,7 +90,9 @@ public class ClientAddContactScreenController implements Initializable {
         System.out.println("In send a friend request to many people");
         boolean ok = true;
         for (Map.Entry<Integer, String> recipient: recipients.entrySet()){
-            if (!myServices.sendFriendRequest(recipient.getValue())) {
+            List<String> recipientList = new ArrayList<>();
+            recipientList.add(recipient.getValue());
+            if (!myServices.sendFriendRequest(recipientList)) {
                 ok = false;
                 break;
             }

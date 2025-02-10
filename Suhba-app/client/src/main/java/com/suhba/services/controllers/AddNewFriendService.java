@@ -23,7 +23,11 @@ public class AddNewFriendService {
     }
 
     public boolean sendFriendRequest (String phoneNumber) throws RemoteException {
-        long receiverId = serverService.getUserByPhoneNumber(phoneNumber).getUserId();
-        return serverService.sendFriendRequest(getCurUser().getUserId(), receiverId);
+        long receiverId = -1;
+        if (serverService.getUserByPhoneNumber(phoneNumber) != null) {
+            receiverId = serverService.getUserByPhoneNumber(phoneNumber).getUserId();
+        }                                  /////////// ////////////////////////////////////
+        if (receiverId != -1)  return serverService.sendFriendRequest(/*getCurUser().getUserId()*/ 5, receiverId);
+        return true;
     }
 }

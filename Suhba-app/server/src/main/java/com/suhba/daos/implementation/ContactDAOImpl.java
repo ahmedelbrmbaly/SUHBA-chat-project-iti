@@ -24,7 +24,7 @@ public class ContactDAOImpl implements ContactDAO {
 
     @Override
     public boolean addContact(Contact contact) {
-        if (getContactsByUserId1AndUserId2(contact.getUserId1(), contact.getUserId2()) != null)  return false;
+        //if (getContactsByUserId1AndUserId2(contact.getUserId1(), contact.getUserId2()) != null)  return false;
         System.out.println("In addContact method");
         String query = "INSERT INTO Contacts (userId1, userId2, contactStatus) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

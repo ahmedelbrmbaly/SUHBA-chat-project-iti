@@ -3,6 +3,7 @@ package com.suhba.services.controllers;
 import com.suhba.database.entities.User;
 import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
+import javafx.scene.control.Alert;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -22,20 +23,24 @@ public class ClientAddContactScreenService {
         return null;
     }
 
-    public boolean sendFriendRequest (String phoneNumber) throws RemoteException {
-        long receiverId = -1;
-        if (serverService.getUserByPhoneNumber(phoneNumber) != null) {
-            receiverId = serverService.getUserByPhoneNumber(phoneNumber).getUserId();
-        }                                  /////////// ////////////////////////////////////
-        if (receiverId != -1)  return serverService.sendFriendRequest(/*getCurUser().getUserId()*/ 5, receiverId);
-        return true;
-    }
-
     public boolean sendFriendRequest (List<String> phoneNumbers) throws RemoteException {
         List<Long> receiverIds = serverService.getUserIdsByPhones(phoneNumbers);
         /// //////////////////////////////////////////////////////////////////////////////
         if (receiverIds != null) return serverService.sendFriendRequestsById(/*getCurUser().getUserId()*/ 5, receiverIds);
         return true;
+    }
+
+    public String getDisplayNamePhoneNumber (String phone) throws RemoteException {
+        User user = serverService.getUserByPhoneNumber(phone);
+        if (user != null)  return user.getDisplayName();
+        return null;
+    }
+
+    public void showErrorAlert (String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

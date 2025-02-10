@@ -44,19 +44,19 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="327.0" spacing="10.0" style="-fx-background-color: #DBE2EF; -fx-background-radius: 10;">
          <children>
-            <ImageView fx:id="imageFriend" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleImageFriend" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageFriend" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/user_profile.jpg" />
                </image>
             </ImageView>
             <VBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="157.0">
                <children>
-                  <Label fx:id="nameFriend" onMouseClicked="#handleNameFriend" text="Ghaidaa " textFill="#112d4e">
+                  <Label fx:id="nameFriend"  text="Ghaidaa " textFill="#112d4e">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="phoneFriend" onMouseClicked="#handlePhoneFriend" text="+010101010101010" textFill="#112d4e" />
+                  <Label fx:id="phoneFriend"  text="+010101010101010" textFill="#112d4e" />
                </children>
             </VBox>
          </children>
