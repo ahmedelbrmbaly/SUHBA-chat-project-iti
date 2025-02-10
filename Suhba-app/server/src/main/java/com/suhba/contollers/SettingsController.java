@@ -117,14 +117,22 @@ public class SettingsController {
     }
 
     private void saveAdmin() {
+        String newEmail = primaryEmailField.getText();
+
+        // Skip validation if the email is the same as before
+        if (newEmail.equals(currentAdmin.getAdminEmail())) {
+            showAlert("Success", "Admin profile updated successfully.");
+            return; // No need to validate or update
+        }
+
         try {
-            validation.validateEmail(primaryEmailField.getText());
+            validation.validateEmail(newEmail); // Check only if the email has changed
         } catch (RepeatedEmailException | InvalidEmailException e) {
             showAlert("Error", e.getMessage());
             return;
         }
 
-        currentAdmin.setAdminEmail(primaryEmailField.getText());
+        currentAdmin.setAdminEmail(newEmail);
         boolean isUpdated = adminDao.updateAdmin(currentAdmin);
         if (isUpdated) {
             showAlert("Success", "Admin profile updated successfully.");
@@ -132,6 +140,8 @@ public class SettingsController {
             showAlert("Error", "Failed to update admin profile.");
         }
     }
+
+
 
     @FXML
     void goToBrodcastingScreen(MouseEvent event) {
