@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class SettingsController {
 
@@ -119,27 +120,36 @@ public class SettingsController {
     private void saveAdmin() {
         String newEmail = primaryEmailField.getText();
 
-        // Skip validation if the email is the same as before
+        // 1. **Check if the new email is the same as the current one**
         if (newEmail.equals(currentAdmin.getAdminEmail())) {
-            showAlert("Success", "Admin profile updated successfully.");
-            return; // No need to validate or update
-        }
-
-        try {
-            validation.validateEmail(newEmail); // Check only if the email has changed
-        } catch (RepeatedEmailException | InvalidEmailException e) {
-            showAlert("Error", e.getMessage());
+            showAlert("Error", "The email you entered is the same as your current email.");
             return;
         }
 
+        // 2. **Check if the new email matches the required format**
+        if (!Pattern.matches("^[a-z][a-z0-9.]*@gmail\\.com", newEmail)) {
+            showAlert("Error", "The email you entered is invalid.");
+            return;
+        }
+
+        // 3. **Check if another admin already has this email**
+        if (adminDao.getAdminByEmail(newEmail) != null) {
+            showAlert("Error", "The email you entered already exists.");
+            return;
+        }
+
+        // 4. **Proceed with saving the new email**
         currentAdmin.setAdminEmail(newEmail);
         boolean isUpdated = adminDao.updateAdmin(currentAdmin);
+
         if (isUpdated) {
             showAlert("Success", "Admin profile updated successfully.");
         } else {
             showAlert("Error", "Failed to update admin profile.");
         }
     }
+
+
 
 
 
