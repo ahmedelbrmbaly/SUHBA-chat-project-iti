@@ -14,12 +14,18 @@ import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 public class ServerClientServicesImpl extends UnicastRemoteObject implements ServerClientServices {
     ChatServiceImpl myChatImpl;
     UserAuthServiceImpl myAuthImpl;
     UserSettingServiceImpl mySettingImpl;
     ContactServiceImpl myContactImpl;
+
+
+
+
+    public static Vector<ClientService> clients = new Vector<>();
 
     public ServerClientServicesImpl() throws RemoteException {
         super();
@@ -130,6 +136,16 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public boolean updateRequestStatus(long userId, ContactStatus status)  throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public boolean deleteContact(long userId)  throws RemoteException {
+        return false;
+    }
+
+    @Override
     public boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException {
         return myContactImpl.updateRequestStatusFromPendingToAccepted(contact, status);
     }
@@ -183,4 +199,39 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException {
         return mySettingImpl.updateUserPassword(userId, newPassword);
     }
+
+    @Override
+    public synchronized void register(ClientService client) throws RemoteException {
+        if (!clients.contains(client)) {
+            if (client == null) {
+                System.err.println("ClientService is null in BroadcastController!");
+            }
+
+            clients.add(client);
+            System.out.println("New client registered.");
+//            showAnnouncement("Hello");
+
+        }
+    }
+
+    @Override
+    public synchronized void unregister(ClientService client) throws RemoteException {
+        clients.remove(client);
+        System.out.println("Client unregistered.");
+    }
+
+    @Override
+    public void showAnnouncement(String message) throws RemoteException {
+        System.out.println("Broadcasting announcement: " + message);
+        for (ClientService client : clients) {
+            try {
+                client.showAnnouncement(message);
+            } catch (RemoteException e) {
+                System.err.println("Failed to send announcement to a client: " + e.getMessage());
+                clients.remove(client); // Remove disconnected clients
+            }
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.suhba;
 
+import com.suhba.network.ServerService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("signInPage1"), 980, 600);
         stage.setScene(scene);
         stage.show();
+        ServerService.startServerService();
     }
 
     static void setRoot(String fxml) throws IOException {
