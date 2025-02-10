@@ -27,6 +27,11 @@ public class ChatUserBoxController{
     @FXML
     private Label userLastMessageLabel;
 
+    @FXML
+    private Circle unreadCountCircle;
+
+    @FXML
+    private Label unreadCountLabel;
     
     // public ChatUserBoxController(){
     //     this.username = username;
@@ -54,6 +59,15 @@ public class ChatUserBoxController{
         userLastMessageLabel.setText(lastMessage.getContent());
         Circle circle = new Circle(25,25,25);
         userChatImg.setClip(circle);
+        unreadCountCircle.setVisible(false);
+        unreadCountLabel.setVisible(false);
+        statusCircle.setVisible(false);
+
+        // if(user.getUserStatus().equals(UserStatus.Offline)){
+        //     statusCircle.setStyle("-fx-fill: gray;");
+        // }else{
+        //     statusCircle.setStyle("-fx-fill: green;");
+        // }
     }
 
     

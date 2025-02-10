@@ -194,4 +194,9 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public void unregisterToReceive(long userId) {
         myChatImpl.unregisterToReceive(userId);
     }
+
+    @Override
+    public Chat getChatById(long chatId){
+        return myChatImpl.getChatById(chatId);
+    }
 }

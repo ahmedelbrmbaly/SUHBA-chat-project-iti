@@ -22,7 +22,11 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -30,9 +34,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ChatScreenController implements Initializable {
@@ -158,15 +164,17 @@ public class ChatScreenController implements Initializable {
 
     long currentChatId = -1;
 
-    long currentUserId = 1;
+    long currentUserId = 2;
 
     User currentUserInChatWith;
+
+    User currentUser;
 
     private static ChatScreenController instance;
 
     public ChatScreenController() {
-        if (instance == null) { 
-            instance = this; 
+        if (instance == null) {
+            instance = this;
         }
     }
 
@@ -178,10 +186,24 @@ public class ChatScreenController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
 
         try {
+            // 1- When Opening -> set All lists and messages non visible + setUser Info
+            // 2- Load Chats (Task)
+            // 3- After Loading -> show the gui
+            // 4- If selected -> Load Messages (Task)
+            // 5- After Loading -> show the gui
+            // 6- Sending messages -> save in db (Task)
+            // 7- Show the gui
+            // 8- Receiving messages -> update in gui
+
             chatScreenService = new ChatScreenService(this);
-            System.out.println("controler= " + this);
+            System.out.println("ChatService= " + chatScreenService);
+            System.out.println("Controller= " + this);
+            currentUser = chatScreenService.getUserInfoById(currentUserId);
             chatMessageHeader.setVisible(false);
             chatMessageFooter.setVisible(false);
+            messagesArea.setVisible(false);
+            setUserInfo();
+
             chatScreenService.registerToReceive(currentUserId);
             allChats = chatScreenService.loadUserChats(currentUserId);
             ObservableList<User> userList = FXCollections.observableArrayList(allChats.keySet());
@@ -189,6 +211,7 @@ public class ChatScreenController implements Initializable {
             if (listOfMessages == null) {
                 listOfMessages = FXCollections.observableArrayList();
             }
+
             messagesArea.setItems(listOfMessages);
             messagesArea.setSelectionModel(null);
             listOfMessages.addListener((ListChangeListener<Message>) change -> {
@@ -204,20 +227,14 @@ public class ChatScreenController implements Initializable {
                     }
                 }
             });
-
-            allChats.addListener((MapChangeListener<User, Message>) change -> {
-                if (change.wasAdded() || change.wasRemoved()) {
-                    updateChatList();
-                }
-
-            });
-
-            // listOfMessages.addListener(null);
-
-            chatsListView.setItems(userList);
-            chatsListView.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
-
             Platform.runLater(() -> {
+                allChats.addListener((MapChangeListener<User, Message>) change -> {
+                    if (change.wasAdded() || change.wasRemoved()) {
+                        updateChatList();
+                    }
+                });
+                chatsListView.setItems(userList);
+                chatsListView.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
                 chatsListView.setCellFactory(ListView -> new ChatUserCell(allChats));
             });
 
@@ -231,8 +248,7 @@ public class ChatScreenController implements Initializable {
                         try {
                             currentUserInChatWith = chatScreenService.getSelectedUserInfo(currentChatId, currentUserId);
                             showCurrentUserInChatInfo();
-                            listOfMessages = FXCollections.observableList(chatScreenService
-                                    .getSelectedUserMessages(currentChatId));
+                            listOfMessages.setAll(chatScreenService.getSelectedUserMessages(currentChatId));
                             messagesArea.setItems(listOfMessages);
                             showCurrentChatMessages();
                         } catch (Exception e) {
@@ -245,9 +261,8 @@ public class ChatScreenController implements Initializable {
             });
 
         } catch (RemoteException e) {
+
             e.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
         }
 
         // Handle Chat View :
@@ -287,6 +302,51 @@ public class ChatScreenController implements Initializable {
             }
         });
 
+        Platform.runLater(() -> {
+            chatsListView.getScene().getWindow().setOnCloseRequest(event -> {
+                try {
+                    chatScreenService.unregister(currentUserId);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } finally {
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
+        });
+
+    }
+
+    @FXML
+    void goToGroups(MouseEvent event) {
+        try {
+            // Load Groups FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientGroupScreen.fxml"));
+            // Get the GroupsController
+            // ClientGroupScreenController groupsController = loader.getController();
+            // groupsController.setCurrentUserId(currentUserId); // Pass user ID
+
+            // ClientGroupScreenController groupsController = new ClientGroupScreenController();
+            // groupsController.setCurrentUserId(currentUserId); // Pass user ID
+
+            loader.setControllerFactory(param -> {
+                ClientGroupScreenController controller = new ClientGroupScreenController();
+                controller.setCurrentUserId(currentUserId);
+                return controller;
+            });
+
+            // Set controller before loading
+            // loader.setController(groupsController);
+            Parent root = loader.load();
+            // Switch Scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateChatList() {
@@ -300,31 +360,43 @@ public class ChatScreenController implements Initializable {
     }
 
     private void showCurrentChatMessages() {
-        messagesArea.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
+        Platform.runLater(() -> {
+            messagesArea.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
 
-            @Override
-            public ListCell<Message> call(ListView<Message> param) {
-                return new MessageBubbleCell(currentUserId);
-            }
+                @Override
+                public ListCell<Message> call(ListView<Message> param) {
+                    return new MessageBubbleCell(currentUserId);
+                }
 
+            });
         });
+
     }
 
     private void showCurrentUserInChatInfo() {
-        if (!chatMessageHeader.isVisible() && currentUserInChatWith != null && !chatMessageFooter.isVisible()) {
+        if (!chatMessageHeader.isVisible() && currentUserInChatWith != null && !chatMessageFooter.isVisible()
+                && !messagesArea.isVisible()) {
             chatMessageHeader.setVisible(true);
             chatMessageFooter.setVisible(true);
+            messagesArea.setVisible(true);
         }
         if (currentUserInChatWith != null) {
-            if (currentUserInChatWith.getPicture() == null) {
-                chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
-            } else {
-                chatPicture.setImage((Image) currentUserInChatWith.getPicture());
-            }
-            chatNameLabel.setText(currentUserInChatWith.getDisplayName());
-            userChatStatusLabel.setText(currentUserInChatWith.getUserStatus().name());
-            Circle circle = new Circle(30, 30, 30);
-            chatPicture.setClip(circle);
+            Platform.runLater(() -> {
+                if (currentUserInChatWith.getPicture() == null) {
+                    chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+                } else {
+                    chatPicture.setImage((Image) currentUserInChatWith.getPicture());
+                }
+                chatNameLabel.setText(currentUserInChatWith.getDisplayName());
+                userChatStatusLabel.setText(currentUserInChatWith.getUserStatus().name());
+                if (currentUserInChatWith.getUserStatus().name().equalsIgnoreCase("Offline")) {
+                    userChatStatusCircle.setStyle("-fx-fill: gray;");
+                } else {
+                    userChatStatusCircle.setStyle("-fx-fill: green;");
+                }
+                Circle circle = new Circle(30, 30, 30);
+                chatPicture.setClip(circle);
+            });
         }
     }
 
@@ -350,6 +422,20 @@ public class ChatScreenController implements Initializable {
             System.out.println("Received new message: " + msg);
         });
         return true;
+    }
+
+    public void setUserInfo() {
+        try {
+            User currentUser = chatScreenService.getUserInfoById(currentUserId);
+            if (currentUser.getPicture() == null) {
+                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+            } else {
+                // userProfilePic.setImage();
+            }
+            userNameLabel.setText(currentUser.getDisplayName());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 }

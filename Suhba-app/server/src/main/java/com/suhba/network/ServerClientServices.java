@@ -15,8 +15,11 @@ import com.suhba.exceptions.*;
 public interface ServerClientServices extends Remote {
 
     //////////////////////////////////////////////////////////////////
+    
     public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
     public void unregisterToReceive(long userId) throws RemoteException;
+
+    public Chat getChatById(long chatId) throws RemoteException;
 
     /////////////////////////////////////////////////////////////////
     //Common

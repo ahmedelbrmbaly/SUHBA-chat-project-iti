@@ -1,6 +1,5 @@
 package com.suhba.services.controllers;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -9,35 +8,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.suhba.controllers.ChatScreenController;
-import com.suhba.controllers.components.ChatUserBoxController;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.network.ClientImplementation;
 import com.suhba.network.ClientInterface;
 import com.suhba.network.ServerService;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+
 
 public class ChatScreenService {
 
-    // ServerService serverService;
     ClientInterface client;
     ChatScreenController controller;
 
-    // public ChatScreenService() throws IOException {
-    //     try {
-    //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientChatScreen.fxml"));
-    //         Parent root = loader.load();
-    //         controller = loader.getController();
-    //         client = (ClientInterface) new ClientImplementation(controller);
-    //     } catch (RemoteException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
     public ChatScreenService (ChatScreenController chatScreenController){
         try{
             client = (ClientInterface) new ClientImplementation();
@@ -114,6 +99,14 @@ public class ChatScreenService {
             System.out.println("controller is null");
         }
         controller.receiveNewMessage(msg);
+    }
+
+    public User getUserInfoById(long userId) throws RemoteException{
+        return ServerService.getInstance().getUserById(userId);
+    }
+    public void unregister(long currentUserId) throws RemoteException {
+        ServerService.getInstance().unregisterToReceive(currentUserId);
+        System.out.println("Unregistered! ");
     }
 
 }

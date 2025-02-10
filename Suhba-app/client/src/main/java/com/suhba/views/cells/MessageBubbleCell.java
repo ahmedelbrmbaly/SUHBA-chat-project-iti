@@ -1,9 +1,13 @@
 package com.suhba.views.cells;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import com.suhba.controllers.components.MessageBubbleController;
 import com.suhba.database.entities.Message;
+import com.suhba.database.enums.ChatType;
+import com.suhba.services.MessagingService;
+import com.suhba.services.UserService;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +20,7 @@ public class MessageBubbleCell extends ListCell<Message> {
     private MessageBubbleController controller;
     private long currentUserId;
 
-    public MessageBubbleCell(long currentUserId ){
+    public MessageBubbleCell(long currentUserId) {
         this.currentUserId = currentUserId;
     }
 
@@ -40,14 +44,14 @@ public class MessageBubbleCell extends ListCell<Message> {
             }
             if (controller != null) {
                 if (msg.getSenderId() == currentUserId) {
-                    Platform.runLater(()->{controller.setMessage(msg, true);});
+                    controller.setMessage(msg, true);
                 } else {
-                    Platform.runLater(()->{controller.setMessage(msg, false);});
+                    controller.setMessage(msg, false);
+
                 }
             }
 
         }
 
     }
-
 }

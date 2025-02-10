@@ -17,6 +17,7 @@ public interface ServerClientServices extends Remote {
     public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
     public void unregisterToReceive(long userId) throws RemoteException;
 
+    public Chat getChatById(long chatId) throws RemoteException;
     /////////////////////////////////////////////////////////////////
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)

@@ -8,6 +8,7 @@ import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Group;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
+import com.suhba.database.enums.ChatType;
 import com.suhba.network.ClientInterface;
 
 public interface ChatService {
@@ -15,7 +16,8 @@ public interface ChatService {
     //////////////////////////////////////////////////////////////////
     public void registerToReceiveMessages(long userId, ClientInterface client );
     public void unregisterToReceive(long userId);
-
+    
+    public Chat getChatById(long chatId) throws Exception;
     /////////////////////////////////////////////////////////////////
 
     //Common

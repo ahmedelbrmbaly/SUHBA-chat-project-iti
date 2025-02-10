@@ -45,7 +45,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="groupBoxBar" alignment="CENTER" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                  <VBox fx:id="groupBoxBar" alignment="CENTER" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToGroups" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                      <children>
                         <ImageView fx:id="groupIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -292,7 +292,10 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <TextField fx:id="userMessageTextField" focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1" />
+                        <TextField fx:id="userMessageTextField" focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextField>
                      </children>
                   </GridPane>
                </bottom>
