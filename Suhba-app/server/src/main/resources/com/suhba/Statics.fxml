@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.contollers.StaticsControllers">
    <center>
       <BorderPane prefHeight="720.0" prefWidth="1008.0" BorderPane.alignment="CENTER">
          <center>
@@ -77,22 +77,10 @@
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../UI/left-arrow.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Back" textFill="#f9f7f7">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
                   </HBox>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../UI/LOGO/white.png" />
+                        <Image url="@../../images/white.png" />
                      </image>
                   </ImageView>
                   <Label style="-fx-font-weight: bold;" text="Where Connections, Come Alive." textFill="#f9f7f7" />
@@ -154,12 +142,12 @@
             </GridPane>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToServerManagmentScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/servers.png" />
+                              <Image url="@../../images/servers.png" />
                            </image>
                         </ImageView>
                         <Label text="Server Management" textFill="#f9f7f7">
@@ -169,15 +157,15 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToStatisticsScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/dash.png" />
+                              <Image url="@../../images/dash.png" />
                            </image></ImageView>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/statics.png" />
+                              <Image url="@../../images/statics.png" />
                            </image>
                         </ImageView>
                         <Label text="Statics" textFill="#f9f7f7">
@@ -187,12 +175,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToBrodcastingScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/broadcast.png" />
+                              <Image url="@../../images/broadcast.png" />
                            </image>
                         </ImageView>
                         <Label text="Brodcasting" textFill="#f9f7f7">
@@ -202,12 +190,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToUserManagmentScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/user-management.png" />
+                              <Image url="@../../images/user-management.png" />
                            </image>
                         </ImageView>
                         <Label text="User Managment" textFill="#f9f7f7">
@@ -217,12 +205,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToSettingsScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/settings.png" />
+                              <Image url="@../../images/settings.png" />
                            </image>
                         </ImageView>
                         <Label text="Settings" textFill="#f9f7f7">
@@ -235,12 +223,12 @@
                </children>
             </VBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleLogOut" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../UI/logout.png" />
+                        <Image url="@../../images/logout.png" />
                      </image>
                   </ImageView>
                   <Label text="LogOut" textFill="#f9f7f7">

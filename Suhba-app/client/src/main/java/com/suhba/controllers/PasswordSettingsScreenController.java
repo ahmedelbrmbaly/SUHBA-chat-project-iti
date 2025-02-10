@@ -29,7 +29,7 @@ public class PasswordSettingsScreenController {
         String newPassword = newPasswordField.getText();
         String confirmPassword = confirmNewPasswordField.getText();
 
-        if (!myServices.checkIfMatch(currentPassword)) { // ✅ Fix condition
+        if (!myServices.checkIfMatch(currentPassword)) {
             myServices.showAlert(Alert.AlertType.ERROR, "Error", "Current password is incorrect.");
             return;
         }
@@ -44,7 +44,7 @@ public class PasswordSettingsScreenController {
             return;
         }
 
-        // ✅ Use Remote Service for updating password
+        // Use Remote Service for updating password
         if (myServices.updatePassword(newPassword)) {
             myServices.showAlert(Alert.AlertType.INFORMATION, "Success", "Password updated successfully.");
             clearFields();

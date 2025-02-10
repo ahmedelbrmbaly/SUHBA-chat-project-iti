@@ -1,19 +1,20 @@
 package com.suhba.controllers;
 
-import com.suhba.services.controllers.ProfileSettingsService;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
+import com.suhba.services.controllers.ProfileSettingsService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
-
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.*;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDate;
 
 public class ProfileSettingsScreenController {
 
@@ -32,8 +33,11 @@ public class ProfileSettingsScreenController {
     @FXML
     private ImageView userProfilePic;
 
-    ProfileSettingsService myProfServices = new ProfileSettingsService();
+    private byte[] imageBytes;
+    private Image userImage;
+    private User currentUser;
 
+    ProfileSettingsService myProfServices = new ProfileSettingsService();
 
     @FXML
     public void initialize() {
@@ -42,7 +46,7 @@ public class ProfileSettingsScreenController {
             countryComboBox.getItems().setAll(Country.values());
             genderComboBox.getItems().setAll(Gender.values());
         } else {
-            myProfServices.showAlert(Alert.AlertType.ERROR,"Error","Error: No user data provided!");
+            myProfServices.showAlert(Alert.AlertType.ERROR, "Error", "No user data provided!");
         }
     }
 
@@ -57,12 +61,8 @@ public class ProfileSettingsScreenController {
         userNameLabel.setText(currentUser.getDisplayName());
 
         if (currentUser.getPicture() != null) {
-            try {
-                Image image = new Image(currentUser.getPicture().getBinaryStream());
-                userProfilePic.setImage(image);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            userImage = new Image(currentUser.getPicture());
+            userProfilePic.setImage(userImage);
         }
     }
 
@@ -77,11 +77,15 @@ public class ProfileSettingsScreenController {
         currentUser.setGender(genderComboBox.getValue());
         currentUser.setCountry(countryComboBox.getValue());
 
-        boolean isUpdated = userDAO.updateUserProfile(currentUser);
+        if (imageBytes != null) {
+            currentUser.setPicture(imageBytes);
+        }
+
+        boolean isUpdated = myProfServices.updateUserProfile(currentUser);
         if (isUpdated) {
-            myProfServices.showAlert(Alert.AlertType.INFORMATION,"Success","User profile updated successfully.");
-        }else{
-            myProfServices.showAlert(Alert.AlertType.ERROR,"Error","Failed to update user profile.");
+            myProfServices.showAlert(Alert.AlertType.INFORMATION, "Success", "User profile updated successfully.");
+        } else {
+            myProfServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update user profile.");
         }
     }
 
@@ -93,25 +97,30 @@ public class ProfileSettingsScreenController {
     @FXML
     void handleChangePicture(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png;*.jpg;*.jpeg;*.bmp;*.gif;*.tiff;*.tif;*.webp;*.ico;*.jfif;*.svg;*.heic;*.heif"));
-        File file = fileChooser.showOpenDialog(userProfilePic.getScene().getWindow());
+        fileChooser.setTitle("Select an Image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
 
-        if (file != null) {
-            try (FileInputStream fis = new FileInputStream(file)) {
-                byte[] imageData = fis.readAllBytes();
-                Blob imageBlob = new SerialBlob(imageData);
-                currentUser.setPicture(imageBlob);
-                saveUser();
-
-                Image image = new Image(file.toURI().toString());
-                userProfilePic.setImage(image);
-            } catch (IOException | SQLException e) {
+        File selectedFile = fileChooser.showOpenDialog(userProfilePic.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                userImage = new Image(selectedFile.toURI().toString());
+                userProfilePic.setImage(userImage);
+                imageBytes = Files.readAllBytes(selectedFile.toPath());
+                System.out.println("Image uploaded successfully!");
+            } catch (IOException e) {
                 e.printStackTrace();
-                myProfServices.showAlert(Alert.AlertType.ERROR,"Error", "Failed to load image.");
+                myProfServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to load image.");
             }
+        } else {
+            System.out.println("No file selected!");
         }
     }
 
-
-
+    private boolean validateUserInput() {
+        if (fullNameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+            myProfServices.showAlert(Alert.AlertType.ERROR, "Validation Error", "Please fill in all required fields.");
+            return false;
+        }
+        return true;
+    }
 }

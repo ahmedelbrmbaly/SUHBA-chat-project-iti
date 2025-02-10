@@ -1,16 +1,28 @@
 package com.suhba.contollers;
 
 import com.suhba.daos.implementation.AdminDAOImpl;
+import com.suhba.utils.SessionManager;
 import com.suhba.daos.interfaces.AdminDao;
 import com.suhba.database.entities.Admin;
+import com.suhba.utils.ScreenNavigator;
+import com.suhba.utils.Validation;
+import com.suhba.exceptions.InvalidEmailException;
+import com.suhba.exceptions.InvalidPasswordException;
+import com.suhba.exceptions.RepeatedEmailException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SettingsController {
 
@@ -34,11 +46,13 @@ public class SettingsController {
 
     private final AdminDao adminDao = new AdminDAOImpl();
     private Admin currentAdmin;
+    private final Validation validation = new Validation();
 
     public SettingsController() {
-        // Fetch the admin from the database (Assuming admin ID is 1 for now)
-        this.currentAdmin = adminDao.getAdminById(5L);
-    }
+        this.currentAdmin = SessionManager.getAdmin();
+        if (currentAdmin == null) {
+            System.err.println("Error: No logged-in admin.");
+        }    }
 
     @FXML
     public void initialize() {
@@ -58,8 +72,10 @@ public class SettingsController {
             return;
         }
 
-        if (!isValidPassword(newPassword)) {
-            showAlert("Error", "New password must be at least 8 characters long.");
+        try {
+            validation.validatePassword(newPassword);
+        } catch (InvalidPasswordException e) {
+            showAlert("Error", e.getMessage());
             return;
         }
 
@@ -68,7 +84,7 @@ public class SettingsController {
             return;
         }
 
-        currentAdmin.setPassword(newPassword); // Store password as plain text
+        currentAdmin.setPassword(newPassword);
         if (adminDao.updateAdmin(currentAdmin)) {
             showAlert("Success", "Password updated successfully.");
             clearFields();
@@ -78,11 +94,7 @@ public class SettingsController {
     }
 
     private boolean validateCurrentPassword(String inputPassword) {
-        return inputPassword.equals(currentAdmin.getPassword()); // Compare directly
-    }
-
-    private boolean isValidPassword(String password) {
-        return password.length() >= 8;
+        return inputPassword.equals(currentAdmin.getPassword());
     }
 
     private void clearFields() {
@@ -104,22 +116,15 @@ public class SettingsController {
         saveAdmin();
     }
 
-    private boolean validateAdminInput() {
-        if (!primaryEmailField.getText().matches("^(.+)@(.+)$")) {
-            showAlert("Error", "Invalid email format.");
-            return false;
-        }
-        return true;
-    }
-
     private void saveAdmin() {
-        if (!validateAdminInput()) {
-            showAlert("Error", "Cannot save admin profile.");
+        try {
+            validation.validateEmail(primaryEmailField.getText());
+        } catch (RepeatedEmailException | InvalidEmailException e) {
+            showAlert("Error", e.getMessage());
             return;
         }
 
         currentAdmin.setAdminEmail(primaryEmailField.getText());
-
         boolean isUpdated = adminDao.updateAdmin(currentAdmin);
         if (isUpdated) {
             showAlert("Success", "Admin profile updated successfully.");
@@ -129,7 +134,32 @@ public class SettingsController {
     }
 
     @FXML
+    void goToBrodcastingScreen(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "Broadcast.fxml");
+    }
+
+    @FXML
+    void goToServerManagmentScreen(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "serverManagement.fxml");
+    }
+
+    @FXML
+    void goToSettingsScreen(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "settings.fxml");
+    }
+
+    @FXML
+    void goToStatisticsScreen(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "Statics.fxml");
+    }
+
+    @FXML
+    void goToUserManagmentScreen(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "User Management.fxml");
+    }
+
+    @FXML
     void handleLogOut(MouseEvent event) {
-        // Handle admin logout
+        ScreenNavigator.loadScreen(event, "login.fxml");
     }
 }
