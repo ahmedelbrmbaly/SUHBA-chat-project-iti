@@ -47,15 +47,6 @@ public interface ServerClientServices extends Remote {
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
-    // Contact Screen
-    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
-    public boolean sendFriendRequest(long userId) throws RemoteException;
-
-    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
-    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
-
-    public List<User> getAllPendingRequests(long userId) throws RemoteException;
-    public List<User> getAllFriends(long userId) throws RemoteException;
 
     boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException;
 
@@ -81,6 +72,24 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
+
+//////////////////////////////////////////////////////////////////////////////
+
+    // Contact Screen
+    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
+    public boolean sendFriendRequest(long userId) throws RemoteException;
+
+    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
+    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
+
+    public List<User> getAllPendingRequests(long userId) throws RemoteException;
+    public List<User> getAllFriends(long userId) throws RemoteException;
+
+    public boolean updateRequestStatus(long userId, ContactStatus status );
+
+    public boolean deleteContact(long userId);
+
+//////////////////////////////////////////////////////////////////////////////
 
     // Settings Screen
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;

@@ -3,6 +3,7 @@ module com.suhba {
     requires javafx.fxml;
     requires java.sql;
     requires java.rmi;
+    requires javafx.web;
 
     opens com.suhba to javafx.graphics, javafx.fxml;
     opens com.suhba.contollers to javafx.fxml; // Fix: Open controllers package for JavaFX

@@ -133,6 +133,16 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public boolean updateRequestStatus(long userId, ContactStatus status) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteContact(long userId) {
+        return false;
+    }
+
+    @Override
     public boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException {
         return myContactImpl.updateRequestStatusFromPendingToAccepted(contact, status);
     }
