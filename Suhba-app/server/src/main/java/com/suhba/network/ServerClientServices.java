@@ -106,14 +106,7 @@ public interface ServerClientServices extends Remote {
 //////////////////////////////////////////////////////////////////////////////
 
     // Contact Screen
-    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
-    public boolean sendFriendRequest(long userId) throws RemoteException;
 
-    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
-    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
-
-    public List<User> getAllPendingRequests(long userId) throws RemoteException;
-    public List<User> getAllFriends(long userId) throws RemoteException;
 
     public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
 
