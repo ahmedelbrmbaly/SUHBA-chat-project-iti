@@ -115,6 +115,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException {
+        return myContactImpl.sendFriendRequest(userId1, userId2);
+    }
+
+    @Override
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException {
         return myContactImpl.sendFriendRequests(phoneNumber);
     }
@@ -122,6 +127,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException {
         return myContactImpl.sendFriendRequestsById(userId);
+    }
+
+    @Override
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException {
+        return myContactImpl.sendFriendRequestsById(userId1, userId);
     }
 
     @Override
@@ -192,6 +202,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException{
         myAuthImpl.saveLastPart(name, gender, DOB, country, picture);
+    }
+
+    @Override
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException {
+        return myAuthImpl.getUserIdsByPhones(phones);
     }
 
     @Override

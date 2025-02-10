@@ -1,5 +1,6 @@
 package com.suhba.controllers;
 
+import com.suhba.services.controllers.AddNewFriendService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -29,14 +30,11 @@ public class AddNewFriendController {
     @FXML
     private ImageView rejectFriend;
 
+    AddNewFriendService myServices = new AddNewFriendService();
+
     @FXML
     void handleAddFriend(MouseEvent event) {
-
-    }
-
-    @FXML
-    void handleBlockFriend(MouseEvent event) {
-
+        // myServices.sendFriendRequest(myServices.getCurUser().getUserId(), );
     }
 
     @FXML
@@ -51,11 +49,6 @@ public class AddNewFriendController {
 
     @FXML
     void handlePhoneFriend(MouseEvent event) {
-
-    }
-
-    @FXML
-    void handleRejectFriend(MouseEvent event) {
 
     }
 

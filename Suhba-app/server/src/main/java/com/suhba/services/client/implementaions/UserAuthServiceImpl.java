@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.Enumeration;
+import java.util.List;
 
 public class UserAuthServiceImpl implements UserAuthService {
     UserDAOImpl myObj;
@@ -193,6 +194,11 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public boolean isPasswordMatchUser(long userId, String password) throws RemoteException, NoSuchAlgorithmException {
         return myObj.getUserById(userId).getPassword().equals(myHashing.doHashing(password));
+    }
+
+    @Override
+    public List<Long> getUserIdsByPhones(List<String> phones) {
+        return myObj.getUserIdsByPhones(phones);
     }
 
 

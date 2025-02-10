@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface UserAuthService {
 
@@ -38,6 +39,7 @@ public interface UserAuthService {
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
     public User getUserByPhoneNumber (String phoneNumber) throws RemoteException;
     public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+    public List<Long> getUserIdsByPhones(List<String> phones);
     //public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 }
 

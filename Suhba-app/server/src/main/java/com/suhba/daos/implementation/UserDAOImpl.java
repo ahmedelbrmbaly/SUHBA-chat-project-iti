@@ -381,6 +381,28 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public List<Long> getUserIdsByPhones(List<String> phones) {
+        List<Long> userIds = new ArrayList<>();
+        String sql = "SELECT userId FROM Users WHERE phone = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            for (String phone : phones) {
+                stmt.setString(1, phone);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        userIds.add(rs.getLong("userId"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return userIds;
+    }
+
+    @Override
     public List<User> getUsersById(List<Long> userIds) {
         if (userIds == null || userIds.isEmpty()) {
             return List.of();

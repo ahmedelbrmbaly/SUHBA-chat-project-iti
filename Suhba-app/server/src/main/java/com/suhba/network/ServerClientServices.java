@@ -58,8 +58,12 @@ public interface ServerClientServices extends Remote {
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
 
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
+
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
+
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
 
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;
@@ -95,7 +99,7 @@ public interface ServerClientServices extends Remote {
     public boolean saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
-
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
 
     // Settings Screen
 

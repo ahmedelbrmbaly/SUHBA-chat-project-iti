@@ -19,6 +19,9 @@ public interface ServerClientServices extends Remote {
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
+
     // File trasnfer handling >> To Be Searched
 
     // CHAT SCREEN METHODS
@@ -99,4 +102,6 @@ public interface ServerClientServices extends Remote {
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
     public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
 }

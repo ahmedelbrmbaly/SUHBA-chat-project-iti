@@ -24,16 +24,19 @@ public class ContactDAOImpl implements ContactDAO {
 
     @Override
     public boolean addContact(Contact contact) {
+        if (getContactsByUserId1AndUserId2(contact.getUserId1(), contact.getUserId2()) != null)  return false;
+        System.out.println("In addContact method");
         String query = "INSERT INTO Contacts (userId1, userId2, contactStatus) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1,contact.getUserId1());
             preparedStatement.setLong(2, contact.getUserId2());
             preparedStatement.setString(3, contact.getContactStatus().name());
             int added = preparedStatement.executeUpdate();
-            if(added>1) return true;
+            if(added>0) return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("In addContact method");
         return false;
     }
 
@@ -79,6 +82,35 @@ public class ContactDAOImpl implements ContactDAO {
         """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                long user1 = resultSet.getLong(1);
+                long user2 = resultSet.getLong(2);
+                ContactStatus status = ContactStatus.valueOf(resultSet.getString(2));
+                Contact c = new Contact(user1,user2,status);
+                contacts.add(c);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getContactsByUserId1AndUserId2(long userId1, long userId2) {
+        List<Contact> contacts = new ArrayList<>();
+
+        String query = """
+            SELECT c.userId1, c.userId2, c.contactStatus AS contactDisplayName, 
+                   u.phone AS contactPhone, u.userEmail AS contactEmail
+            FROM Contacts c
+            JOIN Users u ON u.userId = c.userId2
+            WHERE c.userId1 = ? and userId2 = ?
+        """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, userId1);
+            preparedStatement.setLong(2, userId2);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 long user1 = resultSet.getLong(1);
