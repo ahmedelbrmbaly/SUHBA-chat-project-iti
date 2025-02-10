@@ -1,65 +1,106 @@
 package com.suhba.controllers;
 
-import com.suhba.exceptions.InvalidPasswordException;
-import com.suhba.services.controllers.PasswordSettingsService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-
-import java.rmi.RemoteException;
-import java.security.NoSuchAlgorithmException;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 public class PasswordSettingsScreenController {
 
     @FXML
-    private PasswordField currentPasswordField;
+    private VBox chatBoxBar;
+
     @FXML
-    private PasswordField newPasswordField;
+    private ImageView chatIconView;
+
+    @FXML
+    private Label chatLabel;
+
+    @FXML
+    private VBox chatbotBoxBar;
+
+    @FXML
+    private ImageView chatbotIconView;
+
+    @FXML
+    private Label chatbotLabel;
+
     @FXML
     private PasswordField confirmNewPasswordField;
+
+    @FXML
+    private VBox contactsBoxBar;
+
+    @FXML
+    private ImageView contactsIconView;
+
+    @FXML
+    private Label contactsLabel;
+
+    @FXML
+    private PasswordField currentPasswordField;
+
     @FXML
     private Button editBtn;
 
-    PasswordSettingsService myServices = new PasswordSettingsService();
+    @FXML
+    private VBox groupBoxBar;
 
     @FXML
-    private void handleEditAction() throws NoSuchAlgorithmException, RemoteException, InvalidPasswordException {
-        String currentPassword = currentPasswordField.getText();
-        String newPassword = newPasswordField.getText();
-        String confirmPassword = confirmNewPasswordField.getText();
+    private ImageView groupIconView;
 
-        if (!myServices.checkIfMatch(currentPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "Current password is incorrect.");
-            return;
-        }
+    @FXML
+    private Label groupsLabel;
 
-        if (!isValidPassword(newPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "New password must be at least 8 characters long.");
-            return;
-        }
+    @FXML
+    private VBox logoutBoxBar;
 
-        if (!newPassword.equals(confirmPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "New passwords do not match.");
-            return;
-        }
+    @FXML
+    private ImageView logoutIconView;
 
-        // Use Remote Service for updating password
-        if (myServices.updatePassword(newPassword)) {
-            myServices.showAlert(Alert.AlertType.INFORMATION, "Success", "Password updated successfully.");
-            clearFields();
-        } else {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update password. Try again.");
-        }
+    @FXML
+    private Label logoutLabel;
+
+    @FXML
+    private PasswordField newPasswordField;
+
+    @FXML
+    private VBox settingBoxBar;
+
+    @FXML
+    private ImageView settingIconView;
+
+    @FXML
+    private Label settingLabel;
+
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private ImageView userProfilePic;
+
+    @FXML
+    void handleConfirmNewPasswordField(ActionEvent event) {
+
     }
 
-    private boolean isValidPassword(String password) {
-        return password.length() >= 8;
+    @FXML
+    void handleCurrentPasswordField(ActionEvent event) {
+
     }
 
-    private void clearFields() {
-        currentPasswordField.clear();
-        newPasswordField.clear();
-        confirmNewPasswordField.clear();
+    @FXML
+    void handleEditAction(ActionEvent event) {
+
     }
+
+    @FXML
+    void handleNewPasswordField(ActionEvent event) {
+
+    }
+
 }
+

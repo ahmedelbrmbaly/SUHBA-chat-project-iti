@@ -1,21 +1,13 @@
 package com.suhba.contollers;
 
-import com.suhba.utils.SessionManager;
 import com.suhba.daos.implementation.AdminDAOImpl;
-import com.suhba.database.entities.Admin;
-import com.suhba.daos.interfaces.AdminDao;
+import com.suhba.services.server.implementations.ServerServiceImpl;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class LoginController {
 
-    private final AdminDao adminDao = new AdminDAOImpl();
+    private ServerServiceImpl serverService = new ServerServiceImpl();
 
     @FXML
     private TextField loginEmail;
@@ -26,45 +18,31 @@ public class LoginController {
     @FXML
     private Button adminLoginBtn;
 
+
     @FXML
     private void adminLogin() {
-        String email = loginEmail.getText().trim();
-        String password = loginPassword.getText().trim();
+        String email = loginEmail.getText();
+        String password = loginPassword.getText();
 
-        if (adminDao.isAdminCradentialsValid(email, password)) {
-            Admin admin = adminDao.getAdminByEmail(email);
-            if (admin != null) {
-                // Store the logged-in admin in SessionManager
-                SessionManager.setAdmin(admin);
-                System.out.println("Login successful. Admin ID: " + SessionManager.getAdminId());
+        // Logging email and password for debugging
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
 
-                loadBroadcastScreen();
-            } else {
-                System.err.println("Error: Could not retrieve admin details.");
-            }
+        if (serverService.login(email, password) != null) {
+            System.out.println("Login successful");
+            // Proceed with the successful login workflow (e.g., navigate to another view)
         } else {
-            showLoginError();
+            System.out.println("Login failed");
+            // Clear input fields
+            loginEmail.setText("");
+            loginPassword.setText("");
+
+            // Show an alert to the user about the failed login
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Failed");
+            alert.setHeaderText("Invalid Credentials");
+            alert.setContentText("Wrong email or password. Please try again.");
+            alert.showAndWait(); // Show the alert and wait for user interaction
         }
-    }
-
-    private void loadBroadcastScreen() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/serverManagement.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) adminLoginBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to load Broadcast.fxml: " + e.getMessage());
-        }
-    }
-
-    private void showLoginError() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Login Failed");
-        alert.setHeaderText("Invalid Credentials");
-        alert.setContentText("Wrong Email or Password. Please try again.");
-        alert.showAndWait();
     }
 }
