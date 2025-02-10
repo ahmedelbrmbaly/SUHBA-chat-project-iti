@@ -18,6 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class SignUp1Service {
     ServerClientServices serverService = ServerService.getInstance();
+    public static String curRegisteredPhone = null;
 
     public void showErrorAlert (String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -28,7 +29,11 @@ public class SignUp1Service {
 
     public boolean checkInfo (String phone, String email, String password) throws RemoteException {
         try {
-            return serverService.saveFirstPart(phone, email, password);
+            if (serverService.saveFirstPart(phone, email, password)) {
+                curRegisteredPhone = phone;
+                return true;
+            }
+            else  return false;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (InvalidPhoneException e) {
@@ -52,6 +57,7 @@ public class SignUp1Service {
     }
 
     public void moveToNextPage (ActionEvent event, String destinationPage) {
+        System.out.println("curRegisteredPhone = " + curRegisteredPhone);
         Parent parent = null;
         try {
             parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));

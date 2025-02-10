@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.rmi.RemoteException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -151,12 +152,12 @@ public class SignUpScreen2Controller implements Initializable {
     }
 
     @FXML
-    void handleSignUp(ActionEvent event) {
+    void handleSignUp(ActionEvent event) throws RemoteException {
         Gender gender = null;
         if (maleRadiobtn.isSelected())  gender = Gender.valueOf(maleRadiobtn.getText());
         else if (femaleRadiobtn.isSelected())  gender = Gender.valueOf(femaleRadiobtn.getText());
         if (myServices.checkInfo(usernameField.getText(), gender, dateOfBirthPicker.getValue(), countryComboBox.getValue(), imageBytes)) {
-            myServices.moveToNextPage(event, "signInPage1.fxml");
+            myServices.moveToNextPage(event, "ClientChatScreen.fxml");
         }
     }
 

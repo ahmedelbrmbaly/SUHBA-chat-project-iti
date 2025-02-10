@@ -85,8 +85,9 @@ public class SignUpScreen1Controller {
         }
 
 
-        if (myServices.checkInfo(phoneSignUpField.getText(), emailField.getText(), passSignUpField.getText()))
+        if (myServices.checkInfo(phoneSignUpField.getText(), emailField.getText(), passSignUpField.getText())){
             myServices.moveToNextPage(event, "signUpPage2.fxml");
+        }
     }
 
     @FXML

@@ -17,7 +17,7 @@ import java.rmi.RemoteException;
 
 public class SignIn1Service {
     ServerClientServices serverService = ServerService.getInstance();
-    static User curUser;
+    public static User curUser = null;
 
     public boolean checkIfExist (String phone) throws RemoteException {
         curUser = serverService.getUserByPhoneNumber(phone);

@@ -1,5 +1,6 @@
 package com.suhba.services.controllers;
 
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
@@ -26,13 +27,7 @@ import java.time.LocalDate;
 
 public class SignUp2Service {
     ServerClientServices serverService = ServerService.getInstance();
-
-    public void showErrorAlert (String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+    public static User curRegisterdUser = null;
 
     public void moveToNextPage(MouseEvent event, String destinationPage) {
         Parent parent = null;
@@ -47,7 +42,9 @@ public class SignUp2Service {
         stage.show();
     }
 
-    public void moveToNextPage (ActionEvent event, String destinationPage) {
+    public void moveToNextPage (ActionEvent event, String destinationPage) throws RemoteException {
+        curRegisterdUser = serverService.getUserByPhoneNumber(SignUp1Service.curRegisteredPhone);
+        System.out.println("curRegisterdUser" + curRegisterdUser);
         Parent parent = null;
         try {
             parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));
@@ -62,7 +59,6 @@ public class SignUp2Service {
 
     public boolean checkInfo (String name, Gender gender, LocalDate DOB, Country country, byte[] picture) {
         try {
-            //serverService.saveLastPart(name, gender, DOB, country, picture);
             serverService.saveLastPart(name, gender, DOB, country, picture);
         } catch (RemoteException e) {
             System.out.println("A problem in BLOB!!");

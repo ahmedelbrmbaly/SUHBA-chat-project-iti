@@ -69,7 +69,7 @@ public interface ServerClientServices extends Remote {
     boolean updateRequestStatusFromPendingToDeclined(Contact contact, ContactStatus status) throws RemoteException;
 
     public boolean deleteContact(Contact contact) throws RemoteException;
-
+   // public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
     // Signup & Signin Screens & Logout
 

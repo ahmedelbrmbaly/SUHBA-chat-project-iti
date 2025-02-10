@@ -157,6 +157,16 @@ public class UserAuthServiceImpl implements UserAuthService {
         return true;
     }
 
+   /* @Override
+    public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        boolean isValid = saveFirstPart(phone, email, password);
+        if (isValid) {
+            long userId = myObj.getUserIdByPhone(phone);
+            System.out.println("User registered with ID: " + userId);
+            return userId;
+        }
+        return -1;
+    }*/
 
 
     @Override

@@ -40,8 +40,15 @@ public class ChatScreenService {
 
     public void logoutService () throws IOException {
         System.out.println("In logout");
-        System.out.println("The cur user id = " + SignIn1Service.curUser.getUserId());
-        serverService.logout(getMacAddress(), SignIn1Service.curUser.getUserId());
+        if (SignIn1Service.curUser != null) {
+            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
+            serverService.logout(getMacAddress(), SignIn1Service.curUser.getUserId());
+        }
+        else if (SignUp2Service.curRegisterdUser != null) {
+            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
+            serverService.logout(getMacAddress(), SignUp2Service.curRegisterdUser.getUserId());
+        }
+        //else if () //////////////////////////////////////////////////////////////////
     }
 
     public void moveToNextPage(MouseEvent event, String destinationPage) {
