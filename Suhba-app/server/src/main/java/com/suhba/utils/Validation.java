@@ -24,7 +24,7 @@ public class Validation {
     }
 
     public boolean validatePassword(String password) throws InvalidPasswordException {
-        if (!Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\[\\]{}_\\-=+/.?~,'])[A-Za-z\\d!@#$%^&*()\\[\\]{}_\\-=+/.?~,'\\s]{8,}$", password))  throw new InvalidPasswordException("The password you entered already exists...It must contain at least: one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long");
+        if (!Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\[\\]{}_\\-=+/.?~,'])[A-Za-z\\d!@#$%^&*()\\[\\]{}_\\-=+/.?~,'\\s]{8,}$", password))  throw new InvalidPasswordException("The password you entered is invalid...It must contain at least 8 characters including one uppercase letter, one lowercase letter, one digit, one special character");
         return true;
     }
 }

@@ -2,12 +2,16 @@ package com.suhba.network;
 
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +19,9 @@ public interface ServerClientServices extends Remote {
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
+
     // File trasnfer handling >> To Be Searched
 
     // CHAT SCREEN METHODS
@@ -43,7 +50,9 @@ public interface ServerClientServices extends Remote {
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
+
     // Contact Screen
+
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
 
@@ -59,6 +68,8 @@ public interface ServerClientServices extends Remote {
 
     public boolean deleteContact(Contact contact) throws RemoteException;
 
+
+    // Signup & Signin Screens & Logout
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
 
@@ -77,10 +88,24 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
+    public String getMacAddress() throws RemoteException, SocketException;
+
+    public boolean saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
+
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
+    //public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
     // Settings Screen
+
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
+
+
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
+    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
+
 // annoucement
 
     public void showAnnouncement(String message) throws RemoteException;
@@ -89,4 +114,5 @@ public interface ServerClientServices extends Remote {
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
     public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
 }

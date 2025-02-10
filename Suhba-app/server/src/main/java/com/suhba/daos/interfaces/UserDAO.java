@@ -24,6 +24,7 @@ public interface UserDAO {  //CRUD
     List<User> getUsersByEmail(String email);
     List<User> getAllUsers();
     List<User> getUsersById(List<Long> userIds);
+    List<Long> getUserIdsByPhones(List<String> phones);
 
     public Map<Country, Long> getUsersCountries();
     public Map<UserStatus, Long> getUsersStatus();

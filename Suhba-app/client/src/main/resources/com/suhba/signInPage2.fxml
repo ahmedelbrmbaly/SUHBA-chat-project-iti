@@ -75,7 +75,7 @@
                         <Insets left="110.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <Label fx:id="forgetPassLabel" onMouseClicked="#handleForgotPassword" prefHeight="17.0" prefWidth="99.0" style="-fx-cursor: hand;" text="Forgot password?" textFill="#3f72af">
+                  <Label fx:id="forgetPassLabel" prefHeight="17.0" prefWidth="99.0" style="-fx-cursor: hand;" text="Forgot password?" textFill="#3f72af">
                      <HBox.margin>
                         <Insets left="58.0" />
                      </HBox.margin>
@@ -88,7 +88,7 @@
                   <Insets top="15.0" />
                </GridPane.margin>
             </HBox>
-            <PasswordField fx:id="passSignInField" onAction="#handleSignInButton" GridPane.rowIndex="2">
+            <PasswordField fx:id="passSignInField" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="110.0" right="100.0" top="5.0" />
                </GridPane.margin>

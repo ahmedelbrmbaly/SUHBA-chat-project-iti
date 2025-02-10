@@ -34,6 +34,10 @@ public class ServerService {
     public static void startServerService()
     {
         try {
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
             // Get the server instance
             ServerClientServices serverService = ServerService.getInstance();
 
@@ -45,6 +49,7 @@ public class ServerService {
         } catch (RemoteException e) {
             System.err.println("Failed to register client: " + e.getMessage());
             e.printStackTrace();
+
 
         }
     }
