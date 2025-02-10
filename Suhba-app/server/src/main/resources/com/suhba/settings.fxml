@@ -53,20 +53,20 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField VBox.vgrow="ALWAYS" />
+                              <PasswordField fx:id="currentPasswordField" VBox.vgrow="ALWAYS" />
                               <Label text="New Password" textFill="#112d4e">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField />
+                              <PasswordField fx:id="newPasswordField" />
                               <Label text="Confirm New Password" textFill="#112d4e">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField />
-                              <Button mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Update Password" textFill="#f9f7f7">
+                              <PasswordField fx:id="confirmNewPasswordField" />
+                              <Button fx:id="updatePassBtn" mnemonicParsing="false" onAction="#handleUpdatePassword" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Update Password" textFill="#f9f7f7">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -88,24 +88,16 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField text="Example@Example.com" />
-                              <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                              <Label text="Two Factory Auth" textFill="#112d4e">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Status" textFill="#112d4e">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField disable="true" editable="false" text="Currently Disabled" />
-                              <Button mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Enable" textFill="#f9f7f7">
+                              <TextField fx:id="primaryEmailField" text="Example@Example.com" />
+                              <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#handleSaveBtn" prefHeight="30.0" prefWidth="87.0" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Save" textFill="#f9f7f7">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
                               </Button>
+                              <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                            </children>
                            <padding>
                               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -215,7 +207,7 @@
                               <Image url="@../../images/servers.png" />
                            </image>
                         </ImageView>
-                        <Label style="-fx-cursor: hand;" text="Server Management" textFill="#f9f7f7">
+                        <Label fx:id="serverManagementLabel" style="-fx-cursor: hand;" text="Server Management" textFill="#f9f7f7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -230,7 +222,7 @@
                               <Image url="@../../images/statics.png" />
                            </image>
                         </ImageView>
-                        <Label text="Statics" textFill="#f9f7f7">
+                        <Label fx:id="staticsLabel" text="Statics" textFill="#f9f7f7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -245,7 +237,7 @@
                               <Image url="@../../images/broadcast.png" />
                            </image>
                         </ImageView>
-                        <Label style="-fx-cursor: hand;" text="Brodcasting" textFill="#f9f7f7">
+                        <Label fx:id="brodcastingLabel" style="-fx-cursor: hand;" text="Brodcasting" textFill="#f9f7f7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -260,7 +252,7 @@
                               <Image url="@../../images/user-management.png" />
                            </image>
                         </ImageView>
-                        <Label style="-fx-cursor: hand;" text="User Managment" textFill="#f9f7f7">
+                        <Label fx:id="userManagmentLabel" style="-fx-cursor: hand;" text="User Managment" textFill="#f9f7f7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -278,7 +270,7 @@
                               <Image url="@../../images/settings.png" />
                            </image>
                         </ImageView>
-                        <Label style="-fx-cursor: hand;" text="Settings" textFill="#f9f7f7">
+                        <Label fx:id="settingsLabel" style="-fx-cursor: hand;" text="Settings" textFill="#f9f7f7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -296,7 +288,7 @@
                         <Image url="@../../images/logout.png" />
                      </image>
                   </ImageView>
-                  <Label text="LogOut" textFill="#f9f7f7">
+                  <Label fx:id="logOutLabel" onMouseClicked="#handleLogOut" text="LogOut" textFill="#f9f7f7">
                      <font>
                         <Font size="14.0" />
                      </font>

@@ -1,10 +1,10 @@
 package com.suhba.contollers;
 
-import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.User;
+import com.suhba.daos.implementation.AdminDAOImpl;
+import com.suhba.daos.interfaces.AdminDao;
+import com.suhba.database.entities.Admin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,15 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ResourceBundle;
-
 public class SettingsController {
-
-    @FXML
-    private Label brodcastingLabel;
 
     @FXML
     private PasswordField confirmNewPasswordField;
@@ -29,10 +21,7 @@ public class SettingsController {
     private PasswordField currentPasswordField;
 
     @FXML
-    private Button enableBtn;
-
-    @FXML
-    private Label logOutLabel;
+    private Button saveBtn;
 
     @FXML
     private PasswordField newPasswordField;
@@ -41,54 +30,21 @@ public class SettingsController {
     private TextField primaryEmailField;
 
     @FXML
-    private TextField primaryPhoneField;
-
-    @FXML
-    private Button saveBtn;
-
-    @FXML
-    private Label serverManagementLabel;
-
-    @FXML
-    private Label settingsLabel;
-
-    @FXML
-    private Label staticsLabel;
-
-    @FXML
-    private TextField statusField;
-
-    @FXML
     private Button updatePassBtn;
 
-    @FXML
-    private Label userManagmentLabel;
+    private final AdminDao adminDao = new AdminDAOImpl();
+    private Admin currentAdmin;
 
-    private final UserDAO userDAO;
-    private User currentUser;
-
-    public SettingsController(UserDAO userDAO, User user) {
-        this.userDAO = userDAO;
-        this.currentUser = user;
+    public SettingsController() {
+        // Fetch the admin from the database (Assuming admin ID is 1 for now)
+        this.currentAdmin = adminDao.getAdminById(5L);
     }
 
     @FXML
     public void initialize() {
-        if (currentUser != null) {
-            primaryEmailField.setText(currentUser.getUserEmail());
-            primaryPhoneField.setText(currentUser.getPhone());
-            statusField.setText(currentUser.getUserStatus().toString());
+        if (currentAdmin != null) {
+            primaryEmailField.setText(currentAdmin.getAdminEmail());
         }
-    }
-
-    @FXML
-    void handleEnableBtn(ActionEvent event) {
-        // Handle enabling some settings feature
-    }
-
-    @FXML
-    void handleLogOut(MouseEvent event) {
-        // Handle user logout
     }
 
     @FXML
@@ -112,8 +68,8 @@ public class SettingsController {
             return;
         }
 
-        String hashedPassword = hashPassword(newPassword);
-        if (userDAO.updateUserPassword(currentUser.getUserId(), hashedPassword)) {
+        currentAdmin.setPassword(newPassword); // Store password as plain text
+        if (adminDao.updateAdmin(currentAdmin)) {
             showAlert("Success", "Password updated successfully.");
             clearFields();
         } else {
@@ -122,7 +78,7 @@ public class SettingsController {
     }
 
     private boolean validateCurrentPassword(String inputPassword) {
-        return hashPassword(inputPassword).equals(currentUser.getPassword());
+        return inputPassword.equals(currentAdmin.getPassword()); // Compare directly
     }
 
     private boolean isValidPassword(String password) {
@@ -135,21 +91,6 @@ public class SettingsController {
         confirmNewPasswordField.clear();
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            showAlert("Error", "Error hashing the password.");
-            return "";
-        }
-    }
-
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -159,34 +100,36 @@ public class SettingsController {
     }
 
     @FXML
-    void handleSaveBtn(ActionEvent event) {saveUser();}
+    void handleSaveBtn(ActionEvent event) {
+        saveAdmin();
+    }
 
-    private boolean validateUserInput() {
+    private boolean validateAdminInput() {
         if (!primaryEmailField.getText().matches("^(.+)@(.+)$")) {
-            showAlert("Error","Invalid email format.");
-            return false;
-        }
-        if (!primaryPhoneField.getText().matches("^\\+?[0-9]{7,15}$")) {
-            showAlert("Error","Invalid phone number.");
+            showAlert("Error", "Invalid email format.");
             return false;
         }
         return true;
     }
 
-    private void saveUser() {
-        if (!validateUserInput()) {
-            showAlert("Error", "Can not Save.");
+    private void saveAdmin() {
+        if (!validateAdminInput()) {
+            showAlert("Error", "Cannot save admin profile.");
             return;
         }
 
-        currentUser.setUserEmail(primaryEmailField.getText());
-        currentUser.setPhone(primaryPhoneField.getText());
+        currentAdmin.setAdminEmail(primaryEmailField.getText());
 
-        boolean isUpdated = userDAO.updateUserProfile(currentUser);
+        boolean isUpdated = adminDao.updateAdmin(currentAdmin);
         if (isUpdated) {
-            showAlert("Success","Admin profile updated successfully.");
-        }else{
-            showAlert("Error","Failed to update Admin profile.");
+            showAlert("Success", "Admin profile updated successfully.");
+        } else {
+            showAlert("Error", "Failed to update admin profile.");
         }
+    }
+
+    @FXML
+    void handleLogOut(MouseEvent event) {
+        // Handle admin logout
     }
 }

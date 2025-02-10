@@ -95,7 +95,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="serverMangmentPhoto" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                  <Group fx:id="serverMangmentBtn" onMouseClicked="#getServerManagmentScreen">
+                  <Group fx:id="serverMangmentBtn" onMouseClicked="#getServerManagmentScreen" style="-fx-cursor: hand;">
                      <children>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -114,7 +114,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="statisticsPhoto" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                  <Group fx:id="statisticsBtn" onMouseClicked="#getStatisticsScreen">
+                  <Group fx:id="statisticsBtn" onMouseClicked="#getStatisticsScreen" style="-fx-cursor: hand;">
                      <children>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -133,7 +133,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="brodcastingPhoto" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                  <Group fx:id="brodcastingBtn" onMouseClicked="#getBrodcastingScreen">
+                  <Group fx:id="brodcastingBtn" onMouseClicked="#getBrodcastingScreen" style="-fx-cursor: hand;">
                      <children>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -152,7 +152,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="userManagmentPhoto" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                  <Group fx:id="userManagmentBtn" onMouseClicked="#getUserManagmentScreen">
+                  <Group fx:id="userManagmentBtn" onMouseClicked="#getUserManagmentScreen" style="-fx-cursor: hand;">
                      <children>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -171,7 +171,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="settingsPhoto" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                  <Group fx:id="settingsBtn" onMouseClicked="#getSettingsScreen">
+                  <Group fx:id="settingsBtn" onMouseClicked="#getSettingsScreen" style="-fx-cursor: hand;">
                      <children>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -193,7 +193,7 @@
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-            <Group fx:id="logoutBtn" onMouseClicked="#logout">
+            <Group fx:id="logoutBtn" onMouseClicked="#logout" style="-fx-cursor: hand;">
                <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

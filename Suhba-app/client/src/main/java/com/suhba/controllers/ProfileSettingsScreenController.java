@@ -1,7 +1,6 @@
 package com.suhba.controllers;
 
-import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.User;
+import com.suhba.services.controllers.ProfileSettingsService;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import javafx.event.ActionEvent;
@@ -15,17 +14,8 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class ProfileSettingsScreenController {
-
-    private final UserDAO userDAO;
-    private User currentUser;
-
-    public ProfileSettingsScreenController(UserDAO userDAO, User user) {
-        this.userDAO = userDAO;
-        this.currentUser = user;
-    }
 
     @FXML
     private TextField fullNameField, emailField, phoneField;
@@ -42,6 +32,9 @@ public class ProfileSettingsScreenController {
     @FXML
     private ImageView userProfilePic;
 
+    ProfileSettingsService myProfServices = new ProfileSettingsService();
+
+
     @FXML
     public void initialize() {
         if (currentUser != null) {
@@ -49,7 +42,7 @@ public class ProfileSettingsScreenController {
             countryComboBox.getItems().setAll(Country.values());
             genderComboBox.getItems().setAll(Gender.values());
         } else {
-            showAlert("Error","Error: No user data provided!");
+            myProfServices.showAlert(Alert.AlertType.ERROR,"Error","Error: No user data provided!");
         }
     }
 
@@ -73,7 +66,7 @@ public class ProfileSettingsScreenController {
         }
     }
 
-    private void saveUser() {
+    public void saveUser() {
         if (!validateUserInput()) return;
 
         currentUser.setDisplayName(fullNameField.getText());
@@ -86,9 +79,9 @@ public class ProfileSettingsScreenController {
 
         boolean isUpdated = userDAO.updateUserProfile(currentUser);
         if (isUpdated) {
-            showAlert("Success","User profile updated successfully.");
+            myProfServices.showAlert(Alert.AlertType.INFORMATION,"Success","User profile updated successfully.");
         }else{
-            showAlert("Error","Failed to update user profile.");
+            myProfServices.showAlert(Alert.AlertType.ERROR,"Error","Failed to update user profile.");
         }
     }
 
@@ -114,32 +107,11 @@ public class ProfileSettingsScreenController {
                 userProfilePic.setImage(image);
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
-                showAlert("Error", "Failed to load image.");
+                myProfServices.showAlert(Alert.AlertType.ERROR,"Error", "Failed to load image.");
             }
         }
     }
 
-    private boolean validateUserInput() {
-        if (fullNameField.getText().trim().isEmpty()) {
-            showAlert("Error","Full Name cannot be empty.");
-            return false;
-        }
-        if (!emailField.getText().matches("^(.+)@(.+)$")) {
-            showAlert("Error","Invalid email format.");
-            return false;
-        }
-        if (!phoneField.getText().matches("^\\+?[0-9]{7,15}$")) {
-            showAlert("Error","Invalid phone number.");
-            return false;
-        }
-        return true;
-    }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
 }

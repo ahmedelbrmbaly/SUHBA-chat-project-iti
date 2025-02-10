@@ -41,7 +41,7 @@ public class LoginController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Failed");
             alert.setHeaderText("Invalid Credentials");
-            alert.setContentText("Wrong email or password. Please try again.");
+            alert.setContentText("Wrong Email or Password. Please try again.");
             alert.showAndWait(); // Show the alert and wait for user interaction
         }
     }
