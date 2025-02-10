@@ -85,9 +85,9 @@ public interface ServerClientServices extends Remote {
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;
 
-    public boolean updateRequestStatus(long userId, ContactStatus status );
+    public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
 
-    public boolean deleteContact(long userId);
+    public boolean deleteContact(long userId) throws RemoteException;
 
 //////////////////////////////////////////////////////////////////////////////
 

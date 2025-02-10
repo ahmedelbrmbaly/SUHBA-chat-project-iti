@@ -22,7 +22,10 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     UserSettingServiceImpl mySettingImpl;
     ContactServiceImpl myContactImpl;
 
-    private static Vector<ClientService> clients = new Vector<>();
+
+
+
+    public static Vector<ClientService> clients = new Vector<>();
 
     public ServerClientServicesImpl() throws RemoteException {
         super();
@@ -133,12 +136,12 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
-    public boolean updateRequestStatus(long userId, ContactStatus status) {
+    public boolean updateRequestStatus(long userId, ContactStatus status)  throws RemoteException {
         return false;
     }
 
     @Override
-    public boolean deleteContact(long userId) {
+    public boolean deleteContact(long userId)  throws RemoteException {
         return false;
     }
 
@@ -200,9 +203,13 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public synchronized void register(ClientService client) throws RemoteException {
         if (!clients.contains(client)) {
+            if (client == null) {
+                System.err.println("ClientService is null in BroadcastController!");
+            }
+
             clients.add(client);
             System.out.println("New client registered.");
-            showAnnouncement("Hello");
+//            showAnnouncement("Hello");
 
         }
     }
