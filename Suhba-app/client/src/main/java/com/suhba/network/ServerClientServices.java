@@ -12,6 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface ServerClientServices extends Remote {
+
+    //////////////////////////////////////////////////////////////////
+    public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
+    public void unregisterToReceive(long userId) throws RemoteException;
+
+    /////////////////////////////////////////////////////////////////
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)

@@ -23,7 +23,7 @@ public class ServerNetwork {
 
         }catch(RemoteException e){
             System.out.println("Remote Exception");
-            // e.printStackTrace();
+            e.printStackTrace();
         }
 
     }

@@ -1,6 +1,5 @@
 package com.suhba.services.client.interfaces;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +8,15 @@ import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Group;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
+import com.suhba.network.ClientInterface;
 
 public interface ChatService {
+
+    //////////////////////////////////////////////////////////////////
+    public void registerToReceiveMessages(long userId, ClientInterface client );
+    public void unregisterToReceive(long userId);
+
+    /////////////////////////////////////////////////////////////////
 
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
@@ -42,6 +48,5 @@ public interface ChatService {
 
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
-
 
 }

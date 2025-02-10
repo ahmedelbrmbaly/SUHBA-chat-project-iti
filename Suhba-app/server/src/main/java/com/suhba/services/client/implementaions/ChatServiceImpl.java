@@ -1,15 +1,12 @@
 package com.suhba.services.client.implementaions;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import com.suhba.daos.implementation.ChatDAOImpl;
 import com.suhba.daos.implementation.GroupDaoImpl;
@@ -19,7 +16,7 @@ import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Group;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
-import com.suhba.database.enums.ChatType;
+import com.suhba.network.ClientInterface;
 import com.suhba.services.client.interfaces.ChatService;
 
 public class ChatServiceImpl implements ChatService {
@@ -28,32 +25,55 @@ public class ChatServiceImpl implements ChatService {
     MessageDAOImpl messageDAOImpl = new MessageDAOImpl();
     UserDAOImpl userDAOImpl = new UserDAOImpl();
     GroupDaoImpl groupDaoImpl = new GroupDaoImpl();
+    Map<Long, ClientInterface> clients = new HashMap<>();;
 
     @Override
     public List<Message> getMessages(long chatId) {
         List<Message> chatMessages = new ArrayList<>();
-        if (userDAOImpl.getUserById(chatId) != null) {
-            try {
+        try {
+            if (chatDAO.getChatById(chatId) != null) {
                 chatMessages = messageDAOImpl.getChatMessages(chatId);
-            } catch (SQLException e) {
-                System.out.println("Getting Messages Service Exception!");
-                e.printStackTrace();
             }
+        } catch (SQLException e) {
+            System.out.println("Getting Messages Service Exception!");
+            e.printStackTrace();
         }
+
         return chatMessages;
     }
 
     @Override
     public Message sendMessage(Message msg) {
         Message newMsg = null;
-        if (msg.getChatId() > 0 && msg.getSenderId() > 0 && msg.getContent() != null) {
+        if (msg.getChatId() > 0 && msg.getSenderId() > 0 && msg != null) {
             try {
                 newMsg = messageDAOImpl.sendMessage(msg);
+                if (msg.getMessageId()==0) {
+                    System.out.println("No message added to DB!");
+                } else {
+                    System.out.println("msg after added: " + newMsg);
+                    long clientId = chatDAO.getDirectChatPartner(msg.getChatId(), msg.getSenderId()).getUserId();
+                    System.out.println("Receiver id:" + clientId);
+                    if (clients.containsKey(clientId)) {
+                        ClientInterface client = clients.get(clientId);
+                        System.out.println("ClientInterface: " + client);
+                        if (client != null) {
+                            client.receiveMessage(newMsg);
+                        } else {
+                            System.out.println("Client with ID " + clientId + " is not online.");
+                        }
+                    }
+
+                }
+
                 if (msg.getAttachment() != null) {
                     // Handle if there is a File Transfer
                 }
             } catch (SQLException e) {
                 System.out.println("Send Messages Service Exception!");
+                e.printStackTrace();
+            } catch (RemoteException e) {
+                System.out.println("Exception at receiving !");
                 e.printStackTrace();
             }
         }
@@ -144,8 +164,9 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<User> getGroupMembers(long groupId) throws Exception {
         try {
-            Group group= groupDaoImpl.getGroupById(groupId);
-            if(group==null) throw new Exception("No such group");
+            Group group = groupDaoImpl.getGroupById(groupId);
+            if (group == null)
+                throw new Exception("No such group");
             return chatDAO.getChatParticipants(group.getChatId());
         } catch (SQLException e) {
             System.out.println("get group users Exception!");
@@ -188,7 +209,8 @@ public class ChatServiceImpl implements ChatService {
                 count++;
             }
         }
-        if (count<1) throw new Exception("users already in group");
+        if (count < 1)
+            throw new Exception("users already in group");
         return true;
 
     }
@@ -215,8 +237,21 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public Group getGroupByChat(long chatId) throws Exception {
         Group group = groupDaoImpl.getGroupByChatId(chatId);
-        if(group==null) throw new Exception("No group chat like that");
+        if (group == null)
+            throw new Exception("No group chat like that");
         return group;
+    }
+
+    @Override
+    public void registerToReceiveMessages(long userId, ClientInterface client) {
+        clients.put(userId, client);
+        System.out.println(clients.get(userId));
+        System.out.println(userId + " is online");
+    }
+
+    @Override
+    public void unregisterToReceive(long userId) {
+        clients.remove(userId);
     }
 
 }

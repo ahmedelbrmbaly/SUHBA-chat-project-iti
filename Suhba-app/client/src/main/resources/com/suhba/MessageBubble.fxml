@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="messageContainer" alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.MessageBubbleController">
+<HBox fx:id="messageContainer" alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.components.MessageBubbleController">
    <children>
       <VBox alignment="TOP_RIGHT" spacing="5.0">
          <children>

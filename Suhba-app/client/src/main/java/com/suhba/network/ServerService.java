@@ -32,11 +32,6 @@ public class ServerService {
 
     public static void main(String[] args) {
         ServerClientServices serverService = ServerService.getInstance();
-        try {
-        } catch (RemoteException e) {
-            throw new RuntimeException("Error creating private chat", e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        
     }
 }

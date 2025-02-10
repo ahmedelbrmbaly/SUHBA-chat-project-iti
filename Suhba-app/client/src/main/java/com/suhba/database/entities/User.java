@@ -61,4 +61,5 @@ public class User implements Serializable {
                 ", userStatus='" + userStatus + '\'' +
                 '}';
     }
+
 }

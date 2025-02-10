@@ -1,11 +1,12 @@
-package com.suhba.controllers;
+package com.suhba.controllers.components;
 
-import com.suhba.models.Message;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import java.time.format.DateTimeFormatter;
+
+import com.suhba.database.entities.Message;
 
 public class MessageBubbleController {
     private static final DateTimeFormatter TIME_FORMATTER = 
@@ -20,7 +21,7 @@ public class MessageBubbleController {
         messageContent.setText(message.getContent());
         
         // Format timestamp
-        messageTime.setText(message.getTimestamp().format(TIME_FORMATTER));
+        messageTime.setText(message.getTimeStamp().toLocalDateTime().format(TIME_FORMATTER));
 
         // Configure styling based on message origin
         if (isSentByCurrentUser) {

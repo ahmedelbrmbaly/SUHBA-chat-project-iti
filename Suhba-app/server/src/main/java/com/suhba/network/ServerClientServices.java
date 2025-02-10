@@ -10,12 +10,15 @@ import java.util.Map;
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.exceptions.*;
-import com.suhba.services.client.interfaces.ChatService;
-import com.suhba.services.client.interfaces.ContactService;
-import com.suhba.services.client.interfaces.UserAuthService;
-import com.suhba.services.client.interfaces.UserSettingService;
+
 
 public interface ServerClientServices extends Remote {
+
+    //////////////////////////////////////////////////////////////////
+    public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
+    public void unregisterToReceive(long userId) throws RemoteException;
+
+    /////////////////////////////////////////////////////////////////
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)
