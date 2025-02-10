@@ -53,6 +53,7 @@ public interface ServerClientServices extends Remote {
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
 
+
     // Contact Screen
 
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
@@ -67,6 +68,7 @@ public interface ServerClientServices extends Remote {
 
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;
+
 
     boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException;
 
@@ -101,12 +103,39 @@ public interface ServerClientServices extends Remote {
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
     public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
 
+//////////////////////////////////////////////////////////////////////////////
+
+    // Contact Screen
+    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
+    public boolean sendFriendRequest(long userId) throws RemoteException;
+
+    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
+    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
+
+    public List<User> getAllPendingRequests(long userId) throws RemoteException;
+    public List<User> getAllFriends(long userId) throws RemoteException;
+
+    public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
+
+    public boolean deleteContact(long userId) throws RemoteException;
+
+//////////////////////////////////////////////////////////////////////////////
+
     // Settings Screen
 
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
 
+
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
 
     public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
+    // Announcemnt
+
+    public void showAnnouncement(String message) throws RemoteException;
+    public void register(ClientService client) throws RemoteException;
+    public void unregister(ClientService client) throws RemoteException;
+
+
 }

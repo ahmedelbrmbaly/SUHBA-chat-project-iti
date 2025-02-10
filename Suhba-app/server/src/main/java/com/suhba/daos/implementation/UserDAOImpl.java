@@ -316,10 +316,15 @@ public class UserDAOImpl implements UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                String statusName = rs.getString("userStatus");
+                String statusName = rs.getString("userStatus").trim(); // Trim for any hidden spaces
                 long count = rs.getLong("count");
-                UserStatus status = UserStatus.valueOf(statusName.toUpperCase());
-                statusCounts.put(status, count);
+
+                try {
+                    UserStatus status = UserStatus.valueOf(statusName); // Direct mapping without case change
+                    statusCounts.put(status, count);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Invalid user status value from database: " + statusName);
+                }
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
@@ -328,6 +333,7 @@ public class UserDAOImpl implements UserDAO {
 
         return statusCounts;
     }
+
 
     /**
      * @return
@@ -340,10 +346,15 @@ public class UserDAOImpl implements UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                String genderName = rs.getString("gender");
+                String genderName = rs.getString("gender").trim(); // Trim for hidden spaces
                 long count = rs.getLong("count");
-                Gender gender = Gender.valueOf(genderName.toUpperCase());
-                genderCounts.put(gender, count);
+
+                try {
+                    Gender gender = Gender.valueOf(genderName); // Keep the exact case as defined in the enum
+                    genderCounts.put(gender, count);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Invalid gender value from database: " + genderName);
+                }
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());

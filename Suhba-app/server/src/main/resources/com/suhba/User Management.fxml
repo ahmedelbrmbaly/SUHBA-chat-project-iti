@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.contollers.UserManagementController">
    <center>
       <BorderPane prefHeight="720.0" prefWidth="1008.0" BorderPane.alignment="CENTER">
          <center>
@@ -28,7 +28,7 @@
                      <children>
                         <VBox prefHeight="100.0" prefWidth="180.0" spacing="5.0">
                            <children>
-                              <Label text="Statistics" textFill="#112d4e">
+                              <Label text="User Management" textFill="#112d4e">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -36,11 +36,6 @@
                            </children>
                         </VBox>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #112D4E;" text="User Entries" textFill="#f9f7f7">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -53,15 +48,15 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="26.0" prefWidth="28.0" text="44" />
+                        <TextField fx:id="allUsersField" onAction="#handleAllUsersField" prefHeight="26.0" prefWidth="28.0" />
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <TextField promptText="Search" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #f9f7f7;" text="Filter" textFill="#112d4e">
+                        <TextField fx:id="searchByPhone" promptText="Search" />
+                        <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#handleFilterBtn" style="-fx-background-color: #f9f7f7;" text="Filter" textFill="#112d4e">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #112d4e;" text="+ Add User" textFill="#f9f7f7">
+                        <Button fx:id="addUserBtn" mnemonicParsing="false" onAction="#handleAddUserBtn" style="-fx-background-color: #112d4e;" text="+ Add User" textFill="#f9f7f7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -73,12 +68,10 @@
                   </HBox>
                   <TableView prefHeight="366.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="68.79998433589935" text="#" />
-                      <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="171.2000274658203" text="User name" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Phone Number" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Status" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Last Login" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Action" />
+                      <TableColumn fx:id="userId" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="68.79998433589935" text="#" />
+                      <TableColumn fx:id="userName" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="171.2000274658203" text="User name" />
+                        <TableColumn fx:id="phoneNumber" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Phone Number" />
+                        <TableColumn fx:id="userStatus" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Status" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -89,13 +82,13 @@
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" text="Showing 5 out of 25 Entries" textFill="#112d4e">
+                        <Label fx:id="showingUsersLabel" alignment="CENTER" text="Showing 5 out of 25 Entries" textFill="#112d4e">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Pagination prefHeight="44.0" prefWidth="295.0" HBox.hgrow="ALWAYS">
+                        <Pagination fx:id="numberPagination" prefHeight="44.0" prefWidth="295.0" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -119,22 +112,10 @@
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../UI/left-arrow.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Back" textFill="#f9f7f7">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
                   </HBox>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../UI/LOGO/white.png" />
+                        <Image url="@../../images/white.png" />
                      </image>
                   </ImageView>
                   <Label style="-fx-font-weight: bold;" text="Where Connections, Come Alive." textFill="#f9f7f7" />
@@ -196,12 +177,12 @@
             </GridPane>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToServerManagmentScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/servers.png" />
+                              <Image url="@../../images/servers.png" />
                            </image>
                         </ImageView>
                         <Label text="Server Management" textFill="#f9f7f7">
@@ -211,12 +192,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToStatisticsScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/statics.png" />
+                              <Image url="@../../images/statics.png" />
                            </image>
                         </ImageView>
                         <Label text="Statics" textFill="#f9f7f7">
@@ -226,12 +207,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToBrodcastingScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/broadcast.png" />
+                              <Image url="@../../images/broadcast.png" />
                            </image>
                         </ImageView>
                         <Label text="Brodcasting" textFill="#f9f7f7">
@@ -241,15 +222,15 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToUserManagmentScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/dash.png" />
+                              <Image url="@../../images/dash.png" />
                            </image></ImageView>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/user-management.png" />
+                              <Image url="@../../images/user-management.png" />
                            </image>
                         </ImageView>
                         <Label text="User Managment" textFill="#f9f7f7">
@@ -259,12 +240,12 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#goToSettingsScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../UI/settings.png" />
+                              <Image url="@../../images/settings.png" />
                            </image>
                         </ImageView>
                         <Label text="Settings" textFill="#f9f7f7">
@@ -277,12 +258,12 @@
                </children>
             </VBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#handleLogOut" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../UI/logout.png" />
+                        <Image url="@../../images/logout.png" />
                      </image>
                   </ImageView>
                   <Label text="LogOut" textFill="#f9f7f7">
