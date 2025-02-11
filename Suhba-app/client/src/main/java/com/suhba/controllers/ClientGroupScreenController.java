@@ -12,9 +12,9 @@ import com.suhba.database.enums.MessageStatus;
 import com.suhba.services.MessagingService;
 import com.suhba.services.UserService;
 import com.suhba.services.controllers.GroupScreenService;
+import com.suhba.utils.LoadingFXML;
 import com.suhba.views.cells.ChatGroupCell;
 import com.suhba.views.cells.GroupMessageBubble;
-import com.suhba.views.cells.MessageBubbleCell;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -396,7 +396,11 @@ public class ClientGroupScreenController implements Initializable {
 
     @FXML
     void handleAddNewGroup(ActionEvent event) {
-
+        Node currentNode = (Node)event.getSource();
+        Stage owner = (Stage)currentNode.getScene().getWindow();
+        // load the popup content
+        URL fxmlURL = getClass().getResource("/com/suhba/AddNewGroup.fxml");
+        LoadingFXML.showPopupWithId(owner, fxmlURL,500,500, currentUserId);
     }
 
     @FXML

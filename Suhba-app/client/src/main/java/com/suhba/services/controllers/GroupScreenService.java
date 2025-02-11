@@ -89,4 +89,22 @@ public class GroupScreenService {
         controller.receiveNewMessage(msg);
     }
 
+    public List<User> getMyFriends(long userId) {
+        try {
+            return ServerService.getInstance().getAllFriends(userId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Group createNewGroup(Group group , List<Long> ids) {
+        try {
+            return ServerService.getInstance().createGroupChat(group, ids);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -164,7 +164,7 @@ public class ChatScreenController implements Initializable {
 
     long currentChatId = -1;
 
-    long currentUserId = 2;
+    long currentUserId = 1;
 
     User currentUserInChatWith;
 
@@ -323,20 +323,12 @@ public class ChatScreenController implements Initializable {
             // Load Groups FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientGroupScreen.fxml"));
             // Get the GroupsController
-            // ClientGroupScreenController groupsController = loader.getController();
-            // groupsController.setCurrentUserId(currentUserId); // Pass user ID
-
-            // ClientGroupScreenController groupsController = new ClientGroupScreenController();
-            // groupsController.setCurrentUserId(currentUserId); // Pass user ID
 
             loader.setControllerFactory(param -> {
                 ClientGroupScreenController controller = new ClientGroupScreenController();
                 controller.setCurrentUserId(currentUserId);
                 return controller;
             });
-
-            // Set controller before loading
-            // loader.setController(groupsController);
             Parent root = loader.load();
             // Switch Scene
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -7,6 +7,8 @@ import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.services.client.interfaces.ContactService;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
@@ -56,7 +58,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<User> getAllFriends(long userId) {  //the receiver
-        List<Long> sendersIds = myContactDao.getUserId1ByUserId2(userId, ContactStatus.ACCEPTED);
+        List<Long> sendersIds = new ArrayList<>();
+        try {
+            sendersIds = myContactDao.getAcceptedFriends(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return myUserDao.getUsersById(sendersIds);
     }
 

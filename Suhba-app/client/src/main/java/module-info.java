@@ -5,6 +5,7 @@ module com.suhba {
     requires javafx.graphics;
     requires javafx.base;
     requires java.rmi;
+    requires java.base;
 
     opens com.suhba.controllers to javafx.fxml, javafx.base;
     opens com.suhba to javafx.fxml;
