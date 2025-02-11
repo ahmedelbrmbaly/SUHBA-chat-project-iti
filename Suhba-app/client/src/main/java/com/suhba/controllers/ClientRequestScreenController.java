@@ -6,9 +6,7 @@ import com.suhba.utils.FXMLHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -19,12 +17,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ClientRequestScreenController implements Initializable {
-
-    @FXML
-    private Label AddNewLAbel;
-
-    @FXML
-    private GridPane newFriend_1;
 
     @FXML
     private FlowPane pendingRequestsContainer;

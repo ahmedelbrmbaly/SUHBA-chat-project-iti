@@ -1,18 +1,29 @@
 package com.suhba.controllers;
 
+import com.suhba.database.entities.User;
+import com.suhba.services.controllers.ClientContactScreenService;
+import com.suhba.utils.FXMLHelper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
-public class ClientContactScreenController {
+import java.io.IOException;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ClientContactScreenController implements Initializable {
 
     @FXML
     private Label GroupsLabel;
@@ -51,22 +62,19 @@ public class ClientContactScreenController {
     private Label contactsLabel;
 
     @FXML
-    private Label friendBio_1;
+    private Label friendBio;
 
     @FXML
-    private Label friendEmail_1;
+    private Label friendEmail;
 
     @FXML
-    private ImageView friendImage11112;
+    private ImageView friendImage;
 
     @FXML
-    private GridPane friendInfo11112;
+    private Label friendName;
 
     @FXML
-    private Label friendName_1;
-
-    @FXML
-    private Label friendPhone_1;
+    private Label friendPhone;
 
     @FXML
     private Circle friendStatus11112;
@@ -120,8 +128,56 @@ public class ClientContactScreenController {
     private ImageView userProfilePic;
 
     @FXML
-    void handleAddNewFriend(ActionEvent event) {
+    private FlowPane friendsContainer;
 
+    ClientContactScreenService myServices = new ClientContactScreenService();
+
+    List<User> friends;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        friendsContainer.setOrientation(Orientation.HORIZONTAL);
+
+        friends = new ArrayList<>();
+        try {
+            friends = myServices.showFriends();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Show
+        System.out.println(friends);
+
+        // Show the list of all friends
+        Platform.runLater( () -> {
+            for (User user: friends) {
+                FXMLHelper fxmlHelper = new FXMLHelper();
+                Pane curView = null;
+                try {
+                    curView = fxmlHelper.getPane("FriendContactInfo");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                FriendContactInfoController controller = (FriendContactInfoController) fxmlHelper.getController();
+                if (controller != null) {
+                    String friendName = user.getDisplayName();
+                    String phoneNumber = user.getPhone();
+                    String bio = user.getBio();
+                    String email = user.getUserEmail();
+                    controller.setNewFriendData(friendName, bio, email, phoneNumber);
+                    curView.setUserData(phoneNumber);
+                } else {
+                    System.out.println("Error: Controller is null!");
+                }
+                friendsContainer.getChildren().add(curView);
+            }
+        });
+    }
+
+    @FXML
+    void handleAddNewFriend(ActionEvent event) {
+        myServices.moveToNextPage(event, "ClientAddContactScreen.fxml");
     }
 
     @FXML

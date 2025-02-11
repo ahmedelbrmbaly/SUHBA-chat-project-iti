@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="friend_1" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FriendContactInfoController">
+<AnchorPane fx:id="friend_1" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.FriendContactInfoController">
     <children>
         <ImageView fx:id="friendImage" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
             <image>
