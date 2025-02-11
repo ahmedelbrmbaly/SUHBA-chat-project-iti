@@ -51,7 +51,7 @@
                         <TextField fx:id="allUsersField" onAction="#handleAllUsersField" prefHeight="26.0" prefWidth="28.0" />
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <TextField fx:id="searchByPhone" promptText="Search" />
-                        <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#handleFilterBtn" style="-fx-background-color: #f9f7f7;" text="Filter" textFill="#112d4e">
+                        <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#handleFilterBtn" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #112d4e;" text="🔽 Filter" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -68,8 +68,8 @@
                   </HBox>
                   <TableView prefHeight="366.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="userId" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="68.79998433589935" text="#" />
-                      <TableColumn fx:id="userName" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="171.2000274658203" text="User name" />
+                      <TableColumn fx:id="userId" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="68.79998433589935" text="ID" />
+                      <TableColumn fx:id="userName" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="171.2000274658203" text="User Name" />
                         <TableColumn fx:id="phoneNumber" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Phone Number" />
                         <TableColumn fx:id="userStatus" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="120.0" text="Status" />
                     </columns>

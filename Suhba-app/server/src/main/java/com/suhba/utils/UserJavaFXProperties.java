@@ -1,5 +1,6 @@
 package com.suhba.utils;
 
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
@@ -73,6 +74,23 @@ public class UserJavaFXProperties {
     public void setBirthday(LocalDate birthday) { this.birthday.set(birthday); }
     public void setBio(String bio) { this.bio.set(bio); }
     public void setUserStatus(UserStatus userStatus) { this.userStatus.set(userStatus); }
+
+    public static UserJavaFXProperties fromUser(User user) {
+        return new UserJavaFXProperties(
+                user.getUserId(),
+                user.getPhone(),
+                user.getDisplayName(),
+                user.getUserEmail(),
+                user.getPicture(),
+                user.getPassword(),
+                user.getGender(),
+                user.getCountry(),
+                user.getBirthday(),
+                user.getBio(),
+                user.getUserStatus()
+        );
+    }
+
 }
 
 

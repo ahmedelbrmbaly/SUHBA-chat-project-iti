@@ -1,5 +1,6 @@
 package com.suhba.controllers;
 
+import com.suhba.database.entities.User;
 import com.suhba.exceptions.InvalidPasswordException;
 import com.suhba.services.controllers.PasswordSettingsService;
 import javafx.fxml.FXML;
@@ -21,35 +22,54 @@ public class PasswordSettingsScreenController {
     @FXML
     private Button editBtn;
 
-    PasswordSettingsService myServices = new PasswordSettingsService();
+    private final PasswordSettingsService myServices = new PasswordSettingsService();
+
+    private User currentUser;
 
     @FXML
-    private void handleEditAction() throws NoSuchAlgorithmException, RemoteException, InvalidPasswordException {
+    private void handleEditAction() {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
         String confirmPassword = confirmNewPasswordField.getText();
 
-        if (!myServices.checkIfMatch(currentPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "Current password is incorrect.");
+        if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled.");
             return;
         }
 
-        if (!isValidPassword(newPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "New password must be at least 8 characters long.");
-            return;
-        }
+        try {
+            currentUser = myServices.getUserById();
+            if (currentUser == null) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "User not found.");
+                return;
+            }
 
-        if (!newPassword.equals(confirmPassword)) {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "New passwords do not match.");
-            return;
-        }
+            if (!myServices.checkIfMatch(currentPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "Current password is incorrect.");
+                return;
+            }
 
-        // Use Remote Service for updating password
-        if (myServices.updatePassword(newPassword)) {
-            myServices.showAlert(Alert.AlertType.INFORMATION, "Success", "Password updated successfully.");
-            clearFields();
-        } else {
-            myServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update password. Try again.");
+            if (!isValidPassword(newPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "New password must be at least 8 characters long.");
+                return;
+            }
+
+            if (!newPassword.equals(confirmPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "New passwords do not match.");
+                return;
+            }
+
+            if (myServices.updatePassword(newPassword)) {
+                myServices.showAlert(Alert.AlertType.INFORMATION, "Success", "Password updated successfully.");
+                clearFields();
+            } else {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update password. Try again.");
+            }
+
+        } catch (RemoteException e) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Remote Error", "Connection to server failed.");
+        } catch (NoSuchAlgorithmException | InvalidPasswordException e) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
 

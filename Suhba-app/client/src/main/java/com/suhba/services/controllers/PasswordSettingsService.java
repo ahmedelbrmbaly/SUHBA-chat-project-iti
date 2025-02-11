@@ -10,8 +10,15 @@ import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordSettingsService {
-    ServerClientServices serverService = ServerService.getInstance();
-    public static User curUser = null;
+    private final ServerClientServices serverService;
+    private final long userId = 1; // Pre-set userId
+
+    public PasswordSettingsService() {
+        serverService = ServerService.getInstance();
+        if (serverService == null) {
+            showAlert(Alert.AlertType.ERROR, "Connection Error", "Unable to connect to the server.");
+        }
+    }
 
     public void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
@@ -22,18 +29,14 @@ public class PasswordSettingsService {
     }
 
     public boolean checkIfMatch(String password) throws NoSuchAlgorithmException, RemoteException {
-        if (curUser == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No user is logged in.");
-            return false;
-        }
-        return serverService.isPasswordMatchUser(curUser.getUserId(), password);
+        return serverService != null && serverService.isPasswordMatchUser(userId, password);
     }
 
     public boolean updatePassword(String newPassword) throws NoSuchAlgorithmException, RemoteException, InvalidPasswordException {
-        if (curUser == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "No user is logged in.");
-            return false;
-        }
-        return serverService.updateUserPassword(curUser.getUserId(), newPassword);
+        return serverService != null && serverService.updateUserPassword(userId, newPassword);
+    }
+
+    public User getUserById() throws RemoteException {
+        return serverService != null ? serverService.getUserById(userId) : null;
     }
 }

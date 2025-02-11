@@ -1,16 +1,33 @@
 package com.suhba.contollers;
 
+import com.suhba.daos.interfaces.UserDAO;
+import com.suhba.database.entities.User;
 import com.suhba.utils.ScreenNavigator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.List;
 
 public class UserManagementController {
+
+    @FXML
+    private TableView<User> userTable;
+
+    @FXML
+    private TableColumn<User, Long> userId;
+
+    @FXML
+    private TableColumn<User, String> userName;
+
+    @FXML
+    private TableColumn<User, String> phoneNumber;
+
+    @FXML
+    private TableColumn<User, String> userStatus;
 
     @FXML
     private Button addUserBtn;
@@ -25,36 +42,48 @@ public class UserManagementController {
     private Pagination numberPagination;
 
     @FXML
-    private TableColumn<?, ?> phoneNumber;
-
-    @FXML
     private TextField searchByPhone;
 
     @FXML
     private Label showingUsersLabel;
 
-    @FXML
-    private TableColumn<?, ?> userId;
+    private UserDAO userDAO; // Assume it's injected or initialized elsewhere
+
+    private ObservableList<User> userList = FXCollections.observableArrayList();
 
     @FXML
-    private TableColumn<?, ?> userName;
+    public void initialize() {
+        // Initialize table columns
+        userId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        userName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        phoneNumber.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        userStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-    @FXML
-    private TableColumn<?, ?> userStatus;
+        // Load data into TableView
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        List<User> users = userDAO.getAllUsers();
+        if (users != null) {
+            userList.setAll(users);
+            userTable.setItems(userList);
+        }
+    }
 
     @FXML
     void handleAddUserBtn(ActionEvent event) {
-
+        // Logic to add a user
     }
 
     @FXML
     void handleAllUsersField(ActionEvent event) {
-
+        // Logic for all users field
     }
 
     @FXML
     void handleFilterBtn(ActionEvent event) {
-
+        // Logic for filtering users
     }
 
     @FXML
@@ -86,5 +115,4 @@ public class UserManagementController {
     void handleLogOut(MouseEvent event) {
         ScreenNavigator.loadScreen(event, "login.fxml");
     }
-
 }
