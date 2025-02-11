@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="friend_1" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.FriendContactInfoController">
+<AnchorPane fx:id="friend_1" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #DBE2EF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.FriendContactInfoController">
     <children>
         <ImageView fx:id="friendImage" fitHeight="57.0" fitWidth="36.0" layoutX="107.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="155.6571418762207" AnchorPane.leftAnchor="107.19999999999999" AnchorPane.rightAnchor="108.19999999999999" AnchorPane.topAnchor="39.0">
             <image>
@@ -24,18 +24,16 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label fx:id="friendName" text="Name" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                 <Label fx:id="friendBio" text=" bio" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                <Label fx:id="friendlastSeen" text="Last Seen" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                <Label fx:id="friendEmail" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-                <Label fx:id="friendPhone" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                <Label fx:id="friendEmail" prefHeight="18.0" prefWidth="200.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                <Label fx:id="friendPhone" prefHeight="18.0" prefWidth="200.0" text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" GridPane.valignment="TOP">
                     <image>
                         <Image url="@../../images/email.png" />
                     </image>
@@ -43,7 +41,7 @@
                         <Insets left="15.0" />
                     </GridPane.margin>
                 </ImageView>
-                <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="TOP">
                     <image>
                         <Image url="@../../images/phone-call.png" />
                     </image>
