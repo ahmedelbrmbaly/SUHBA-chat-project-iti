@@ -22,7 +22,7 @@ public class ClientRequestScreenService {
         return null;
     }
 
-    public List<User> showFriends () throws RemoteException {
-        return serverService.getAllFriends(getCurUser().getUserId());
+    public List<User> showPendingRequests () throws RemoteException {
+        return serverService.getAllPendingRequests(/*getCurUser().getUserId()*/ 12);
     }
 }

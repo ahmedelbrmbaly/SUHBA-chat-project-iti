@@ -24,9 +24,6 @@ public class ClientContactScreenController {
     private Button addNewBtn;
 
     @FXML
-    private ImageView blockIcon;
-
-    @FXML
     private VBox chatBoxBar;
 
     @FXML
@@ -124,11 +121,6 @@ public class ClientContactScreenController {
 
     @FXML
     void handleAddNewFriend(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleBlockIcon(MouseEvent event) {
 
     }
 

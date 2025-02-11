@@ -66,7 +66,7 @@ public class ClientAddContactScreenController implements Initializable {
 
             AddNewFriendController controller = (AddNewFriendController) fxmlHelper.getController();
             if (controller != null) {
-                String friendName = myServices.getDisplayNamePhoneNumber(searchField.getText());
+                String friendName = myServices.getDisplayNameByPhoneNumber(searchField.getText());
                 if (friendName == null) {
                     myServices.showErrorAlert("There is no user with this phone number");
                     searchField.clear();

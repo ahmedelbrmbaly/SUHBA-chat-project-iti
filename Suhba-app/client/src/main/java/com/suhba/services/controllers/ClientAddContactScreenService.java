@@ -30,7 +30,7 @@ public class ClientAddContactScreenService {
         return true;
     }
 
-    public String getDisplayNamePhoneNumber (String phone) throws RemoteException {
+    public String getDisplayNameByPhoneNumber (String phone) throws RemoteException {
         User user = serverService.getUserByPhoneNumber(phone);
         if (user != null)  return user.getDisplayName();
         return null;

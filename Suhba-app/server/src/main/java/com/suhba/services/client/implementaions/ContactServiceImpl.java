@@ -1,13 +1,17 @@
 package com.suhba.services.client.implementaions;
 
+import com.suhba.daos.implementation.ChatDAOImpl;
 import com.suhba.daos.implementation.ContactDAOImpl;
 import com.suhba.daos.implementation.UserDAOImpl;
+import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Contact;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.services.client.interfaces.ContactService;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactServiceImpl implements ContactService {
@@ -16,13 +20,13 @@ public class ContactServiceImpl implements ContactService {
     ContactDAOImpl myContactDao;
     User myUser;
     UserDAOImpl myUserDao;
-    boolean exist;
+    ChatDAOImpl myChatDao;
 
     public ContactServiceImpl() {
         this.myContactDao = new ContactDAOImpl();
         myUser = new User();
         myUserDao = new UserDAOImpl();
-        exist = false;
+        myChatDao = new ChatDAOImpl();
     }
 
     @Override
@@ -73,7 +77,7 @@ public class ContactServiceImpl implements ContactService {
     public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException {
         System.out.println("In sendFriendRequestsById that takes userId1 & list of userId");
         for (long curUserId: userId) {
-           // if (myContactDao.getContactsByUserId1AndUserId2(userId1, curUserId) != null)  continue;
+            if (!myContactDao.getContactsByUserId1AndUserId2(userId1, curUserId).isEmpty() || !myContactDao.getContactsByUserId1AndUserId2(curUserId, userId1).isEmpty())  continue;
             if (!sendFriendRequest(userId1, curUserId))  return false;
         }
         return true;
@@ -82,18 +86,32 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public List<User> getAllPendingRequests(long userId) {  //the receiver
         List<Long> sendersIds = myContactDao.getUserId1ByUserId2(userId, ContactStatus.PENDING);
+        System.out.println("senderIds: " + sendersIds);
         return myUserDao.getUsersById(sendersIds);
     }
 
     @Override
     public List<User> getAllFriends(long userId) {  //the receiver
-        List<Long> sendersIds = myContactDao.getUserId1ByUserId2(userId, ContactStatus.ACCEPTED);
+        List<Long> sendersIds = new ArrayList<>();
+        try {
+            sendersIds = myContactDao.getAcceptedFriends(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return myUserDao.getUsersById(sendersIds);
     }
 
     @Override
     public boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) {
         return myContactDao.updateContactStatus(contact, ContactStatus.ACCEPTED);
+    }
+
+    @Override   //userId1, userId2
+    public Chat acceptRequest (Contact contact) throws SQLException {
+        if (myContactDao.updateContactStatus(contact, ContactStatus.ACCEPTED)) {
+            return myChatDao.createDirectChat(myUserDao.getUserById(contact.getUserId1()), myUserDao.getUserById(contact.getUserId2()));
+        }
+        return null;
     }
 
     @Override

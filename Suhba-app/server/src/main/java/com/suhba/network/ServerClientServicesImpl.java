@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean deleteContact(long userId)  throws RemoteException {
         return false;
+    }
+
+    @Override
+    public Chat acceptRequest(Contact contact) throws RemoteException, SQLException {
+        return myContactImpl.acceptRequest(contact);
     }
 
     @Override

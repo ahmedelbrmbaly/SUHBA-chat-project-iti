@@ -31,7 +31,7 @@ public class ServerService {
         return instance;
     }
 
-    public static void startServerService()
+   /* public static void startServerService()
     {
         try {
 
@@ -52,8 +52,8 @@ public class ServerService {
 
 
         }
-    }
+    }*/
     public static void main(String[] args) {
-        startServerService();
+       // startServerService();
     }
 }

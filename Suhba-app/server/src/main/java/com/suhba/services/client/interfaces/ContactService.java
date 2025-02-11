@@ -2,8 +2,10 @@ package com.suhba.services.client.interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Contact;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
@@ -19,6 +21,7 @@ public interface ContactService {
 
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
+    public Chat acceptRequest (Contact contact) throws RuntimeException, SQLException;
 
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;

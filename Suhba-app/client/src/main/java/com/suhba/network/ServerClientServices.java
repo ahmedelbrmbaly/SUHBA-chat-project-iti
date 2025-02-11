@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,7 @@ public interface ServerClientServices extends Remote {
 
     public boolean deleteContact(Contact contact) throws RemoteException;
 
-
+    public Chat acceptRequest (Contact contact) throws SQLException, RuntimeException;
     // Signup & Signin Screens & Logout
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
@@ -111,8 +112,5 @@ public interface ServerClientServices extends Remote {
     public void showAnnouncement(String message) throws RemoteException;
     public void register(ClientService client) throws RemoteException;
     public void unregister(ClientService client) throws RemoteException;
-
-    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
-    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
 
 }

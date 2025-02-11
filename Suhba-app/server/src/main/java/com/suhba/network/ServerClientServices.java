@@ -6,6 +6,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -103,22 +104,12 @@ public interface ServerClientServices extends Remote {
     public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
     public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
 
-//////////////////////////////////////////////////////////////////////////////
-
-    // Contact Screen
-    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
-    public boolean sendFriendRequest(long userId) throws RemoteException;
-
-    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
-    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
-
-    public List<User> getAllPendingRequests(long userId) throws RemoteException;
-    public List<User> getAllFriends(long userId) throws RemoteException;
 
     public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
 
     public boolean deleteContact(long userId) throws RemoteException;
 
+    public Chat acceptRequest (Contact contact) throws SQLException, RuntimeException, RemoteException;
 //////////////////////////////////////////////////////////////////////////////
 
     // Settings Screen
