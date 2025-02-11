@@ -38,6 +38,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         this.myAuthImpl = new UserAuthServiceImpl();
         this.mySettingImpl = new UserSettingServiceImpl();
         this.myContactImpl = new ContactServiceImpl();
+        
     }
 
     @Override
@@ -236,6 +237,20 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public void registerToReceiveMessages(long userId, ClientInterface client) {
+        myChatImpl.registerToReceiveMessages(userId, client);
+    }
+
+    @Override
+    public void unregisterToReceive(long userId) {
+        myChatImpl.unregisterToReceive(userId);
+    }
+
+    @Override
+    public Chat getChatById(long chatId){
+        return myChatImpl.getChatById(chatId);
+    }
+
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException {
         return myAuthImpl.getUserByPhoneNumber(phoneNumber);
@@ -277,6 +292,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
             }
         }
     }
+
 
 
 

@@ -10,7 +10,9 @@ import java.util.List;
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.ContactDAO;
 import com.suhba.database.entities.Contact;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.UserStatus;
 
 public class ContactDAOImpl implements ContactDAO {
     Connection connection ;
@@ -143,8 +145,28 @@ public class ContactDAOImpl implements ContactDAO {
         return ids;
     }
 
-    // @Override
-    // public List<User> getAllUsersInContactByUserID(long userId) {
-        
-    // }
+    @Override
+    public List<User> getAllUsersInContactByUserID(long userId) {
+        List<User> contacts = new ArrayList<>();
+        String query = "SELECT u.userId FROM Users u " +
+                "JOIN Contacts c ON (c.userId1 = u.userId OR c.userId2 = u.userId) " +
+                "WHERE (c.userId1 = ? OR c.userId2 = ?) AND c.contactStatus = 'Accepted' AND u.userId <> ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setLong(1, userId);
+            stmt.setLong(2, userId);
+            stmt.setLong(3, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new UserDAOImpl().getUserById(rs.getLong(1));
+                    contacts.add(user);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contacts;
+    }
 }

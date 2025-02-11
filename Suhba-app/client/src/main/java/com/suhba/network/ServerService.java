@@ -31,6 +31,7 @@ public class ServerService {
         return instance;
     }
 
+
     public static void startServerService()
     {
         try {
@@ -53,6 +54,7 @@ public class ServerService {
             // Get the server instance
 
         }
+
     }
     public static void main(String[] args) {
         startServerService();

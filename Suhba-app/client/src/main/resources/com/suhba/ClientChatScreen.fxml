@@ -45,7 +45,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="groupBoxBar" alignment="CENTER" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                  <VBox fx:id="groupBoxBar" alignment="CENTER" layoutX="40.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToGroups" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                      <children>
                         <ImageView fx:id="groupIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -204,7 +204,7 @@
             </VBox>
             <BorderPane>
                <top>
-                  <GridPane prefHeight="60.0" prefWidth="579.0" style="-fx-background-color: #DBE2EF;" BorderPane.alignment="CENTER">
+                  <GridPane fx:id="chatMessageHeader" prefHeight="60.0" prefWidth="579.0" style="-fx-background-color: #DBE2EF;" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -217,7 +217,7 @@
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="50.0">
                                  <children>
-                                    <Circle fill="#1f93ff00" radius="30.0" stroke="#112d4e" strokeType="INSIDE" />
+                                    <Circle fill="#1f93ff00" radius="25.0" stroke="#112d4e" strokeType="INSIDE" />
                                     <ImageView fx:id="chatPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </StackPane>
@@ -258,7 +258,7 @@
                   </GridPane>
                </top>
                <bottom>
-                  <GridPane alignment="CENTER" prefHeight="49.0" prefWidth="579.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
+                  <GridPane fx:id="chatMessageFooter" alignment="CENTER" prefHeight="49.0" prefWidth="579.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.77774047851562" minWidth="10.0" prefWidth="55.444427490234375" />
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="550.0" minWidth="10.0" prefWidth="400.0" />
@@ -292,14 +292,17 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <TextField fx:id="userMessageTextField" focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1" />
+                        <TextField fx:id="userMessageTextField" focusTraversable="false" promptText="Type your message here.." GridPane.columnIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextField>
                      </children>
                   </GridPane>
                </bottom>
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F9F7F7;" BorderPane.alignment="CENTER">
                      <children>
-                        <ListView fx:id="messagesArea" prefHeight="440.0" prefWidth="586.0" style="-fx-background-color: #F9F7F7;" />
+                        <ListView fx:id="messagesArea" maxHeight="1.7976931348623157E308" prefHeight="441.0" prefWidth="590.0" style="-fx-background-color: #F9F7F7;" />
                      </children>
                   </VBox>
                </center>
