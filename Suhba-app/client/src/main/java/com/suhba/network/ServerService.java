@@ -12,7 +12,8 @@ import com.suhba.database.entities.User;
 public class ServerService {
     private static ServerClientServices instance;
 
-    private ServerService() {}
+    private ServerService() {
+    }
 
     public static ServerClientServices getInstance() {
         if (instance == null) {
@@ -30,8 +31,32 @@ public class ServerService {
         return instance;
     }
 
+
+    public static void startServerService()
+    {
+        try {
+            ServerClientServices serverService = ServerService.getInstance();
+
+            // Create and register the client
+            ClientService client = new ClientServiceImpl();
+            serverService.register(client);
+            System.out.println("Client registered with the server.");
+
+
+        }  catch (RemoteException e) {
+            System.err.println("Failed to register client: " + e.getMessage());
+            e.printStackTrace();
+
+
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+
+            // Get the server instance
+
+        }
+
+    }
     public static void main(String[] args) {
-        ServerClientServices serverService = ServerService.getInstance();
-        
+        startServerService();
     }
 }

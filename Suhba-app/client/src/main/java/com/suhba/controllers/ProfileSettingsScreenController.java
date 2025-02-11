@@ -1,5 +1,6 @@
 package com.suhba.controllers;
 
+import com.suhba.services.controllers.ProfileSettingsService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class ProfileSettingsScreenController {
 
@@ -103,6 +107,8 @@ public class ProfileSettingsScreenController {
     @FXML
     private ImageView userProfilePic;
 
+    ProfileSettingsService myServices = new ProfileSettingsService();
+
     @FXML
     void handleBirthdaySelect(ActionEvent event) {
 
@@ -141,6 +147,12 @@ public class ProfileSettingsScreenController {
     @FXML
     void handlePhoneField(ActionEvent event) {
 
+    }
+
+    @FXML
+    void handleLogout(MouseEvent event) throws IOException {
+        myServices.logoutService();
+        myServices.moveToNextPage(event, "signInPage1.fxml");
     }
 
 }

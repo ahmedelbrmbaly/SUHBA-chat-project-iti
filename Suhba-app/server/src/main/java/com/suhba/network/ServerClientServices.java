@@ -1,14 +1,19 @@
 package com.suhba.network;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
 
@@ -53,22 +58,32 @@ public interface ServerClientServices extends Remote {
     // public List<Chat> getUserChats(long userId) ;
     // public long createPrivateChat(long userId);  ---> I need the userId and the other
 
+
+
     // Contact Screen
+
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
+
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
 
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
 
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
+
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;
+
 
     boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException;
 
     boolean updateRequestStatusFromPendingToDeclined(Contact contact, ContactStatus status) throws RemoteException;
 
     public boolean deleteContact(Contact contact) throws RemoteException;
+   // public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
 
+    // Signup & Signin Screens & Logout
 
     public User signup(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException, RemoteException;
 
@@ -87,8 +102,39 @@ public interface ServerClientServices extends Remote {
     // Exit >> To BE REVIEWED
     public boolean exit() throws IOException, RemoteException;
 
+    public String getMacAddress() throws RemoteException, SocketException;
+
+    public boolean saveFirstPart(String phone,String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException;
+
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException;
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException;
+
+//////////////////////////////////////////////////////////////////////////////
+
+    // Contact Screen
+
+
+    public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
+
+    public boolean deleteContact(long userId) throws RemoteException;
+
+//////////////////////////////////////////////////////////////////////////////
 
     // Settings Screen
+
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
+
+
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
+
+    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
+    // Announcemnt
+
+    public void showAnnouncement(String message) throws RemoteException;
+    public void register(ClientService client) throws RemoteException;
+    public void unregister(ClientService client) throws RemoteException;
+
+
 }

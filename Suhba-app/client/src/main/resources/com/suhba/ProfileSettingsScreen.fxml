@@ -121,7 +121,7 @@
             <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" prefHeight="129.0" prefWidth="110.0" />
             <VBox fx:id="logoutBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                <children>
-                  <ImageView fx:id="logoutIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logoutIconView" onMouseClicked="#handleLogout" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/logout-white.png" />
                      </image>

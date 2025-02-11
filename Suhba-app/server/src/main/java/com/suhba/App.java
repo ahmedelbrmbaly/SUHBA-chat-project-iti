@@ -1,5 +1,6 @@
 package com.suhba;
 
+import com.suhba.network.ServerNetwork;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"), 730, 600);
+        scene = new Scene(loadFXML("Broadcast"), 730, 600);
         stage.setWidth(1280);
         stage.setHeight(720);
         stage.setMinWidth(1280);
@@ -26,7 +27,9 @@ public class App extends Application {
         stage.setTitle("Suhba: Admin Login");
         stage.getIcons().add(new Image(App.class.getResourceAsStream("/images/logo-black.png")));
         stage.setScene(scene);
+        ServerNetwork.start();
         stage.show();
+
     }
 
     static void setRoot(String fxml) throws IOException {

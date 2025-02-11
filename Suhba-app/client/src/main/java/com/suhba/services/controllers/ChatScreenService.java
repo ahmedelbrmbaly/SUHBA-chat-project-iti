@@ -1,5 +1,8 @@
 package com.suhba.services.controllers;
 
+
+import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -10,12 +13,17 @@ import java.util.stream.Collectors;
 import com.suhba.controllers.ChatScreenController;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
+
 import com.suhba.network.ClientImplementation;
 import com.suhba.network.ClientInterface;
+
+import com.suhba.network.ServerClientServices;
+
 import com.suhba.network.ServerService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+
 
 
 public class ChatScreenService {
@@ -69,6 +77,7 @@ public class ChatScreenService {
         return observChats;
     }
 
+
     public User getSelectedUserInfo(long currentChatId, long userId) throws Exception {
         return ServerService.getInstance().getPrivateUserPartnerByChat(currentChatId, userId);
     }
@@ -107,6 +116,44 @@ public class ChatScreenService {
     public void unregister(long currentUserId) throws RemoteException {
         ServerService.getInstance().unregisterToReceive(currentUserId);
         System.out.println("Unregistered! ");
+// check here
+    private String getMacAddress () throws SocketException, RemoteException {
+        return serverService.getMacAddress();
+    }
+
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        if (SignIn1Service.curUser != null) {
+            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
+            serverService.logout(getMacAddress(), SignIn1Service.curUser.getUserId());
+        }
+        else if (SignUp2Service.curRegisterdUser != null) {
+            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
+            serverService.logout(getMacAddress(), SignUp2Service.curRegisterdUser.getUserId());
+        }
+        //else if () //////////////////////////////////////////////////////////////////
+    }
+
+    public void moveToNextPage(MouseEvent event, String destinationPage) {
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));
+        } catch (IOException e) {
+            System.out.println("Page not found!");
+        }
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void loadSingleChatBox(User user, Message lastMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ChatUserBox.fxml"));
+        Parent root = loader.load();
+        ChatUserBoxController controller = (ChatUserBoxController) loader.getController();
+        controller.setUserChat(user,lastMessage);
+        
+
     }
 
 }

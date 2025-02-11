@@ -36,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -181,6 +182,8 @@ public class ChatScreenController implements Initializable {
     public static ChatScreenController getInstance() {
         return instance;
     }
+
+    ChatScreenService myServices = new ChatScreenService();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -411,6 +414,7 @@ public class ChatScreenController implements Initializable {
         // stage.show();
     }
 
+
     public boolean receiveNewMessage(Message msg) {
         Platform.runLater(() -> {
             if (listOfMessages == null) {
@@ -436,6 +440,12 @@ public class ChatScreenController implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+  // check here
+    @FXML
+    void handleLogout(MouseEvent event) throws IOException {
+        myServices.logoutService();
+        myServices.moveToNextPage(event, "signInPage1.fxml");
+
     }
 
 }

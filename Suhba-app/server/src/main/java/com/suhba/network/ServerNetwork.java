@@ -5,7 +5,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class ServerNetwork {
-    public static void main(String[] args) throws InterruptedException, RemoteException {
+
+    public  static void start() throws RemoteException {
         try{
             ServerClientServicesImpl serviceObject = new ServerClientServicesImpl();
 
@@ -25,6 +26,12 @@ public class ServerNetwork {
             System.out.println("Remote Exception");
             e.printStackTrace();
         }
+    }
+
+
+    public static void main(String[] args) throws InterruptedException, RemoteException {
+
+        start();
 
     }
 }
