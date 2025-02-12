@@ -416,7 +416,7 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void goToSettings(MouseEvent event) {
-        
+        LoadingFXML.moveToNextPage(event, "ProfileSettingsScreen.fxml");
     }
 
     @FXML

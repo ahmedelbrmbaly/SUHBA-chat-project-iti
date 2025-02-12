@@ -11,6 +11,7 @@ import com.suhba.database.entities.User;
 import com.suhba.database.enums.MessageStatus;
 import com.suhba.services.MessagingService;
 import com.suhba.services.UserService;
+import com.suhba.services.controllers.ChatScreenService;
 import com.suhba.services.controllers.GroupScreenService;
 import com.suhba.utils.LoadingFXML;
 import com.suhba.views.cells.ChatGroupCell;
@@ -156,7 +157,7 @@ public class ClientGroupScreenController implements Initializable {
     private ListView<Group> chatsListView;
     ObservableMap<Group, Message> allChats;
 
-    private long currentUserId ;
+    private long currentUserId;
 
     long currentChatId = -1;
 
@@ -183,7 +184,6 @@ public class ClientGroupScreenController implements Initializable {
     public static ClientGroupScreenController getInstance() {
         return instance;
     }
-
 
     @FXML
     void goToChats(MouseEvent event) {
@@ -219,6 +219,7 @@ public class ClientGroupScreenController implements Initializable {
             // 1- Load Services + SetUp
             userService = new UserService();
             messagingService = new MessagingService();
+
             System.out.println("userId = " + currentUserId);
             chatMessageHeader.setVisible(false);
             chatMessageFooter.setVisible(false);
@@ -227,6 +228,7 @@ public class ClientGroupScreenController implements Initializable {
 
             // 2- Load Groups
             groupService = new GroupScreenService(this);
+            currentUserId = groupService.getCurUser().getUserId();
             groupService.registerToReceive(currentUserId);
             allChats = groupService.loadUserGroups(currentUserId);
 
@@ -250,7 +252,7 @@ public class ClientGroupScreenController implements Initializable {
             }
             messagesArea.setOnScroll(event -> {
                 if (event.getDeltaY() != 0) {
-                    event.consume(); 
+                    event.consume();
                 }
             });
             Platform.runLater(() -> {
@@ -287,7 +289,7 @@ public class ClientGroupScreenController implements Initializable {
                             // load Messages in this Group
                             listOfMessages.clear();
                             listOfMessages.setAll(messagingService.getSelectedChatMessages(currentChatId));
-                            Platform.runLater(()->messagesArea.setItems(listOfMessages));
+                            Platform.runLater(() -> messagesArea.setItems(listOfMessages));
                             showCurrentChatMessages();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -329,17 +331,18 @@ public class ClientGroupScreenController implements Initializable {
             if (listOfMessages == null) {
                 listOfMessages = FXCollections.observableArrayList();
                 messagesArea.setItems(listOfMessages);
-            } });
-            Platform.runLater(() -> {
-                if (!listOfMessages.contains(msg)) {
-                    listOfMessages.add(msg);
-                    messagesArea.scrollTo(listOfMessages.size() - 1);
-                }
-            });
-            //listOfMessages.add(msg);
-            //messagesArea.scrollTo(listOfMessages.size() - 1);
-            System.out.println("Received new message: " + msg);
-       
+            }
+        });
+        Platform.runLater(() -> {
+            if (!listOfMessages.contains(msg)) {
+                listOfMessages.add(msg);
+                messagesArea.scrollTo(listOfMessages.size() - 1);
+            }
+        });
+        // listOfMessages.add(msg);
+        // messagesArea.scrollTo(listOfMessages.size() - 1);
+        System.out.println("Received new message: " + msg);
+
         return true;
     }
 
@@ -351,7 +354,7 @@ public class ClientGroupScreenController implements Initializable {
             messagesArea.setVisible(true);
         }
         if (currentGroupInChatWith != null) {
-            Platform.runLater(()->{
+            Platform.runLater(() -> {
                 if (currentGroupInChatWith.getGroupPhoto() == null) {
                     chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultGroup.png")));
                 } else {
@@ -362,7 +365,7 @@ public class ClientGroupScreenController implements Initializable {
                 Circle circle = new Circle(30, 30, 30);
                 chatPicture.setClip(circle);
             });
-            
+
         }
     }
 
@@ -381,26 +384,53 @@ public class ClientGroupScreenController implements Initializable {
     }
 
     private void showCurrentChatMessages() {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             messagesArea.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
 
                 @Override
                 public ListCell<Message> call(ListView<Message> param) {
                     return new GroupMessageBubble(currentUserId);
                 }
-    
+
             });
         });
-        
+
     }
 
     @FXML
     void handleAddNewGroup(ActionEvent event) {
-        Node currentNode = (Node)event.getSource();
-        Stage owner = (Stage)currentNode.getScene().getWindow();
+        Node currentNode = (Node) event.getSource();
+        Stage owner = (Stage) currentNode.getScene().getWindow();
         // load the popup content
         URL fxmlURL = getClass().getResource("/com/suhba/AddNewGroup.fxml");
-        LoadingFXML.showPopupWithId(owner, fxmlURL,500,500, currentUserId);
+        LoadingFXML.showPopupWithId(owner, fxmlURL, 500, 500, currentUserId);
+    }
+
+    @FXML
+    void goToContacts(MouseEvent event) {
+        LoadingFXML.moveToNextPage(event, "ClientContactScreen.fxml");
+    }
+
+    @FXML
+    void goToSettings(MouseEvent event) {
+        LoadingFXML.moveToNextPage(event, "ProfileSettingsScreen.fxml");
+    }
+
+    @FXML
+    void goToLogout(MouseEvent event) {
+        ChatScreenService chatScreenService = new ChatScreenService();
+        try {
+            chatScreenService.unregister(currentUserId);
+            chatScreenService.logoutService();
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        LoadingFXML.moveToNextPage(event, "signInPage1.fxml");
     }
 
     @FXML
