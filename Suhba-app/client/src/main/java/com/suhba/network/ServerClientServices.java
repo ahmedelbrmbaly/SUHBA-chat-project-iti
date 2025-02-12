@@ -122,8 +122,5 @@ public interface ServerClientServices extends Remote {
     public void register(ClientService client) throws RemoteException;
     public void unregister(ClientService client) throws RemoteException;
 
-    // look here
-    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
-    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
 
 }

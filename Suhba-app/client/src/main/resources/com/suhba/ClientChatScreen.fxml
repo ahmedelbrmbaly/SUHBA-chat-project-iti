@@ -28,7 +28,7 @@
             <Line endX="90.0" stroke="WHITE" />
             <VBox alignment="CENTER" spacing="9.0">
                <children>
-                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToChats" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
+                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
                      <children>
                         <ImageView fx:id="chatIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
