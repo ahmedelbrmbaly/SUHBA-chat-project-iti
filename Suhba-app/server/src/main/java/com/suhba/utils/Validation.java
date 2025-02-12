@@ -12,10 +12,21 @@ public class Validation {
     UserDAOImpl myObj = new UserDAOImpl();
 
     public boolean validatePhone(String phone) throws RepeatedPhoneException, InvalidPhoneException {
-        if (myObj.getUserByPhone(phone) != null)  throw new RepeatedPhoneException("The phone number you entered already exists");
-        if (!Pattern.matches("\\d{11}", phone))  throw new InvalidPhoneException("The phone number you entered is invalid");
+        if (phone == null || phone.isEmpty()) {
+            throw new InvalidPhoneException("Phone number cannot be null or empty");
+        }
+
+        if (myObj != null && myObj.getUserByPhone(phone) != null) {
+            throw new RepeatedPhoneException("The phone number you entered already exists");
+        }
+
+        if (!Pattern.matches("\\d{11}", phone)) {
+            throw new InvalidPhoneException("The phone number you entered is invalid");
+        }
+
         return true;
     }
+
 
     public boolean validateEmail(String email) throws RepeatedEmailException, InvalidEmailException {
         if (myObj.getUsersByEmail(email) != null)  throw new RepeatedEmailException("The email you entered already exists");

@@ -32,30 +32,27 @@ public class ServerService {
     }
 
 
-    public static void startServerService()
-    {
+    public static void startServerService() {
         try {
-            ServerClientServices serverService = ServerService.getInstance();
+            ServerClientServices serverService = getInstance();
+            if (serverService == null) {
+                System.err.println("Server is not available. Client cannot be registered.");
+                return;
+            }
 
             // Create and register the client
             ClientService client = new ClientServiceImpl();
             serverService.register(client);
             System.out.println("Client registered with the server.");
-
-
-        }  catch (RemoteException e) {
+        } catch (RemoteException e) {
             System.err.println("Failed to register client: " + e.getMessage());
             e.printStackTrace();
-
-
-        }catch (Exception e) {
-            throw new RuntimeException(e);
-
-            // Get the server instance
-
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
         }
-
     }
+
     public static void main(String[] args) {
         startServerService();
     }

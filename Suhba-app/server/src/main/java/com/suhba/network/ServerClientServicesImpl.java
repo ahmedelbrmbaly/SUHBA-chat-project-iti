@@ -10,6 +10,7 @@ import com.suhba.services.client.implementaions.ContactServiceImpl;
 import com.suhba.services.client.implementaions.UserAuthServiceImpl;
 import com.suhba.services.client.implementaions.UserSettingServiceImpl;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.SocketException;
 import java.rmi.RemoteException;
@@ -276,8 +277,6 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         return myAuthImpl.isPasswordMatchUser(userId, password);
     }
 
-
-
     public synchronized void register(ClientService client) throws RemoteException {
         if (!clients.contains(client)) {
             if (client == null) {
@@ -298,6 +297,29 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public void notifyServerShutdown() throws RemoteException {
+        for (ClientService client : clients) {
+            client.onServerShutdown();
+        }
+    }
+
+    @Override
+    public void notifyClientsShutdown() throws RemoteException {
+        for (ClientService client : clients) {
+            client.onServerShutdown(); // Notify each client
+        }
+    }
+
+
+    public void onServerShutdown() throws RemoteException {
+        // Show an alert message to notify the user
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(null, "Server has stopped. Exiting client.", "Alert", JOptionPane.WARNING_MESSAGE);
+            System.exit(0); // Exit the client application
+        });
+    }
+
+    @Override
     public void showAnnouncement(String message) throws RemoteException {
         System.out.println("Broadcasting announcement: " + message);
         for (ClientService client : clients) {
@@ -309,6 +331,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
             }
         }
     }
+
 
 
 }

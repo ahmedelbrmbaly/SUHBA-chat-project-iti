@@ -15,20 +15,22 @@ public class ServerManagementController {
     @FXML
     private Button stopServer;
 
-    private boolean isServerRunning = false; // Track server status
-
-    @FXML
-    private Button startButton; // Reference to the button
+    private boolean isServerRunning = false; // ✅ This must be at the class level
 
     @FXML
     void handleStartServer(ActionEvent event) {
         if (!isServerRunning) {
             try {
-                ServerNetwork.start();
-                isServerRunning = true;
+                Thread serverThread = new Thread(() -> {
+                    ServerNetwork.start();
+                });
+                serverThread.setDaemon(false); // Ensures the thread stays running
+                serverThread.start();
+
+                isServerRunning = true; // ✅ Mark as running
                 System.out.println("Server started.");
-                startServer.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: #ffffff; -fx-cursor:  hand;");
-                stopServer.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+                startServer.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: #ffffff; -fx-cursor: hand;");
+                stopServer.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #3F72AF; -fx-cursor: hand;");
             } catch (Exception e) {
                 System.out.println("Error starting server.");
                 e.printStackTrace();
@@ -38,16 +40,15 @@ public class ServerManagementController {
         }
     }
 
-
     @FXML
     void handleStopServer(ActionEvent event) {
         if (isServerRunning) {
             try {
                 ServerNetwork.stop();
-                isServerRunning = false;
+                isServerRunning = false; // ✅ Mark as stopped
                 System.out.println("Server stopped.");
-                stopServer.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: white; -fx-cursor:  hand;");
-                startServer.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+                stopServer.setStyle("-fx-background-color: #3F72AF; -fx-text-fill: white; -fx-cursor: hand;");
+                startServer.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #3F72AF; -fx-cursor: hand;");
             } catch (Exception e) {
                 System.out.println("Error stopping server.");
                 e.printStackTrace();

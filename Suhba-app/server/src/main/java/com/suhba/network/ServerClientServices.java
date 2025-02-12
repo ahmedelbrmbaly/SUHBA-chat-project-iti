@@ -140,6 +140,8 @@ public interface ServerClientServices extends Remote {
     public void showAnnouncement(String message) throws RemoteException;
     public void register(ClientService client) throws RemoteException;
     public void unregister(ClientService client) throws RemoteException;
+    void notifyServerShutdown() throws RemoteException;
 
 
+    void notifyClientsShutdown() throws RemoteException;
 }

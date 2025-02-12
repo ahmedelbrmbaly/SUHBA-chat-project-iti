@@ -5,6 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.NotBoundException;
 import java.rmi.server.ExportException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ServerNetwork {
 
@@ -59,8 +60,20 @@ public class ServerNetwork {
     public static void stop() {
         if (isRunning) {
             try {
+                // Notify connected clients about shutdown
+                if (registry != null) {
+                    try {
+                        ServerClientServices service = (ServerClientServices) registry.lookup(SERVICE_NAME);
+                        service.notifyClientsShutdown(); // Notify clients (Implement this in ServerClientServices)
+                    } catch (NotBoundException e) {
+                        System.out.println("Service not bound, skipping client notification.");
+                    }
+                }
+
+                // Unbind and stop the server
                 registry.unbind(SERVICE_NAME);
                 System.out.println("Service '" + SERVICE_NAME + "' unbound successfully.");
+
             } catch (RemoteException | NotBoundException e) {
                 System.err.println("Error stopping server: " + e.getMessage());
             } finally {
@@ -72,4 +85,5 @@ public class ServerNetwork {
             System.out.println("Server is not running.");
         }
     }
+
 }

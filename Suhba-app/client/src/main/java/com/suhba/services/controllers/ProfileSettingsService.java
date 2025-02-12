@@ -12,13 +12,23 @@ import java.security.NoSuchAlgorithmException;
 public class ProfileSettingsService {
     private final ServerClientServices serverService = ServerService.getInstance();
 
-    private static final int PRESET_USER_ID = 5;
+    //private static final int PRESET_USER_ID = 5;
+
+//    public User loadUserProfile() {
+//        try {
+//            return serverService.getUserById(PRESET_USER_ID); // Use the preset user ID
+//        } catch (RemoteException e) {
+//            showErrorAlert("Connection error: Unable to load profile. Please try again later.");
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public User loadUserProfile() {
         User currentUser = getCurUser();
         if (currentUser != null) {
             try {
-                return serverService.getUserById(currentUser.getUserId());//edit it here by
+                return serverService.getUserById(currentUser.getUserId());
             } catch (RemoteException e) {
                 showErrorAlert("Connection error: Unable to load profile. Please try again later.");
                 e.printStackTrace();

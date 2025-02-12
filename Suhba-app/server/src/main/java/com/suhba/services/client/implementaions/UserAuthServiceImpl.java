@@ -27,7 +27,6 @@ public class UserAuthServiceImpl implements UserAuthService {
     User myUser;
     UserSession userSession;
     UserSessionDAOImpl userSessionDAOImpl;
-    User userTobeInserted;
 
     public UserAuthServiceImpl() {
         this.myObj = new UserDAOImpl();
@@ -36,7 +35,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         this.myUser = new User();
         this.userSession = new UserSession();
         this.userSessionDAOImpl = new UserSessionDAOImpl();
-        this.userTobeInserted = new User();
     }
 
     @Override
@@ -66,7 +64,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         return (myObj.getUserByPhone(phoneNumber) != null ? true : false);
     }
 
-    // look here
     @Override
     public boolean isEmailRegistered(String Email) {
         return false;
@@ -74,12 +71,12 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public long getUserIdByEmail(String Email) {
-        return (myObj.getUserIdByEmailDAO(Email));
+        return 0;
     }
 
     @Override
     public long getUserIdByPhone(String Phone) {
-        return (myObj.getUserIdByPhoneDAO(Phone));
+        return 0;
     }
 
     @Override
@@ -97,7 +94,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         return myUser;
     }
 
-    @Override
     public String getMacAddress() throws SocketException {
         Enumeration<NetworkInterface> networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();
 
@@ -162,59 +158,27 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public boolean saveFirstPart(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
-        System.out.println("saveFirstPart method in UserAuthServiceImpl is called");
-        if (myValidation.validatePhone(phone))  userTobeInserted.setPhone(phone);
-        if (myValidation.validateEmail(email))  userTobeInserted.setUserEmail(email);
-        if (myValidation.validatePassword(password))  userTobeInserted.setPassword(myHashing.doHashing(password));
-        System.out.println("Phone: " + userTobeInserted.getPhone());
-        System.out.println("Email: " + userTobeInserted.getUserEmail());
-        System.out.println("Password: " + userTobeInserted.getPassword());
-        return true;
-    }
-
-   /* @Override
-    public long registerAndGetUserId(String phone, String email, String password) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
-        boolean isValid = saveFirstPart(phone, email, password);
-        if (isValid) {
-            long userId = myObj.getUserIdByPhone(phone);
-            System.out.println("User registered with ID: " + userId);
-            return userId;
-        }
-        return -1;
-    }*/
-
-
-    @Override
-    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) {
-        System.out.println("saveLastPart method in UserAuthServiceImpl is called");
-        userTobeInserted.setDisplayName(name);
-        userTobeInserted.setGender(gender);
-        userTobeInserted.setBirthday(DOB);
-        userTobeInserted.setCountry(country);
-        userTobeInserted.setPicture(picture == null ? null : picture);
-        myObj.addNewUser(userTobeInserted);
-        System.out.println("Name: " + userTobeInserted.getDisplayName());
-        System.out.println("Gender: " + userTobeInserted.getGender());
-        System.out.println("DOB: " + userTobeInserted.getBirthday());
-        System.out.println("Country: " + userTobeInserted.getCountry());
-        System.out.println("Picture: " + (userTobeInserted.getPicture() != null ? "Exists" : "Null"));
+    public boolean saveFirstPart(String phone, String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        return false;
     }
 
     @Override
-    public User getUserByPhoneNumber(String phoneNumber) {
-        return myObj.getUserByPhone(phoneNumber);
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException {
+
+    }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException {
+        return null;
     }
 
     @Override
     public boolean isPasswordMatchUser(long userId, String password) throws RemoteException, NoSuchAlgorithmException {
-        return myObj.getUserById(userId).getPassword().equals(myHashing.doHashing(password));
+        return false;
     }
 
     @Override
     public List<Long> getUserIdsByPhones(List<String> phones) {
-        return myObj.getUserIdsByPhones(phones);
+        return List.of();
     }
-
-
 }
