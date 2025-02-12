@@ -129,5 +129,8 @@ public interface ServerClientServices extends Remote {
     public void register(ClientService client) throws RemoteException;
     public void unregister(ClientService client) throws RemoteException;
 
+    // Chatbot
+
+    public String getBotResponse(String userMessage);
 
 }

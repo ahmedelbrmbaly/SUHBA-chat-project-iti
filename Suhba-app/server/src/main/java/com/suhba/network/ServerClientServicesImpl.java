@@ -5,10 +5,7 @@ import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
-import com.suhba.services.client.implementaions.ChatServiceImpl;
-import com.suhba.services.client.implementaions.ContactServiceImpl;
-import com.suhba.services.client.implementaions.UserAuthServiceImpl;
-import com.suhba.services.client.implementaions.UserSettingServiceImpl;
+import com.suhba.services.client.implementaions.*;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -37,6 +34,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         this.myAuthImpl = new UserAuthServiceImpl();
         this.mySettingImpl = new UserSettingServiceImpl();
         this.myContactImpl = new ContactServiceImpl();
+
     }
 
     @Override
@@ -290,6 +288,9 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
                 clients.remove(client); // Remove disconnected clients
             }
         }
+    }
+    public String getBotResponse(String userMessage){
+        return GeminiAPI.getBotResponse(userMessage);
     }
 
 
