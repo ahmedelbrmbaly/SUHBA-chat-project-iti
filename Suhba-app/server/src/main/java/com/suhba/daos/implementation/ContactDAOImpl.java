@@ -57,6 +57,47 @@ public class ContactDAOImpl implements ContactDAO {
         return false;
     }
 
+    ////////////////////////////////////////////////////////
+    @Override
+    public boolean sendFriendRequests(long userId1, List<Long> users) throws SQLException {
+        boolean allRequestsSent = true;
+        String query = "INSERT INTO Contacts (userId1, userId2, contactStatus) VALUES (?, ?, ?)";
+        System.out.println("before loop");
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            connection.setAutoCommit(false);
+            for (Long userId2 : users) {
+                System.out.println("In loop");
+                System.out.println("user id2 " + userId2);
+                if (!getContactsByUserId1AndUserId2(userId1, userId2).isEmpty() || !getContactsByUserId1AndUserId2(userId2, userId1).isEmpty()) {
+                    System.out.println("In condition in loop");
+                    continue;
+                }
+                System.out.println("Out loop");
+                preparedStatement.setLong(1, userId1);
+                preparedStatement.setLong(2, userId2);
+                //System.out.println();
+                preparedStatement.setString(3, ContactStatus.PENDING.name());
+                preparedStatement.addBatch();
+                System.out.println("After prep");
+            }
+            int[] results = preparedStatement.executeBatch();
+            connection.commit();
+            System.out.println("after commit");
+            for (int result : results) {
+                if (result == PreparedStatement.EXECUTE_FAILED) {
+                    allRequestsSent = false;
+                    break;
+                }
+            }
+            System.out.println("after outer loop");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return allRequestsSent;
+    }
+    /// //////////////////////////////////////////////////////
+
     @Override
     public boolean deleteContact(Contact contact) {
         String query = "DELETE FROM Contacts WHERE userId1 = ? AND userId2 = ?";

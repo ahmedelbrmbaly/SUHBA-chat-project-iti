@@ -36,6 +36,12 @@ public class ClientAddContactScreenService {
         return null;
     }
 
+    public boolean isMe (String phoneNumber) throws RemoteException {
+        User user = serverService.getUserByPhoneNumber(phoneNumber);
+        if (user != null)  return user.getUserId() == /*getCurUser().getUserId()*/5;
+        return false;
+    }
+
     public void showErrorAlert (String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

@@ -23,6 +23,9 @@ public interface ContactDAO {
 
     public List<Long> getAcceptedFriends(long userId) throws SQLException;
 
+    /// ///////////////////////////////////////////////////////////////
+    public boolean sendFriendRequests(long userId1, List<Long> users) throws SQLException;
+
     // public List<User> getAllUsersInContactByUserID(long userId);
     public List<User> getAllUsersInContactByUserID(long userId);
 

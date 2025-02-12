@@ -138,7 +138,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
-    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException {
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException, SQLException {
         return myContactImpl.sendFriendRequestsById(userId1, userId);
     }
 

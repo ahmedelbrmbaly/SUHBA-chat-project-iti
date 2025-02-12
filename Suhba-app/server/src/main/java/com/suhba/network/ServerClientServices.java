@@ -71,7 +71,7 @@ public interface ServerClientServices extends Remote {
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
 
-    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException, SQLException;
 
     public List<User> getAllPendingRequests(long userId) throws RemoteException;
     public List<User> getAllFriends(long userId) throws RemoteException;

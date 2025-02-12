@@ -1,6 +1,8 @@
 package com.suhba.controllers;
 
 import com.suhba.database.entities.User;
+import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.services.controllers.ClientContactScreenService;
 import com.suhba.utils.FXMLHelper;
 import javafx.application.Platform;
@@ -167,19 +169,26 @@ public class ClientContactScreenController implements Initializable {
                     String phoneNumber = user.getPhone();
                     String bio = user.getBio();
                     String email = user.getUserEmail();
-                    String status = user.getUserStatus().name();
+                    UserStatus status = user.getUserStatus();
                     Color circleColor;
                     switch (status) {
-                        case "Offline":
+                        case UserStatus.Available:
+                            circleColor = Color.GREEN;
+                            break;
+                        case UserStatus.Offline:
+                            circleColor = Color.GRAY;
+                            break;
+                        case UserStatus.Busy:
                             circleColor = Color.RED;
                             break;
-                        case "Available":
-                            circleColor = Color.GREEN;
+                        case UserStatus.Away:
+                            circleColor = Color.YELLOW;
                             break;
-                        case "Busy":
-                            circleColor = Color.GREEN;
+                        default:
+                            circleColor = Color.WHITE;
+                            break;
                     }
-                    controller.setNewFriendData(Color.BLUE, friendName, bio, email, phoneNumber);
+                    controller.setNewFriendData(circleColor, friendName, bio, email, phoneNumber);
                     curView.setUserData(phoneNumber);
                 } else {
                     System.out.println("Error: Controller is null!");

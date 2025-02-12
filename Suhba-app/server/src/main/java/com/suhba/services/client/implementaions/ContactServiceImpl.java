@@ -74,13 +74,14 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException {
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException, SQLException {
         System.out.println("In sendFriendRequestsById that takes userId1 & list of userId");
         for (long curUserId: userId) {
             if (!myContactDao.getContactsByUserId1AndUserId2(userId1, curUserId).isEmpty() || !myContactDao.getContactsByUserId1AndUserId2(curUserId, userId1).isEmpty())  continue;
             if (!sendFriendRequest(userId1, curUserId))  return false;
         }
         return true;
+        //return myContactDao.sendFriendRequests(userId1, userId);
     }
 
     @Override
