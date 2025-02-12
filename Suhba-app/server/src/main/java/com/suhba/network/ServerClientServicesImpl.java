@@ -2,6 +2,8 @@ package com.suhba.network;
 
 import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.implementaions.ChatServiceImpl;
 import com.suhba.services.client.implementaions.ContactServiceImpl;
@@ -9,9 +11,12 @@ import com.suhba.services.client.implementaions.UserAuthServiceImpl;
 import com.suhba.services.client.implementaions.UserSettingServiceImpl;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -33,6 +38,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         this.myAuthImpl = new UserAuthServiceImpl();
         this.mySettingImpl = new UserSettingServiceImpl();
         this.myContactImpl = new ContactServiceImpl();
+        
     }
 
     @Override
@@ -116,6 +122,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException {
+        return myContactImpl.sendFriendRequest(userId1, userId2);
+    }
+
+    @Override
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException {
         return myContactImpl.sendFriendRequests(phoneNumber);
     }
@@ -123,6 +134,11 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException {
         return myContactImpl.sendFriendRequestsById(userId);
+    }
+
+    @Override
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException {
+        return myContactImpl.sendFriendRequestsById(userId1, userId);
     }
 
     @Override
@@ -191,6 +207,26 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public String getMacAddress() throws RemoteException, SocketException {
+        return myAuthImpl.getMacAddress();
+    }
+
+    @Override
+    public boolean saveFirstPart(String phone, String email, String password) throws RemoteException, InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException, InvalidPasswordException, NoSuchAlgorithmException {
+        return myAuthImpl.saveFirstPart(phone, email, password);
+    }
+
+    @Override
+    public void saveLastPart(String name, Gender gender, LocalDate DOB, Country country, byte[] picture) throws RemoteException{
+        myAuthImpl.saveLastPart(name, gender, DOB, country, picture);
+    }
+
+    @Override
+    public List<Long> getUserIdsByPhones(List<String> phones) throws RemoteException {
+        return myAuthImpl.getUserIdsByPhones(phones);
+    }
+
+    @Override
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException {
         return mySettingImpl.updateUserProfile(user);
     }
@@ -201,6 +237,30 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     }
 
     @Override
+    public void registerToReceiveMessages(long userId, ClientInterface client) {
+        myChatImpl.registerToReceiveMessages(userId, client);
+    }
+
+    @Override
+    public void unregisterToReceive(long userId) {
+        myChatImpl.unregisterToReceive(userId);
+    }
+
+    @Override
+    public Chat getChatById(long chatId){
+        return myChatImpl.getChatById(chatId);
+    }
+
+
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException {
+        return myAuthImpl.getUserByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public boolean isPasswordMatchUser(long userId, String password) throws RemoteException, NoSuchAlgorithmException {
+        return myAuthImpl.isPasswordMatchUser(userId, password);
+    }
+
     public synchronized void register(ClientService client) throws RemoteException {
         if (!clients.contains(client)) {
             if (client == null) {
@@ -232,6 +292,8 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
             }
         }
     }
+
+
 
 
 }

@@ -14,6 +14,9 @@ public interface ContactService {
     public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
     public boolean sendFriendRequest(long userId) throws RemoteException;
 
+    public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
+    public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
+
     public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
     public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
 
