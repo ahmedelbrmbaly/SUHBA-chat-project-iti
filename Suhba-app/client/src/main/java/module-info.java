@@ -17,7 +17,6 @@ module com.suhba {
 
     exports com.suhba;
     opens com.suhba.controllers.components to javafx.fxml;
-    exports com.suhba.network to java.rmi;
     exports com.suhba.database.entities to java.rmi;
 }
 

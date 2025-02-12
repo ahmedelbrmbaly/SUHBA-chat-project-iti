@@ -1,5 +1,7 @@
 package com.suhba.services.controllers;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -16,12 +18,42 @@ import com.suhba.network.ServerService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 public class ChatScreenService {
 
     ClientInterface client;
     ChatScreenController controller;
+
+    private String getMacAddress () throws SocketException, RemoteException {
+        return ServerService.getInstance().getMacAddress();
+    }
+
+
+
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        System.out.println(getCurUser().getUserId());
+        ServerService.getInstance().logout(getMacAddress(), getCurUser().getUserId());
+    }
+
+    public User getCurUser () {
+        if (SignIn1Service.curUser != null) {
+            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
+            return SignIn1Service.curUser;
+        }
+        else if (SignUp2Service.curRegisterdUser != null) {
+            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
+            return SignUp2Service.curRegisterdUser;
+        }
+        return null;
+    }
 
     public ChatScreenService (ChatScreenController chatScreenController){
         try{

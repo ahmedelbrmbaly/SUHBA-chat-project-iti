@@ -58,27 +58,6 @@ public class ContactDAOImpl implements ContactDAO {
     }
 
     @Override
-    public List<Long> getAcceptedFriends(long userId) throws SQLException {
-        List<Long> friends = new ArrayList<>();
-        String sql = "SELECT CASE WHEN userId1 = ? THEN userId2 ELSE userId1 END AS friendId " +
-                "FROM contacts " +
-                "WHERE (userId1 = ? OR userId2 = ?) AND contactStatus = 'ACCEPTED'";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setLong(1, userId);
-            stmt.setLong(2, userId);
-            stmt.setLong(3, userId);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                friends.add(rs.getLong("friendId"));
-            }
-        }
-        return friends;
-    }
-
-    @Override
     public boolean deleteContact(Contact contact) {
         String query = "DELETE FROM Contacts WHERE userId1 = ? AND userId2 = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

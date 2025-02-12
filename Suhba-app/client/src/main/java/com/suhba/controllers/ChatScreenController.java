@@ -1,5 +1,6 @@
 package com.suhba.controllers;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 // import com.suhba.models.*;
@@ -12,6 +13,7 @@ import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.MessageStatus;
 import com.suhba.services.controllers.ChatScreenService;
+import com.suhba.utils.LoadingFXML;
 import com.suhba.views.cells.ChatUserCell;
 import com.suhba.views.cells.MessageBubbleCell;
 
@@ -164,7 +166,7 @@ public class ChatScreenController implements Initializable {
 
     long currentChatId = -1;
 
-    long currentUserId = 1;
+    long currentUserId;
 
     User currentUserInChatWith;
 
@@ -196,6 +198,7 @@ public class ChatScreenController implements Initializable {
             // 8- Receiving messages -> update in gui
 
             chatScreenService = new ChatScreenService(this);
+            currentUserId = chatScreenService.getCurUser().getUserId();
             System.out.println("ChatService= " + chatScreenService);
             System.out.println("Controller= " + this);
             currentUser = chatScreenService.getUserInfoById(currentUserId);
@@ -377,7 +380,7 @@ public class ChatScreenController implements Initializable {
                 if (currentUserInChatWith.getPicture() == null) {
                     chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
                 } else {
-                    chatPicture.setImage((Image) currentUserInChatWith.getPicture());
+                   // chatPicture.setImage((Image) currentUserInChatWith.getPicture());
                 }
                 chatNameLabel.setText(currentUserInChatWith.getDisplayName());
                 userChatStatusLabel.setText(currentUserInChatWith.getUserStatus().name());
@@ -428,6 +431,26 @@ public class ChatScreenController implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void moveToNextPage(MouseEvent event, String destinationPage) {
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));
+        } catch (IOException e) {
+            System.out.println("Page not found!");
+        }
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void handleLogout (MouseEvent event) throws IOException {
+        chatScreenService.unregister(currentUserId);
+        chatScreenService.logoutService();
+        moveToNextPage(event, "signInPage1.fxml");
     }
 
 }

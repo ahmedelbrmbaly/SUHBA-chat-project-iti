@@ -53,7 +53,7 @@ public class ChatUserBoxController{
         if (user.getPicture() == null) {
             userChatImg.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
         }else{
-            userChatImg.setImage((Image) user.getPicture());
+           // userChatImg.setImage((Image) user.getPicture());
         }
         userChatName.setText(user.getDisplayName());
         userLastMessageLabel.setText(lastMessage.getContent());

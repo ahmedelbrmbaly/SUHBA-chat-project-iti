@@ -17,7 +17,7 @@
                 <Image url="@../../images/user_profile.jpg" />
             </image>
         </ImageView>
-        <Circle fx:id="friendStatus11112" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
+        <Circle fx:id="friendStatus" fill="#2fff00" layoutX="125.0" layoutY="95.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.4" AnchorPane.topAnchor="88.0" />
         <GridPane fx:id="friendInfo11112" layoutY="102.0" prefHeight="148.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.4">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
