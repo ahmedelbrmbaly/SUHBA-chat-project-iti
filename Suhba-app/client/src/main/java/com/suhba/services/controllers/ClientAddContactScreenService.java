@@ -26,7 +26,7 @@ public class ClientAddContactScreenService {
     public boolean sendFriendRequest (List<String> phoneNumbers) throws RemoteException {
         List<Long> receiverIds = serverService.getUserIdsByPhones(phoneNumbers);
         /// //////////////////////////////////////////////////////////////////////////////
-        if (receiverIds != null) return serverService.sendFriendRequestsById(/*getCurUser().getUserId()*/ 1, receiverIds);
+        if (receiverIds != null) return serverService.sendFriendRequestsById(getCurUser().getUserId(), receiverIds);
         return true;
     }
 
@@ -38,7 +38,7 @@ public class ClientAddContactScreenService {
 
     public boolean isMe (String phoneNumber) throws RemoteException {
         User user = serverService.getUserByPhoneNumber(phoneNumber);
-        if (user != null)  return user.getUserId() == /*getCurUser().getUserId()*/1;
+        if (user != null)  return user.getUserId() == getCurUser().getUserId();
         return false;
     }
 
