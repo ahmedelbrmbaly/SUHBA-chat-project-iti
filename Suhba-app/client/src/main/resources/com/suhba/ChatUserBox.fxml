@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatUserBoxController">
+<HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="251.0" style="-fx-border-color: #112D4E; -fx-border-width: 0 0 0.5 0; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.components.ChatUserBoxController">
    <children>
       <StackPane prefHeight="150.0" prefWidth="50.0">
          <children>

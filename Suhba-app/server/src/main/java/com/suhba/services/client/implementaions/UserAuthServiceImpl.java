@@ -66,9 +66,10 @@ public class UserAuthServiceImpl implements UserAuthService {
         return (myObj.getUserByPhone(phoneNumber) != null ? true : false);
     }
 
+    // look here
     @Override
     public boolean isEmailRegistered(String Email) {
-        return (myObj.getUserByEmail(Email) != null ? true : false);
+        return false;
     }
 
     @Override

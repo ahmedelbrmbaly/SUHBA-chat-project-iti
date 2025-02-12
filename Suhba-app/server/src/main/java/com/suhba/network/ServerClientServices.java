@@ -15,7 +15,17 @@ import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
+
 public interface ServerClientServices extends Remote {
+
+    //////////////////////////////////////////////////////////////////
+    // missing import >>>>
+    public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
+    public void unregisterToReceive(long userId) throws RemoteException;
+
+    public Chat getChatById(long chatId) throws RemoteException;
+
+    /////////////////////////////////////////////////////////////////
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)
@@ -51,18 +61,11 @@ public interface ServerClientServices extends Remote {
 
     // Contact Screen
 
-    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
-    public boolean sendFriendRequest(long userId) throws RemoteException;
 
     public boolean sendFriendRequest(long userId1, long userId2) throws RemoteException;
 
-    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
-    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
-
     public boolean sendFriendRequestsById(long userId1, List<Long> userId) throws RemoteException;
 
-    public List<User> getAllPendingRequests(long userId) throws RemoteException;
-    public List<User> getAllFriends(long userId) throws RemoteException;
 
 
     boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException;
@@ -101,7 +104,14 @@ public interface ServerClientServices extends Remote {
 //////////////////////////////////////////////////////////////////////////////
 
     // Contact Screen
+    public boolean sendFriendRequest(String phoneNumber) throws RemoteException;
+    public boolean sendFriendRequest(long userId) throws RemoteException;
 
+    public boolean sendFriendRequests(List<String> phoneNumber) throws RemoteException;
+    public boolean sendFriendRequestsById(List<Long> userId) throws RemoteException;
+
+    public List<User> getAllPendingRequests(long userId) throws RemoteException;
+    public List<User> getAllFriends(long userId) throws RemoteException;
 
     public boolean updateRequestStatus(long userId, ContactStatus status ) throws RemoteException;
 
@@ -116,12 +126,14 @@ public interface ServerClientServices extends Remote {
     public boolean isEmailRegistered(String phoneNumber) throws RemoteException;
 
 
-    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
-
-    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
 
     public long getUserIdByEmail(String email) throws RemoteException;
     public long getUserIdByPhone(String phone) throws RemoteException ;
+
+
+    public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
+
+    public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
 
     // Announcemnt
 

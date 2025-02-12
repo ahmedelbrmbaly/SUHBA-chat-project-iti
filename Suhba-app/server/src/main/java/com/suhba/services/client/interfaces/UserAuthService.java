@@ -5,6 +5,7 @@ import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketException;
 import java.rmi.RemoteException;
