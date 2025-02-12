@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -34,344 +33,36 @@
                            </children>
                         </VBox>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #112D4E; -fx-cursor: hand;" text="Server Logs" textFill="#f9f7f7">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <GridPane hgap="10.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                  <GridPane hgap="10.0" prefHeight="161.0" prefWidth="730.0" vgap="20.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="171.40001525878907" minHeight="10.0" prefHeight="138.59998168945313" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="310.4" minHeight="10.0" prefHeight="310.4" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="50.0" />
                      </padding>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                           <children>
-                              <Label text="Server Control" textFill="#112d4e">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" style="-fx-background-color: #112D4E; -fx-cursor: hand;" text="Start Server" textFill="#f9f7f7">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Button mnemonicParsing="false" style="-fx-background-color: #f9f7f7; -fx-cursor: hand;" text="Stop server" textFill="#112d4e">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Region prefHeight="30.0" prefWidth="7.0" HBox.hgrow="SOMETIMES" />
-                                    <Label alignment="TOP_RIGHT" text="• Onilne" textFill="#31993a">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="1.0">
-                                 <children>
-                                    <VBox prefHeight="68.0" prefWidth="106.0" spacing="5.0" style="-fx-background-color: #DBE2EF;" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label text="UpTime" textFill="#112d4e">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="24h 13m" textFill="#112d4e">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </HBox.margin>
-                                       <padding>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox prefHeight="72.0" prefWidth="142.0" spacing="5.0" style="-fx-background-color: #DBE2EF;" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Response Time" textFill="#112d4e">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label text="127ms" textFill="#112d4e">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </HBox.margin>
-                                       <padding>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox prefHeight="72.0" prefWidth="131.0" style="-fx-background-color: #DBE2EF;" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Active Services" textFill="#112d4e">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets top="3.0" />
-                                             </padding>
-                                          </Label>
-                                          <Label text="10 / 10" textFill="#112d4e" VBox.vgrow="ALWAYS">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <padding>
-                                                <Insets bottom="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="1">
-                           <children>
-                              <Label text="Database Health" textFill="#112d4e">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Status" textFill="#112d4e">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Region prefHeight="30.0" prefWidth="7.0" HBox.hgrow="SOMETIMES" />
-                                    <Label alignment="TOP_RIGHT" text="Healthy" textFill="#31993a">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Connections" textFill="#112d4e">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Region prefHeight="30.0" prefWidth="7.0" HBox.hgrow="SOMETIMES" />
-                                    <Label alignment="TOP_RIGHT" text="24 / 100" textFill="#112d4e">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Query Response Time" textFill="#112d4e">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Region prefHeight="30.0" prefWidth="7.0" HBox.hgrow="SOMETIMES" />
-                                    <Label alignment="TOP_RIGHT" text="45 ms" textFill="#112d4e">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.20001220703125" minWidth="10.0" prefWidth="109.39997863769531" />
-                                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="251.00001525878906" minWidth="10.0" prefWidth="240.6000213623047" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Recent logs" textFill="#112d4e">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Start Server" textFill="#f9f7f7" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Label text="Log Log Log Log " textFill="#112d4e" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </GridPane>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1">
-                           <children>
-                              <HBox prefHeight="40.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Active Connections" textFill="#112d4e">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Region prefHeight="40.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Connection Management " textFill="#f9f7f7">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Client ID" textFill="#112d4e" />
-                                    <Label text="IP Address" textFill="#112d4e" GridPane.columnIndex="1" />
-                                    <Label text="Duration" textFill="#112d4e" GridPane.columnIndex="2" />
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label text="Resource Usage" textFill="#112d4e">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Region prefHeight="40.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Resources Logs" textFill="#f9f7f7">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <GridPane hgap="5.0" vgap="5.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="CPU" textFill="#112d4e">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Memory" textFill="#112d4e" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Disk" textFill="#112d4e" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Network" textFill="#112d4e" GridPane.rowIndex="6">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" text="65%" textFill="#112d4e" GridPane.columnIndex="1" GridPane.valignment="CENTER">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="4.2GB / 8GB" textFill="#112d4e" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="234GB/500GB" textFill="#112d4e" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="25MB/s" textFill="#112d4e" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <ProgressBar prefHeight="18.0" prefWidth="341.0" progress="0.65" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                                    <ProgressBar prefHeight="18.0" prefWidth="341.0" progress="0.5025" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
-                                    <ProgressBar prefHeight="18.0" prefWidth="341.0" progress="0.468" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
-                                    <ProgressBar prefHeight="18.0" prefWidth="341.0" progress="0.25" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                              </GridPane>
-                           </children>
-                        </VBox>
+                        <Button fx:id="startServer" mnemonicParsing="false" onAction="#handleStartServer" prefHeight="89.0" prefWidth="281.0" style="-fx-background-color: ffffff; -fx-cursor: hand;" text="Start Server" textFill="#112d4e" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="30.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="stopServer" mnemonicParsing="false" onAction="#handleStopServer" prefHeight="90.0" prefWidth="268.0" style="-fx-background-color: ffffff; -fx-cursor: hand;" text="Stop Server" textFill="#112d4e" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Button>
                      </children>
                   </GridPane>
                </children>
@@ -397,60 +88,6 @@
                   <Label style="-fx-font-weight: bold;" text="Where Connections, Come Alive." textFill="#f9f7f7" />
                </children>
             </VBox>
-            <GridPane hgap="10.0" prefHeight="391.0" prefWidth="230.0" style="-fx-background-color: #F9F7F7;" vgap="10.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="114.1999740600586" minWidth="10.0" prefWidth="110.1999740600586" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.40003204345703" minWidth="10.0" prefWidth="108.8000259399414" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="31.79999389648437" minHeight="10.0" prefHeight="11.79999389648437" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="63.00000610351563" minHeight="10.0" prefHeight="63.00000610351563" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Status:" textFill="#112d4e" />
-                  <VBox alignment="CENTER" prefHeight="102.0" prefWidth="211.0" style="-fx-background-color: #112D4E;" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                     <children>
-                        <Label alignment="CENTER" text="ONLINE" textAlignment="CENTER" textFill="#f9f7f7">
-                           <font>
-                              <Font name="System Bold" size="27.0" />
-                           </font>
-                        </Label>
-                        <Label text="For: 60:32:28 H" textFill="#f9f7f7" />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="42.0" prefWidth="101.0" spacing="1.0" style="-fx-background-color: DBE2EF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="Last Backup" textFill="#112d4e" />
-                        <Label text="2024-10-23" textFill="#112d4e">
-                           <padding>
-                              <Insets right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox alignment="CENTER" prefHeight="42.0" prefWidth="101.0" spacing="1.0" style="-fx-background-color: DBE2EF;" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="Last Restart" textFill="#112d4e" />
-                        <Label text="2024-10-23" textFill="#112d4e">
-                           <padding>
-                              <Insets right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </GridPane>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER_LEFT" onMouseClicked="#goToServerManagmentScreen" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-cursor: hand;">

@@ -1,14 +1,19 @@
 package com.suhba.contollers;
 
+import com.suhba.database.entities.User;
+import com.suhba.database.enums.UserStatus;
+import com.suhba.daos.interfaces.UserDAO;
+import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.utils.ScreenNavigator;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import java.util.List;
 
 public class UserManagementController {
 
@@ -16,7 +21,7 @@ public class UserManagementController {
     private Button addUserBtn;
 
     @FXML
-    private TextField allUsersField;
+    private Label allUsersField;
 
     @FXML
     private Button filterBtn;
@@ -25,7 +30,19 @@ public class UserManagementController {
     private Pagination numberPagination;
 
     @FXML
-    private TableColumn<?, ?> phoneNumber;
+    private TableView<User> userTable;
+
+    @FXML
+    private TableColumn<User, Long> userId;
+
+    @FXML
+    private TableColumn<User, String> userName;
+
+    @FXML
+    private TableColumn<User, String> phoneNumber;
+
+    @FXML
+    private TableColumn<User, String> userStatus;
 
     @FXML
     private TextField searchByPhone;
@@ -33,28 +50,91 @@ public class UserManagementController {
     @FXML
     private Label showingUsersLabel;
 
-    @FXML
-    private TableColumn<?, ?> userId;
+    private UserDAO userDAO = new UserDAOImpl(); // Initialize UserDAO directly
 
     @FXML
-    private TableColumn<?, ?> userName;
+    public void initialize() {
+        setupTableColumns();
+        loadUsers();
+        userTable.setEditable(true);
+    }
 
-    @FXML
-    private TableColumn<?, ?> userStatus;
+    private void setupTableColumns() {
+        userId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getUserId()).asObject());
+        userName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDisplayName()));
+        phoneNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone()));
+        userStatus.setCellValueFactory(cellData ->
+                new SimpleStringProperty(
+                        cellData.getValue().getUserStatus() != null ? cellData.getValue().getUserStatus().toString() : "N/A"
+                )
+        );
 
-    @FXML
-    void handleAddUserBtn(ActionEvent event) {
+        userName.setCellFactory(TextFieldTableCell.forTableColumn());
+        phoneNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+        userStatus.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        userName.setOnEditCommit(event -> updateUserField(event.getRowValue(), "name", event.getNewValue()));
+        phoneNumber.setOnEditCommit(event -> updateUserField(event.getRowValue(), "phone", event.getNewValue()));
+        userStatus.setOnEditCommit(event -> updateUserField(event.getRowValue(), "status", event.getNewValue()));
+    }
+
+    private void updateUserField(User user, String field, String newValue) {
+        switch (field) {
+            case "name":
+                user.setDisplayName(newValue);
+                break;
+            case "phone":
+                user.setPhone(newValue);
+                break;
+            case "status":
+                try {
+                    user.setUserStatus(UserStatus.valueOf(newValue.toUpperCase()));
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid UserStatus value: " + newValue);
+                    return;
+                }
+                break;
+        }
+        userDAO.updateUser(user);
+        loadUsers();
+    }
+
+    private void loadUsers() {
+        List<User> userList = userDAO.getAllUsers();
+        ObservableList<User> observableUserList = FXCollections.observableArrayList(userList);
+        userTable.setItems(observableUserList);
+        showingUsersLabel.setText("Total Users: " + userList.size()); // Update label with user count
     }
 
     @FXML
-    void handleAllUsersField(ActionEvent event) {
+    void handleAddUserBtn() {
+        User newUser = new User();
+        newUser.setDisplayName("New User");
+        newUser.setPhone("000-000-0000");
+        newUser.setUserStatus(UserStatus.Available);
 
+        userDAO.addNewUser(newUser);
+        loadUsers();
     }
 
     @FXML
-    void handleFilterBtn(ActionEvent event) {
+    void handleFilterByPhoneBtn() {
+        String phone = searchByPhone.getText().trim();
 
+        if (phone.isEmpty()) {
+            loadUsers(); // Reload all users if search field is empty
+            return;
+        }
+
+        User user = userDAO.getUserByPhone(phone); // Fetch user from the database
+
+        if (user != null) {
+            ObservableList<User> filteredList = FXCollections.observableArrayList(user);
+            userTable.setItems(filteredList); // Set filtered user in the table
+        } else {
+            System.out.println("No user found with phone: " + phone);
+            userTable.setItems(FXCollections.observableArrayList()); // Clear table if no user found
+        }
     }
 
     @FXML
@@ -86,5 +166,4 @@ public class UserManagementController {
     void handleLogOut(MouseEvent event) {
         ScreenNavigator.loadScreen(event, "login.fxml");
     }
-
 }

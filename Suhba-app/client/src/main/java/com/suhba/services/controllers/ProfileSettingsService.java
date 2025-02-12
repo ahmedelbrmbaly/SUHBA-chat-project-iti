@@ -18,7 +18,7 @@ public class ProfileSettingsService {
         User currentUser = getCurUser();
         if (currentUser != null) {
             try {
-                return serverService.getUserById(5);//edit it here by currentUser.getUserId()
+                return serverService.getUserById(currentUser.getUserId());//edit it here by
             } catch (RemoteException e) {
                 showErrorAlert("Connection error: Unable to load profile. Please try again later.");
                 e.printStackTrace();

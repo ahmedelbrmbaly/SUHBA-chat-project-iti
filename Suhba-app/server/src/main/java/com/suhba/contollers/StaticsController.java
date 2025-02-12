@@ -43,18 +43,28 @@ public class StaticsController {
     void handleCountryStatisticsBtn(ActionEvent event) {
         Map<com.suhba.database.enums.Country, Long> countryData = userDAO.getUsersCountries();
         updatePieChart("User Distribution by Country", countryData);
+        countryStatisticsBtn.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: white; -fx-cursor:  hand;");
+        genderStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+        statusStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+
     }
 
     @FXML
     void handleGenderStatisticsBtn(ActionEvent event) {
         Map<com.suhba.database.enums.Gender, Long> genderData = userDAO.getUsersGenders();
         updatePieChart("User Distribution by Gender", genderData);
+        genderStatisticsBtn.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: white; -fx-cursor:  hand;");
+        countryStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+        statusStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
     }
 
     @FXML
     void handleStatusStatisticsBtn(ActionEvent event) {
         Map<com.suhba.database.enums.UserStatus, Long> statusData = userDAO.getUsersStatus();
         updatePieChart("User Distribution by Status", statusData);
+        statusStatisticsBtn.setStyle("-fx-background-color:  #3F72AF; -fx-text-fill: white; -fx-cursor:  hand;");
+        genderStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
+        countryStatisticsBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill:  #3F72AF; -fx-cursor:  hand;");
     }
 
     private <T> void updatePieChart(String title, Map<T, Long> dataMap) {

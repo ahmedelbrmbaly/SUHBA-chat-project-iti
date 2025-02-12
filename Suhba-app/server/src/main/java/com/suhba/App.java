@@ -25,9 +25,9 @@ public class App extends Application {
         stage.setMinWidth(1280);
         stage.setMinHeight(720);
         stage.setTitle("Suhba: Admin Login");
-        stage.getIcons().add(new Image(App.class.getResourceAsStream("/images/logo-black.png")));
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/images/logo-blue.png")));
         stage.setScene(scene);
-        ServerNetwork.start();
+        ServerNetwork.stop();
         stage.show();
 
     }
