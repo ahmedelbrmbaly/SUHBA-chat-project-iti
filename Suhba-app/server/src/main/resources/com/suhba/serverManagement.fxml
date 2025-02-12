@@ -34,7 +34,7 @@
                            </children>
                         </VBox>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #112D4E;" text="Server Logs" textFill="#f9f7f7">
+                        <Button mnemonicParsing="false" style="-fx-background-color: #112D4E; -fx-cursor: hand;" text="Server Logs" textFill="#f9f7f7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -66,12 +66,12 @@
                               </Label>
                               <HBox prefHeight="40.0" prefWidth="200.0" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" style="-fx-background-color: #112D4E;" text="Start Server" textFill="#f9f7f7">
+                                    <Button mnemonicParsing="false" style="-fx-background-color: #112D4E; -fx-cursor: hand;" text="Start Server" textFill="#f9f7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" style="-fx-background-color: #f9f7f7;" text="Stop server" textFill="#112d4e">
+                                    <Button mnemonicParsing="false" style="-fx-background-color: #f9f7f7; -fx-cursor: hand;" text="Stop server" textFill="#112d4e">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -235,7 +235,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF;" text="Start Server" textFill="#f9f7f7" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Start Server" textFill="#f9f7f7" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -262,7 +262,7 @@
                                        </font>
                                     </Label>
                                     <Region prefHeight="40.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF;" text="Connection Management " textFill="#f9f7f7">
+                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Connection Management " textFill="#f9f7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -298,7 +298,7 @@
                                        </font>
                                     </Label>
                                     <Region prefHeight="40.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF;" text="Resources Logs" textFill="#f9f7f7">
+                                    <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Resources Logs" textFill="#f9f7f7">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>

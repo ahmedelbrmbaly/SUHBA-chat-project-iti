@@ -1,9 +1,14 @@
 package com.suhba.contollers;
 
 import com.suhba.daos.implementation.AdminDAOImpl;
+import com.suhba.database.entities.Admin;
+import com.suhba.utils.ScreenNavigator;
 import com.suhba.services.server.implementations.ServerServiceImpl;
+import com.suhba.utils.SessionManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class LoginController {
 
@@ -20,29 +25,39 @@ public class LoginController {
 
 
     @FXML
-    private void adminLogin() {
-        String email = loginEmail.getText();
-        String password = loginPassword.getText();
+    private void adminLogin(ActionEvent event) {
+        String email = loginEmail.getText().trim();
+        String password = loginPassword.getText().trim();
 
-        // Logging email and password for debugging
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + password);
+        // Attempt login
+        Admin loggedInAdmin = serverService.login(email, password);
 
-        if (serverService.login(email, password) != null) {
-            System.out.println("Login successful");
-            // Proceed with the successful login workflow (e.g., navigate to another view)
+        if (loggedInAdmin != null) {
+            // ✅ Store logged-in admin in SessionManager
+            SessionManager.setAdmin(loggedInAdmin);
+            System.out.println("Login successful. Admin ID: " + loggedInAdmin.getAdminId());
+
+            // ✅ Navigate to the server management screen
+            ScreenNavigator.loadScreen(event, "serverManagement.fxml");
         } else {
             System.out.println("Login failed");
-            // Clear input fields
-            loginEmail.setText("");
-            loginPassword.setText("");
 
-            // Show an alert to the user about the failed login
+            // Clear input fields
+            loginEmail.clear();
+            loginPassword.clear();
+
+            // Show login error alert
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Failed");
             alert.setHeaderText("Invalid Credentials");
             alert.setContentText("Wrong email or password. Please try again.");
-            alert.showAndWait(); // Show the alert and wait for user interaction
+            alert.showAndWait();
         }
+    }
+
+
+    @FXML
+    void handleAdminLoginBtn(MouseEvent event) {
+        ScreenNavigator.loadScreen(event, "serverManagement.fxml");
     }
 }

@@ -15,6 +15,11 @@ public interface UserDAO {  //CRUD
     //Read
     User getUserById(long userId);
     User getUserByPhone(String phone);
+
+    long getUserIdByEmailDAO(String phone);
+
+    long getUserIdByPhoneDAO(String phone);
+
     long getUserIdByPhone(String phone);
     UserStatus getUserStatusById(long userId);
     String getUserDisplayNameById(long userId);

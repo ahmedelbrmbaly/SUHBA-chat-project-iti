@@ -15,7 +15,6 @@ import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -183,6 +182,21 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean isPhoneRegistered(String phoneNumber) throws RemoteException {
         return myAuthImpl.isPhoneRegistered(phoneNumber);
+    }
+
+    @Override
+    public boolean isEmailRegistered(String Email) throws RemoteException {
+        return myAuthImpl.isEmailRegistered(Email);
+    }
+
+    @Override
+    public long getUserIdByEmail(String Email) throws RemoteException {
+        return myAuthImpl.getUserIdByEmail(Email);
+    }
+
+    @Override
+    public long getUserIdByPhone(String Phone) throws RemoteException {
+        return myAuthImpl.getUserIdByPhone(Phone);
     }
 
     @Override

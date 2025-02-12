@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.UserDAO;
-import com.suhba.database.entities.*;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
@@ -90,6 +89,64 @@ public class UserDAOImpl implements UserDAO {
         String sql = "SELECT * FROM Users WHERE phone = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, phone);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getLong("userId"));
+                    user.setPhone(rs.getString("phone"));
+                    user.setDisplayName(rs.getString("displayName"));
+                    user.setUserEmail(rs.getString("userEmail"));
+                    user.setPicture(rs.getBlob("picture") == null ? null : rs.getBytes("picture"));
+                    user.setPassword(rs.getString("password"));
+                    user.setGender(rs.getString("gender") == null ? null : Gender.valueOf(rs.getString("gender")));
+                    user.setCountry(rs.getString("country") == null ? null : Country.valueOf(rs.getString("country")));
+                    user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
+                    user.setBio(rs.getString("bio"));
+                    user.setUserStatus(rs.getString("userStatus") == null ? null : UserStatus.valueOf(rs.getString("userStatus")));
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public long getUserIdByEmailDAO(String phone) {
+        String sql = "SELECT userId FROM Users WHERE phone = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, phone);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())  return rs.getLong("userId");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public long getUserIdByPhoneDAO(String email) {
+        String sql = "SELECT userId FROM Users WHERE userEmail = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())  return rs.getLong("userId");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM Users WHERE userEmail = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User();
@@ -481,6 +538,19 @@ public class UserDAOImpl implements UserDAO {
     public boolean updateUserProfile(User user) {
         String sql = "UPDATE Users SET phone = ?, displayName = ?, userEmail = ?, picture = ?, gender = ?, country = ?, birthday = ?, bio = ? WHERE userId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            // Debugging: Print values before execution
+            System.out.println("🔄 Updating User Profile...");
+            System.out.println("User ID: " + user.getUserId());
+            System.out.println("Phone: " + user.getPhone());
+            System.out.println("Display Name: " + user.getDisplayName());
+            System.out.println("Email: " + user.getUserEmail());
+            System.out.println("Picture: " + (user.getPicture() != null ? "Has Picture" : "No Picture"));
+            System.out.println("Gender: " + user.getGender());
+            System.out.println("Country: " + user.getCountry());
+            System.out.println("Birthday: " + user.getBirthday());
+            System.out.println("Bio: " + user.getBio());
+
             stmt.setString(1, user.getPhone());
             stmt.setString(2, user.getDisplayName());
             stmt.setString(3, user.getUserEmail());
@@ -490,14 +560,23 @@ public class UserDAOImpl implements UserDAO {
             stmt.setDate(7, user.getBirthday() != null ? Date.valueOf(user.getBirthday()) : null);
             stmt.setString(8, user.getBio());
             stmt.setLong(9, user.getUserId());
+
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
+
+            if (affectedRows > 0) {
+                System.out.println("✅ User updated successfully!");
+                return true;
+            } else {
+                System.out.println("❌ No rows updated. Possible reasons: Wrong userId, no changes.");
+                return false;
+            }
         } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
+            System.out.println("❌ SQL Error: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
+
 
     @Override
     public boolean updateUserPassword(long userId, String newPassword) {

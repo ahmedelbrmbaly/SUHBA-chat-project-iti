@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +18,12 @@ public interface UserAuthService {
     
     // >> Remeber me XML SESSION >> To BE REVIEWED
     public boolean isPhoneRegistered(String phoneNumber) throws RemoteException;
+
+    boolean isEmailRegistered(String Email);
+
+    long getUserIdByEmail(String Email);
+
+    long getUserIdByPhone(String Phone);
 
     public User login(String phoneNumber, String password) throws NoSuchAlgorithmException, UserNotFoundException, IncorrectPasswordException, IOException, RemoteException;
 

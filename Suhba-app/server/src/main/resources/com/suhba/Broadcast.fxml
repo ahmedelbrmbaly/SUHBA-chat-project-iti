@@ -44,9 +44,9 @@
                      </padding>
                   </TextArea>
                   <Region prefHeight="200.0" prefWidth="200.0" />
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="80.0">
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="80.0" style="-fx-cursor: hand;">
                      <children>
-                        <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#cancelAnnouncment" style="-fx-background-color: #f9f7f7;" text="Cancel" textFill="#112d4e">
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#cancelAnnouncment" style="-fx-background-color: #f9f7f7; -fx-cursor: hand;" text="Cancel" textFill="#112d4e">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -56,7 +56,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="sendBtn" mnemonicParsing="false" onMouseClicked="#sendAnnouncment" style="-fx-background-color: #3F72AF;" text="Send" textFill="#f9f7f7">
+                        <Button fx:id="sendBtn" mnemonicParsing="false" onMouseClicked="#sendAnnouncment" style="-fx-background-color: #3F72AF; -fx-cursor: hand;" text="Send" textFill="#f9f7f7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

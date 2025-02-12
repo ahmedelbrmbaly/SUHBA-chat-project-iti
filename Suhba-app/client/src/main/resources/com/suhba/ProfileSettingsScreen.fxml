@@ -121,7 +121,7 @@
             <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" prefHeight="129.0" prefWidth="110.0" />
             <VBox fx:id="logoutBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                <children>
-                  <ImageView fx:id="logoutIconView" onMouseClicked="#handleLogout" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logoutIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/logout-white.png" />
                      </image>
@@ -281,11 +281,12 @@
                         <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="197.19998168945312" minHeight="10.0" prefHeight="118.59998779296876" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="106.60001220703128" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="60.40001220703127" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="63.99998779296874" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="55.99998779296874" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="130.39996948242185" minHeight="10.0" prefHeight="130.39996948242185" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="181.79997558593755" minHeight="10.0" prefHeight="34.80003051757808" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Label prefHeight="18.0" prefWidth="62.0" text="Full Name">
@@ -313,42 +314,42 @@
                               <Insets left="30.0" top="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Bio" GridPane.rowIndex="6">
+                        <Label text="Bio" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets left="30.0" top="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Button fx:id="photoBtn" mnemonicParsing="false" onAction="#handleChangePicture" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Change Picture" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <Button fx:id="photoBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Change Picture" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditAction" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Edit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditAction" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Edit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets right="20.0" top="5.0" />
                            </GridPane.margin>
                         </Button>
-                        <TextField fx:id="fullNameField" onAction="#handleFullNameField" GridPane.columnIndex="1">
+                        <TextField fx:id="fullNameField" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="emailField" onAction="#handleEmailField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="phoneField" onAction="#handlePhoneField" prefHeight="26.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="phoneField" prefHeight="26.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets right="90.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <ComboBox fx:id="countryComboBox" onAction="#handleCountrySelect" prefHeight="26.0" prefWidth="179.0" promptText="Select" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <ComboBox fx:id="countryComboBox" prefHeight="26.0" prefWidth="180.0" promptText="Select..." style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </ComboBox>
-                        <TextArea fx:id="bioField" prefHeight="130.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <TextArea fx:id="bioField" prefHeight="98.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
@@ -358,17 +359,23 @@
                               <Insets left="30.0" top="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="genderComboBox" onAction="#handleGenderSelect" prefHeight="26.0" prefWidth="152.0" promptText="Select" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="genderComboBox" prefHeight="26.0" prefWidth="180.0" promptText="Select..." style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <ImageView fx:id="profileImage" fitHeight="126.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="3">
                            <image>
                               <Image url="@../../images/user_profile.jpg" />
                            </image>
                         </ImageView>
-                        <DatePicker fx:id="birthdayDataPicker" onAction="#handleBirthdaySelect" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <DatePicker fx:id="birthdayDataPicker" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </DatePicker>
+                        <Label text="Status" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets left="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ComboBox fx:id="statusComboBox" prefWidth="180.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                </center>

@@ -5,7 +5,6 @@ import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +14,6 @@ import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
 import com.suhba.exceptions.*;
-import com.suhba.services.client.interfaces.ChatService;
-import com.suhba.services.client.interfaces.ContactService;
-import com.suhba.services.client.interfaces.UserAuthService;
-import com.suhba.services.client.interfaces.UserSettingService;
 
 public interface ServerClientServices extends Remote {
     //Common
@@ -118,11 +113,15 @@ public interface ServerClientServices extends Remote {
 
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
+    public boolean isEmailRegistered(String phoneNumber) throws RemoteException;
 
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
 
     public boolean isPasswordMatchUser (long userId, String password) throws RemoteException, NoSuchAlgorithmException;
+
+    public long getUserIdByEmail(String email) throws RemoteException;
+    public long getUserIdByPhone(String phone) throws RemoteException ;
 
     // Announcemnt
 

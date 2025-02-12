@@ -1,158 +1,96 @@
 package com.suhba.controllers;
 
+import com.suhba.database.entities.User;
+import com.suhba.database.enums.Country;
+import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.services.controllers.ProfileSettingsService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 public class ProfileSettingsScreenController {
 
     @FXML
+    private TextField fullNameField, emailField, phoneField;
+    @FXML
     private TextArea bioField;
-
     @FXML
     private DatePicker birthdayDataPicker;
-
     @FXML
-    private VBox chatBoxBar;
-
+    private ComboBox<Country> countryComboBox;
     @FXML
-    private ImageView chatIconView;
-
+    private ComboBox<Gender> genderComboBox;
     @FXML
-    private Label chatLabel;
-
-    @FXML
-    private VBox chatbotBoxBar;
-
-    @FXML
-    private ImageView chatbotIconView;
-
-    @FXML
-    private Label chatbotLabel;
-
-    @FXML
-    private VBox contactsBoxBar;
-
-    @FXML
-    private ImageView contactsIconView;
-
-    @FXML
-    private Label contactsLabel;
-
-    @FXML
-    private ComboBox<?> countryComboBox;
-
-    @FXML
-    private Button editBtn;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField fullNameField;
-
-    @FXML
-    private ComboBox<?> genderComboBox;
-
-    @FXML
-    private VBox groupBoxBar;
-
-    @FXML
-    private ImageView groupIconView;
-
-    @FXML
-    private Label groupsLabel;
-
-    @FXML
-    private VBox logoutBoxBar;
-
-    @FXML
-    private ImageView logoutIconView;
-
-    @FXML
-    private Label logoutLabel;
-
-    @FXML
-    private TextField phoneField;
-
-    @FXML
-    private Button photoBtn;
-
-    @FXML
-    private ImageView profileImage;
-
-    @FXML
-    private VBox settingBoxBar;
-
-    @FXML
-    private ImageView settingIconView;
-
-    @FXML
-    private Label settingLabel;
-
+    private ComboBox<UserStatus> statusComboBox;
     @FXML
     private Label userNameLabel;
-
     @FXML
     private ImageView userProfilePic;
 
-    ProfileSettingsService myServices = new ProfileSettingsService();
+    private User currentUser;
+    ProfileSettingsService profileService = new ProfileSettingsService();
 
     @FXML
-    void handleBirthdaySelect(ActionEvent event) {
-
+    public void initialize() {
+        loadUserProfile();
     }
 
-    @FXML
-    void handleChangePicture(ActionEvent event) {
-
+    private void loadUserProfile() {
+        currentUser = profileService.loadUserProfile();
+        if (currentUser != null) {
+            loadUserData();
+            countryComboBox.getItems().setAll(Country.values());
+            genderComboBox.getItems().setAll(Gender.values());
+            statusComboBox.getItems().setAll(UserStatus.values());
+        } else {
+            profileService.showErrorAlert("No user data found!");
+        }
     }
 
-    @FXML
-    void handleCountrySelect(ActionEvent event) {
+    private void loadUserData() {
+        fullNameField.setText(currentUser.getDisplayName());
+        emailField.setText(currentUser.getUserEmail());
+        phoneField.setText(currentUser.getPhone());
+        bioField.setText(currentUser.getBio());
+        birthdayDataPicker.setValue(currentUser.getBirthday());
+        genderComboBox.setValue(currentUser.getGender());
+        countryComboBox.setValue(currentUser.getCountry());
+        statusComboBox.setValue(currentUser.getUserStatus()); // Bind status
+        userNameLabel.setText(currentUser.getDisplayName());
+    }
 
+    public void saveUser() {
+        if (!validateUserInput()) return;
+
+        currentUser.setDisplayName(fullNameField.getText());
+        currentUser.setUserEmail(emailField.getText());
+        currentUser.setPhone(phoneField.getText());
+        currentUser.setBio(bioField.getText());
+        currentUser.setBirthday(birthdayDataPicker.getValue());
+        currentUser.setGender(genderComboBox.getValue());
+        currentUser.setCountry(countryComboBox.getValue());
+        currentUser.setUserStatus(statusComboBox.getValue()); // Save status
+
+        boolean isUpdated = profileService.updateUserProfile(currentUser);
+        if (isUpdated) {
+            profileService.showSuccessAlert("User profile updated successfully.");
+        } else {
+            profileService.showErrorAlert("Failed to update user profile.");
+        }
     }
 
     @FXML
     void handleEditAction(ActionEvent event) {
-
+        saveUser();
     }
 
-    @FXML
-    void handleEmailField(ActionEvent event) {
-
+    private boolean validateUserInput() {
+        if (fullNameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+            profileService.showErrorAlert("Please fill in all required fields.");
+            return false;
+        }
+        return true;
     }
-
-    @FXML
-    void handleFullNameField(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleGenderSelect(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handlePhoneField(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleLogout(MouseEvent event) throws IOException {
-        myServices.logoutService();
-        myServices.moveToNextPage(event, "signInPage1.fxml");
-    }
-
 }

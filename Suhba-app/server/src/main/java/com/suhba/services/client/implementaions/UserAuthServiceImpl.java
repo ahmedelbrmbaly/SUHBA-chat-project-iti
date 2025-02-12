@@ -16,7 +16,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.Enumeration;
 import java.util.List;
@@ -65,6 +64,21 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public boolean isPhoneRegistered(String phoneNumber) {
         return (myObj.getUserByPhone(phoneNumber) != null ? true : false);
+    }
+
+    @Override
+    public boolean isEmailRegistered(String Email) {
+        return (myObj.getUserByEmail(Email) != null ? true : false);
+    }
+
+    @Override
+    public long getUserIdByEmail(String Email) {
+        return (myObj.getUserIdByEmailDAO(Email));
+    }
+
+    @Override
+    public long getUserIdByPhone(String Phone) {
+        return (myObj.getUserIdByPhoneDAO(Phone));
     }
 
     @Override

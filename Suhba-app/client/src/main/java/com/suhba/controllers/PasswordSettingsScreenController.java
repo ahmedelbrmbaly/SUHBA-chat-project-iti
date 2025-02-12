@@ -1,106 +1,85 @@
 package com.suhba.controllers;
 
-import javafx.event.ActionEvent;
+import com.suhba.database.entities.User;
+import com.suhba.exceptions.InvalidPasswordException;
+import com.suhba.services.controllers.PasswordSettingsService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+
+import java.rmi.RemoteException;
+import java.security.NoSuchAlgorithmException;
 
 public class PasswordSettingsScreenController {
 
     @FXML
-    private VBox chatBoxBar;
-
+    private PasswordField currentPasswordField;
     @FXML
-    private ImageView chatIconView;
-
-    @FXML
-    private Label chatLabel;
-
-    @FXML
-    private VBox chatbotBoxBar;
-
-    @FXML
-    private ImageView chatbotIconView;
-
-    @FXML
-    private Label chatbotLabel;
-
+    private PasswordField newPasswordField;
     @FXML
     private PasswordField confirmNewPasswordField;
-
-    @FXML
-    private VBox contactsBoxBar;
-
-    @FXML
-    private ImageView contactsIconView;
-
-    @FXML
-    private Label contactsLabel;
-
-    @FXML
-    private PasswordField currentPasswordField;
-
     @FXML
     private Button editBtn;
 
-    @FXML
-    private VBox groupBoxBar;
+    private final PasswordSettingsService myServices = new PasswordSettingsService();
+
+    private User currentUser;
 
     @FXML
-    private ImageView groupIconView;
+    private void handleEditAction() {
+        String currentPassword = currentPasswordField.getText();
+        String newPassword = newPasswordField.getText();
+        String confirmPassword = confirmNewPasswordField.getText();
 
-    @FXML
-    private Label groupsLabel;
+        if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled.");
+            return;
+        }
 
-    @FXML
-    private VBox logoutBoxBar;
+        try {
+            currentUser = myServices.getUserById();
+            if (currentUser == null) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "User not found.");
+                return;
+            }
 
-    @FXML
-    private ImageView logoutIconView;
+            if (!myServices.checkIfMatch(currentPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "Current password is incorrect.");
+                return;
+            }
 
-    @FXML
-    private Label logoutLabel;
+            if (!isValidPassword(newPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "New password must be at least 8 characters long.");
+                return;
+            }
 
-    @FXML
-    private PasswordField newPasswordField;
+            if (!newPassword.equals(confirmPassword)) {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "New passwords do not match.");
+                return;
+            }
 
-    @FXML
-    private VBox settingBoxBar;
+            if (myServices.updatePassword(newPassword)) {
+                myServices.showAlert(Alert.AlertType.INFORMATION, "Success", "Password updated successfully.");
+                clearFields();
+            } else {
+                myServices.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update password. Try again.");
+            }
 
-    @FXML
-    private ImageView settingIconView;
-
-    @FXML
-    private Label settingLabel;
-
-    @FXML
-    private Label userNameLabel;
-
-    @FXML
-    private ImageView userProfilePic;
-
-    @FXML
-    void handleConfirmNewPasswordField(ActionEvent event) {
-
+        } catch (RemoteException e) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Remote Error", "Connection to server failed.");
+        } catch (NoSuchAlgorithmException | InvalidPasswordException e) {
+            myServices.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
-    @FXML
-    void handleCurrentPasswordField(ActionEvent event) {
-
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8;
     }
 
-    @FXML
-    void handleEditAction(ActionEvent event) {
-
+    private void clearFields() {
+        currentPasswordField.clear();
+        newPasswordField.clear();
+        confirmNewPasswordField.clear();
     }
-
-    @FXML
-    void handleNewPasswordField(ActionEvent event) {
-
-    }
-
 }
-

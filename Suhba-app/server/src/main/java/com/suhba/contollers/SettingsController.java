@@ -57,7 +57,11 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-        if (currentAdmin != null) {
+        // Move session retrieval here, not in constructor
+        this.currentAdmin = SessionManager.getAdmin();
+        if (currentAdmin == null) {
+            System.err.println("Error: No logged-in admin.");
+        } else {
             primaryEmailField.setText(currentAdmin.getAdminEmail());
         }
     }
@@ -180,6 +184,7 @@ public class SettingsController {
 
     @FXML
     void handleLogOut(MouseEvent event) {
+        SessionManager.clearSession(); // ✅ Ensures admin is logged out
         ScreenNavigator.loadScreen(event, "login.fxml");
     }
 }
