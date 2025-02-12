@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.MessageStatus;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.services.controllers.ChatScreenService;
 import com.suhba.utils.LoadingFXML;
 import com.suhba.views.cells.ChatUserCell;
@@ -362,10 +363,14 @@ public class ChatScreenController implements Initializable {
                 }
                 chatNameLabel.setText(currentUserInChatWith.getDisplayName());
                 userChatStatusLabel.setText(currentUserInChatWith.getUserStatus().name());
-                if (currentUserInChatWith.getUserStatus().name().equalsIgnoreCase("Offline")) {
+                if (currentUserInChatWith.getUserStatus().name()==UserStatus.Offline.name()) {
                     userChatStatusCircle.setStyle("-fx-fill: gray;");
-                } else {
+                } else if(currentUserInChatWith.getUserStatus().name()==UserStatus.Available.name()){
                     userChatStatusCircle.setStyle("-fx-fill: green;");
+                }else if(currentUserInChatWith.getUserStatus().name()==UserStatus.Away.name()){
+                    userChatStatusCircle.setStyle("-fx-fill: yellow;");
+                }else{
+                    userChatStatusCircle.setStyle("-fx-fill: red;");
                 }
                 Circle circle = new Circle(30, 30, 30);
                 chatPicture.setClip(circle);
