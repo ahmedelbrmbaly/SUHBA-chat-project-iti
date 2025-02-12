@@ -219,17 +219,17 @@ public class ClientContactScreenController implements Initializable {
 
     @FXML
     void goToChat(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "ClientChatScreen.fxml");
     }
 
     @FXML
     void goToGroups(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "ClientGroupScreen.fxml");
     }
 
     @FXML
     void goToSettings(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "ProfileSettingsScreen.fxml");
     }
 
     @FXML
@@ -240,6 +240,7 @@ public class ClientContactScreenController implements Initializable {
         URL fxmlURL = getClass().getResource("/com/suhba/ClientRequestScreen.fxml");
         LoadingFXML.showPopupWithIdReqFriend(owner, fxmlURL,500,500, 1);
     }
+
 
     public void setUserInfo() {
         try {
@@ -256,5 +257,9 @@ public class ClientContactScreenController implements Initializable {
         }
     }
     
+
+    public void handleLogout(MouseEvent mouseEvent) throws IOException {
+        myServices.logoutService();
+    }
 }
 

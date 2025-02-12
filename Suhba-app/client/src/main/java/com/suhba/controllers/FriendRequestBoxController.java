@@ -65,6 +65,8 @@ public class FriendRequestBoxController {
                     throw new RuntimeException(e);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             } else System.out.println("Cannot determine which friend was clicked!");
         });
