@@ -199,7 +199,7 @@ public class ChatScreenController implements Initializable {
             // 8- Receiving messages -> update in gui
 
             chatScreenService = new ChatScreenService(this);
-            // currentUserId = chatScreenService.getCurUser().getUserId();
+            currentUserId = chatScreenService.getCurUser().getUserId();
             System.out.println("ChatService= " + chatScreenService);
             System.out.println("Controller= " + this);
             currentUser = chatScreenService.getUserInfoById(currentUserId);
@@ -416,7 +416,7 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void goToSettings(MouseEvent event) {
-        
+        LoadingFXML.moveToNextPage(event, "ProfileSettingsScreen.fxml");
     }
 
     @FXML

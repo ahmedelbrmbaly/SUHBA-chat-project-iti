@@ -62,7 +62,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="contactsBoxBar" alignment="CENTER" layoutX="40.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                  <VBox fx:id="contactsBoxBar" alignment="CENTER" layoutX="40.0" layoutY="69.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToContacts" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                      <children>
                         <ImageView fx:id="contactsIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -79,24 +79,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="chatbotBoxBar" alignment="CENTER" layoutX="40.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
-                     <children>
-                        <ImageView fx:id="chatbotIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/chatbot-white.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="chatbotLabel" text="Chatbot" textFill="WHITE">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="settingBoxBar" alignment="CENTER" layoutX="40.0" layoutY="247.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+                  <VBox fx:id="settingBoxBar" alignment="CENTER" layoutX="40.0" layoutY="247.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToSettings" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                      <children>
                         <ImageView fx:id="settingIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -116,7 +99,7 @@
                </children>
             </VBox>
             <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" prefHeight="129.0" prefWidth="110.0" />
-            <VBox fx:id="logoutBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
+            <VBox fx:id="logoutBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#goToLogout" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
                <children>
                   <ImageView fx:id="logoutIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>

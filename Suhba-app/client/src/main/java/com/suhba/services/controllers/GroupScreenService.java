@@ -37,6 +37,19 @@ public class GroupScreenService {
         controller = ClientGroupScreenController.getInstance();
     }
 
+    // Service To return the current logged in user :
+    public User getCurUser () {
+        if (SignIn1Service.curUser != null) {
+            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
+            return SignIn1Service.curUser;
+        }
+        else if (SignUp2Service.curRegisterdUser != null) {
+            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
+            return SignUp2Service.curRegisterdUser;
+        }
+        return null;
+    }
+
     public ObservableMap<Group, Message> loadUserGroups(long currentUserId) throws RemoteException {
         Map<Group, Message> allGroups = ServerService.getInstance().getUserGroups(currentUserId);
 

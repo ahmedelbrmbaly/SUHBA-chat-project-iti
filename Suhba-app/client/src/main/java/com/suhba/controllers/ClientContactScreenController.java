@@ -2,6 +2,7 @@ package com.suhba.controllers;
 
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.UserStatus;
+import com.suhba.services.UserService;
 import com.suhba.services.controllers.ClientContactScreenService;
 import com.suhba.utils.FXMLHelper;
 import com.suhba.utils.LoadingFXML;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -23,7 +25,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -139,10 +140,12 @@ public class ClientContactScreenController implements Initializable {
 
     long currentUserId = 1;
 
+    UserService userService;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         friendsContainer.setOrientation(Orientation.HORIZONTAL);
-
+        setUserInfo();
         friends = new ArrayList<>();
         try {
             friends = myServices.showFriends();
@@ -238,6 +241,20 @@ public class ClientContactScreenController implements Initializable {
         LoadingFXML.showPopupWithIdReqFriend(owner, fxmlURL,500,500, 1);
     }
 
+    public void setUserInfo() {
+        try {
+            userService = new UserService();
+            User currentUser = userService.getUserInfoById(currentUserId);
+            if (currentUser.getPicture() == null) {
+                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+            } else {
+                // userProfilePic.setImage();
+            }
+            userNameLabel.setText(currentUser.getDisplayName());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
     
 }
 
