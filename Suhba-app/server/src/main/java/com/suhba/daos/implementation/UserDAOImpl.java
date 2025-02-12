@@ -527,4 +527,18 @@ public class UserDAOImpl implements UserDAO {
             return false;
         }
     }
+    public boolean updateUserStatus(long userId, UserStatus newStatus) {
+        String query = "UPDATE users SET userStatus = ? WHERE userId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+             
+            statement.setString(1, newStatus.name());
+            statement.setLong(2, userId);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0; 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; 
+    }
 }

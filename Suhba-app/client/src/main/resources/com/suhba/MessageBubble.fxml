@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="messageContainer" alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.MessageBubbleController">
+<HBox fx:id="messageContainer" alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.components.MessageBubbleController">
    <children>
-      <VBox alignment="TOP_RIGHT" spacing="5.0">
+      <VBox fx:id="vBox" alignment="TOP_RIGHT" spacing="5.0">
          <children>
             <Label fx:id="messageContent" alignment="CENTER" contentDisplay="CENTER" maxWidth="400.0" style="-fx-background-color: #112D4E; -fx-background-radius: 10;" textFill="WHITE" wrapText="true">
                <padding>

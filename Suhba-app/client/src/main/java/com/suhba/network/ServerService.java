@@ -31,29 +31,13 @@ public class ServerService {
         return instance;
     }
 
-   /* public static void startServerService()
-    {
+    public static void main(String[] args) {
+        ServerClientServices serverService = ServerService.getInstance();
         try {
-
+        } catch (RemoteException e) {
+            throw new RuntimeException("Error creating private chat", e);
         } catch (Exception e) {
             throw new RuntimeException(e);
-
-            // Get the server instance
-            ServerClientServices serverService = ServerService.getInstance();
-
-            // Create and register the client
-            ClientService client = new ClientServiceImpl();
-            serverService.register(client);
-            System.out.println("Client registered with the server.");
-
-        } catch (RemoteException e) {
-            System.err.println("Failed to register client: " + e.getMessage());
-            e.printStackTrace();
-
-
         }
-    }*/
-    public static void main(String[] args) {
-       // startServerService();
     }
 }

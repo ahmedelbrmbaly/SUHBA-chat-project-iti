@@ -39,6 +39,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         this.myAuthImpl = new UserAuthServiceImpl();
         this.mySettingImpl = new UserSettingServiceImpl();
         this.myContactImpl = new ContactServiceImpl();
+
     }
 
     @Override
@@ -239,6 +240,21 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     @Override
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException {
         return mySettingImpl.updateUserPassword(userId, newPassword);
+    }
+
+    @Override
+    public void registerToReceiveMessages(long userId, ClientInterface client) {
+        myChatImpl.registerToReceiveMessages(userId, client);
+    }
+
+    @Override
+    public void unregisterToReceive(long userId) {
+        myChatImpl.unregisterToReceive(userId);
+    }
+
+    @Override
+    public Chat getChatById(long chatId){
+        return myChatImpl.getChatById(chatId);
     }
 
     @Override

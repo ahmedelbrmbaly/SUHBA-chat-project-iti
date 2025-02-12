@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.suhba.database.entities.Contact;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
 
 public interface ContactDAO {
@@ -23,5 +24,7 @@ public interface ContactDAO {
     public List<Long> getAcceptedFriends(long userId) throws SQLException;
 
     // public List<User> getAllUsersInContactByUserID(long userId);
+    public List<User> getAllUsersInContactByUserID(long userId);
+
 
 }
