@@ -5,6 +5,8 @@ import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +15,20 @@ import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.exceptions.*;
 
+
 public interface ServerClientServices extends Remote {
+
+    //////////////////////////////////////////////////////////////////
+    // look here ??
+    public void registerToReceiveMessages(long userId, ClientInterface client )throws RemoteException;
+    public void unregisterToReceive(long userId) throws RemoteException;
+
+    public Chat getChatById(long chatId) throws RemoteException;
+
+    /////////////////////////////////////////////////////////////////
     //Common
     public List<Message> getMessages(long chatId) throws RemoteException; //(done)
     public Message sendMessage (Message msg) throws RemoteException; // (done)
@@ -107,6 +120,7 @@ public interface ServerClientServices extends Remote {
 
     public boolean deleteContact(long userId) throws RemoteException;
 
+    public Chat acceptRequest (Contact contact) throws SQLException, RuntimeException, RemoteException;
 //////////////////////////////////////////////////////////////////////////////
 
     // Settings Screen
@@ -114,6 +128,8 @@ public interface ServerClientServices extends Remote {
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
     public boolean isEmailRegistered(String phoneNumber) throws RemoteException;
+
+    public boolean updateUserStatus(long userId, UserStatus newStatus) throws RemoteException;
 
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;

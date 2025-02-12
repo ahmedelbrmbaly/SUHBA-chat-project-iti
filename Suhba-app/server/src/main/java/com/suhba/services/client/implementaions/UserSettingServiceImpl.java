@@ -2,6 +2,7 @@ package com.suhba.services.client.implementaions;
 
 import com.suhba.daos.implementation.UserDAOImpl;
 import com.suhba.database.entities.User;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.interfaces.UserSettingService;
 import com.suhba.utils.Hashing;
@@ -32,5 +33,10 @@ public class UserSettingServiceImpl implements UserSettingService {
     public boolean updateUserPassword(long userId, String newPassword) throws InvalidPasswordException, NoSuchAlgorithmException {
         if (myValidation.validatePassword(newPassword))  return myUserDao.updateUserPassword(userId, myHashing.doHashing(newPassword));
         return false;
+    }
+
+    @Override
+    public boolean updateUserStatus(long userId, UserStatus newStatus) {
+        return (myUserDao.updateUserStatus(userId, newStatus));
     }
 }

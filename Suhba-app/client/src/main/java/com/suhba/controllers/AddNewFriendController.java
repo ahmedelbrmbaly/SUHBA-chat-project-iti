@@ -35,9 +35,6 @@ public class AddNewFriendController {
     @FXML
     private Label phoneFriend;
 
-    @FXML
-    private ImageView rejectFriend;
-
     AddNewFriendService myServices = new AddNewFriendService();
 
     public void setNewFriendData(String name, String phoneNumber) {
@@ -46,6 +43,7 @@ public class AddNewFriendController {
         phoneFriend.setText(phoneNumber);
     }
 
+    // To send friend request to one person
     @FXML
     public boolean handleAddFriend(MouseEvent event) {
         System.out.println("In send a friend request to a person");

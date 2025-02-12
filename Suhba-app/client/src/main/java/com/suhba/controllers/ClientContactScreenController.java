@@ -1,30 +1,43 @@
 package com.suhba.controllers;
 
+import com.suhba.database.entities.User;
+import com.suhba.database.enums.UserStatus;
+import com.suhba.services.controllers.ClientContactScreenService;
+import com.suhba.utils.FXMLHelper;
+import com.suhba.utils.LoadingFXML;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
-public class ClientContactScreenController {
+import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ClientContactScreenController implements Initializable {
 
     @FXML
     private Label GroupsLabel;
 
     @FXML
-    private Label RequestsLabel;
-
-    @FXML
     private Button addNewBtn;
-
-    @FXML
-    private ImageView blockIcon;
 
     @FXML
     private VBox chatBoxBar;
@@ -54,22 +67,19 @@ public class ClientContactScreenController {
     private Label contactsLabel;
 
     @FXML
-    private Label friendBio_1;
+    private Label friendBio;
 
     @FXML
-    private Label friendEmail_1;
+    private Label friendEmail;
 
     @FXML
-    private ImageView friendImage11112;
+    private ImageView friendImage;
 
     @FXML
-    private GridPane friendInfo11112;
+    private Label friendName;
 
     @FXML
-    private Label friendName_1;
-
-    @FXML
-    private Label friendPhone_1;
+    private Label friendPhone;
 
     @FXML
     private Circle friendStatus11112;
@@ -96,12 +106,6 @@ public class ClientContactScreenController {
     private Label logoutLabel;
 
     @FXML
-    private VBox requestBoxBar;
-
-    @FXML
-    private ImageView requestIconView;
-
-    @FXML
     private TextField searchField;
 
     @FXML
@@ -123,13 +127,86 @@ public class ClientContactScreenController {
     private ImageView userProfilePic;
 
     @FXML
-    void handleAddNewFriend(ActionEvent event) {
+    private FlowPane friendsContainer;
 
+    
+    @FXML
+    private Button viewReqBtn;
+
+    ClientContactScreenService myServices = new ClientContactScreenService();
+
+    List<User> friends;
+
+    long currentUserId = 1;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        friendsContainer.setOrientation(Orientation.HORIZONTAL);
+
+        friends = new ArrayList<>();
+        try {
+            friends = myServices.showFriends();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Show
+        System.out.println(friends);
+
+        // Show the list of all friends
+        Platform.runLater( () -> {
+            for (User user: friends) {
+                FXMLHelper fxmlHelper = new FXMLHelper();
+                Pane curView = null;
+                try {
+                    curView = fxmlHelper.getPane("FriendContactInfo");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                FriendContactInfoController controller = (FriendContactInfoController) fxmlHelper.getController();
+                if (controller != null) {
+                    String friendName = user.getDisplayName();
+                    String phoneNumber = user.getPhone();
+                    String bio = user.getBio();
+                    String email = user.getUserEmail();
+                    UserStatus status = user.getUserStatus();
+                    Color circleColor;
+                    switch (status) {
+                        case UserStatus.Available:
+                            circleColor = Color.GREEN;
+                            break;
+                        case UserStatus.Offline:
+                            circleColor = Color.GRAY;
+                            break;
+                        case UserStatus.Busy:
+                            circleColor = Color.RED;
+                            break;
+                        case UserStatus.Away:
+                            circleColor = Color.YELLOW;
+                            break;
+                        default:
+                            circleColor = Color.WHITE;
+                            break;
+                    }
+                    controller.setNewFriendData(circleColor, friendName, bio, email, phoneNumber);
+                    curView.setUserData(phoneNumber);
+                } else {
+                    System.out.println("Error: Controller is null!");
+                }
+                friendsContainer.getChildren().add(curView);
+            }
+        });
     }
 
     @FXML
-    void handleBlockIcon(MouseEvent event) {
-
+    void handleAddNewFriend(ActionEvent event) {
+        // myServices.moveToNextPage(event, "ClientAddContactScreen.fxml");
+        Node currentNode = (Node)event.getSource();
+        Stage owner = (Stage)currentNode.getScene().getWindow();
+        // load the popup content
+        URL fxmlURL = getClass().getResource("/com/suhba/ClientAddContactScreen.fxml");
+        LoadingFXML.showPopupWithIdAddFriend(owner, fxmlURL,500,500, 1);
     }
 
     @FXML
@@ -137,5 +214,30 @@ public class ClientContactScreenController {
 
     }
 
+    @FXML
+    void goToChat(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToGroups(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToSettings(MouseEvent event) {
+
+    }
+
+    @FXML
+    void handleViewReq(ActionEvent event) {
+        Node currentNode = (Node)event.getSource();
+        Stage owner = (Stage)currentNode.getScene().getWindow();
+        // load the popup content
+        URL fxmlURL = getClass().getResource("/com/suhba/ClientRequestScreen.fxml");
+        LoadingFXML.showPopupWithIdReqFriend(owner, fxmlURL,500,500, 1);
+    }
+
+    
 }
 

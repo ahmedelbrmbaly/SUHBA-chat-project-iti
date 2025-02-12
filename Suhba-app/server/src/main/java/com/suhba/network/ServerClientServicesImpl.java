@@ -4,6 +4,7 @@ import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.implementaions.ChatServiceImpl;
 import com.suhba.services.client.implementaions.ContactServiceImpl;
@@ -15,6 +16,8 @@ import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         this.myAuthImpl = new UserAuthServiceImpl();
         this.mySettingImpl = new UserSettingServiceImpl();
         this.myContactImpl = new ContactServiceImpl();
+
     }
 
     @Override
@@ -159,6 +163,12 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         return false;
     }
 
+    // Look here
+    @Override
+    public Chat acceptRequest(Contact contact) throws RemoteException, SQLException {
+        return myContactImpl.acceptRequest(contact);
+    }
+
     @Override
     public boolean updateRequestStatusFromPendingToAccepted(Contact contact, ContactStatus status) throws RemoteException {
         return myContactImpl.updateRequestStatusFromPendingToAccepted(contact, status);
@@ -248,6 +258,21 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException {
         return mySettingImpl.updateUserPassword(userId, newPassword);
     }
+    // Look here
+    @Override
+    public void registerToReceiveMessages(long userId, ClientInterface client) {
+        myChatImpl.registerToReceiveMessages(userId, client);
+    }
+    // Look here
+    @Override
+    public void unregisterToReceive(long userId) {
+        myChatImpl.unregisterToReceive(userId);
+    }
+    // Look here
+    @Override
+    public Chat getChatById(long chatId){
+        return myChatImpl.getChatById(chatId);
+    }
 
     @Override
 
@@ -290,6 +315,13 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
                 clients.remove(client); // Remove disconnected clients
             }
         }
+    }
+
+    @Override
+    public boolean updateUserStatus(long userId, UserStatus newStatus) throws RemoteException {
+        // When update -> update in table
+        // Notify all users about this update in contacts screen
+        return updateUserStatus(userId, newStatus);
     }
 
 

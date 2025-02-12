@@ -10,7 +10,9 @@ import java.util.List;
 import com.suhba.daos.DatabaseConnection;
 import com.suhba.daos.interfaces.ContactDAO;
 import com.suhba.database.entities.Contact;
+import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.UserStatus;
 
 public class ContactDAOImpl implements ContactDAO {
     Connection connection ;
@@ -24,7 +26,7 @@ public class ContactDAOImpl implements ContactDAO {
 
     @Override
     public boolean addContact(Contact contact) {
-        //if (getContactsByUserId1AndUserId2(contact.getUserId1(), contact.getUserId2()) != null)  return false;
+        if (!getContactsByUserId1AndUserId2(contact.getUserId1(), contact.getUserId2()).isEmpty() || !getContactsByUserId1AndUserId2(contact.getUserId2(), contact.getUserId1()).isEmpty())  return false;
         System.out.println("In addContact method");
         String query = "INSERT INTO Contacts (userId1, userId2, contactStatus) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -128,13 +130,13 @@ public class ContactDAOImpl implements ContactDAO {
 
     @Override
     public List<Long> getUserId1ByUserId2(long userId2, ContactStatus contactStatus) {
-        String sql = "SELECT userId1 FROM Contact WHERE userId2 = ? and contactStatus = ?";
+        String sql = "SELECT userId1 FROM Contacts WHERE userId2 = ? and contactStatus = ?";
         List<Long> ids = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, userId2);
-            stmt.setString(2, String.valueOf(ContactStatus.PENDING));
+            stmt.setString(2, ContactStatus.PENDING.name());
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next())  ids.add(rs.getLong("userId1"));
+                while (rs.next())  ids.add(rs.getLong("userId1"));
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
@@ -143,8 +145,51 @@ public class ContactDAOImpl implements ContactDAO {
         return ids;
     }
 
-    // @Override
-    // public List<User> getAllUsersInContactByUserID(long userId) {
+    @Override
+    public List<User> getAllUsersInContactByUserID(long userId) {
+        List<User> contacts = new ArrayList<>();
+        String query = "SELECT u.userId FROM Users u " +
+                "JOIN Contacts c ON (c.userId1 = u.userId OR c.userId2 = u.userId) " +
+                "WHERE (c.userId1 = ? OR c.userId2 = ?) AND c.contactStatus = 'Accepted' AND u.userId <> ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setLong(1, userId);
+            stmt.setLong(2, userId);
+            stmt.setLong(3, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new UserDAOImpl().getUserById(rs.getLong(1));
+                    contacts.add(user);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contacts;
+    }
+
+    @Override
+    public List<Long> getAcceptedFriends(long userId) throws SQLException {
         
-    // }
+        List<Long> friends = new ArrayList<>();
+        String sql = "SELECT CASE WHEN userId1 = ? THEN userId2 ELSE userId1 END AS friendId " +
+                     "FROM contacts " +
+                     "WHERE (userId1 = ? OR userId2 = ?) AND contactStatus = 'ACCEPTED'";
+    
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+    
+            stmt.setLong(1, userId);
+            stmt.setLong(2, userId);
+            stmt.setLong(3, userId);
+    
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                friends.add(rs.getLong("friendId"));
+            }
+        }
+        return friends;
+    }
+    
 }

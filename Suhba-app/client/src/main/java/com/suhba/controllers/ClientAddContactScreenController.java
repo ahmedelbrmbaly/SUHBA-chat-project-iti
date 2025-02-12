@@ -66,13 +66,18 @@ public class ClientAddContactScreenController implements Initializable {
 
             AddNewFriendController controller = (AddNewFriendController) fxmlHelper.getController();
             if (controller != null) {
-                String friendName = myServices.getDisplayNamePhoneNumber(searchField.getText());
+                String friendName = myServices.getDisplayNameByPhoneNumber(searchField.getText());
                 if (friendName == null) {
                     myServices.showErrorAlert("There is no user with this phone number");
                     searchField.clear();
                     return;
                 }
                 String phoneNumber = searchField.getText();
+                if (myServices.isMe(phoneNumber)) {
+                    myServices.showErrorAlert("You are not allowed to send a friend request to yourself!");
+                    searchField.clear();
+                    return;
+                }
                 controller.setNewFriendData(friendName, phoneNumber);
 
                 curView.setUserData(phoneNumber);
