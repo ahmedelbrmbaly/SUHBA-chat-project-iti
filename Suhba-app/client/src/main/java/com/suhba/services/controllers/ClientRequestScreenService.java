@@ -23,6 +23,6 @@ public class ClientRequestScreenService {
     }
 
     public List<User> showPendingRequests () throws RemoteException {
-        return serverService.getAllPendingRequests(/*getCurUser().getUserId()*/ 12);
+        return serverService.getAllPendingRequests(/*getCurUser().getUserId()*/ 1);
     }
 }

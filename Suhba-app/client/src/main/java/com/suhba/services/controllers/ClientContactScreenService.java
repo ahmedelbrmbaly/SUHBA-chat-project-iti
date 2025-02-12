@@ -4,10 +4,12 @@ import com.suhba.database.entities.User;
 import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -44,6 +46,8 @@ public class ClientContactScreenService {
     }
 
     public List<User> showFriends () throws RemoteException {
-        return serverService.getAllFriends(/*getCurUser().getUserId()*/ 12);
+        return serverService.getAllFriends(/*getCurUser().getUserId()*/ 1);
     }
+
+   
 }

@@ -73,6 +73,11 @@ public class ClientAddContactScreenController implements Initializable {
                     return;
                 }
                 String phoneNumber = searchField.getText();
+                if (myServices.isMe(phoneNumber)) {
+                    myServices.showErrorAlert("You are not allowed to send a friend request to yourself!");
+                    searchField.clear();
+                    return;
+                }
                 controller.setNewFriendData(friendName, phoneNumber);
 
                 curView.setUserData(phoneNumber);

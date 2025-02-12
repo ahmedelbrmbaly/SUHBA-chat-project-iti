@@ -13,6 +13,7 @@ import com.suhba.database.enums.MessageStatus;
 import com.suhba.services.MessagingService;
 import com.suhba.services.UserService;
 import com.suhba.services.controllers.GroupScreenService;
+import com.suhba.utils.LoadingFXML;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,18 +80,18 @@ public class AddNewGroupController implements Initializable {
 
         // load all friends in list
         // try {
-            groupService = new GroupScreenService();
-            userService = new UserService();
-            msgService = new MessagingService();
-            List<User> myFriends = groupService.getMyFriends(currentUserId);
-            users = FXCollections.observableArrayList(myFriends);
+        groupService = new GroupScreenService();
+        userService = new UserService();
+        msgService = new MessagingService();
+        List<User> myFriends = groupService.getMyFriends(currentUserId);
+        users = FXCollections.observableArrayList(myFriends);
 
-            groupListView.setItems(users);
-            groupListView.setSelectionModel(null);
-            groupListView.setStyle("-fx-background-color: transparent;");
+        groupListView.setItems(users);
+        groupListView.setSelectionModel(null);
+        groupListView.setStyle("-fx-background-color: transparent;");
 
-            setupListView();
-        // } 
+        setupListView();
+        // }
 
     }
 
@@ -137,57 +138,61 @@ public class AddNewGroupController implements Initializable {
 
     @FXML
     void createNewGroup(ActionEvent event) {
-        List<Long> groupMembersIds= new ArrayList<>();
-        String groupName= groupNameField.getText();
+        List<Long> groupMembersIds = new ArrayList<>();
+        String groupName = groupNameField.getText();
         String groupDesc = descriptionArea.getText();
-        String groupPic ;
-        
-        if(groupName==null){
-            System.out.println("Must have group name!");
-        }else{
-            // Handle Creation
-        if (selectedUsers.isEmpty()) {
-            System.out.println("No selected user selected");
-        } else {
-            if(selectedUsers.size()<2){
-                System.out.println("Cann't Create Group less than 3 members");
-            }else{
-                groupMembersIds.add(currentUserId);
-                for (User user : selectedUsers) {
-                    System.out.println(user);
-                    groupMembersIds.add(user.getUserId());
-                }
-                for(Long ids: groupMembersIds){
-                    System.out.println("Mem= " +ids);
-                }
-                Group newGroup = new Group(groupName,null,groupDesc,null);
-                Group after = groupService.createNewGroup(newGroup, groupMembersIds);
-                if(after.getGroupId()<0){
-                    System.out.println("No group created!");
-                }else{
-                    System.out.println("Group created succesfully");
-                    System.out.println("Group id= "+after.getGroupId()+" chatId= "+ after.getChatId());
-                    try {
-                        msgService.sendMessageToUser(new Message(currentUserId,after.getChatId(),"Hello new Group",MessageStatus.Sent,null));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        String groupPic;
 
+        if (groupName == null) {
+            System.out.println("Must have group name!");
+            LoadingFXML.showErrorAlert("Must have group name!");
+        } else {
+            // Handle Creation
+            if (selectedUsers.isEmpty()) {
+                System.out.println("No selected user selected");
+                LoadingFXML.showErrorAlert("No Selected user!");
+            } else {
+                if (selectedUsers.size() < 2) {
+                    System.out.println("Cann't Create Group less than 3 members");
+                    LoadingFXML.showErrorAlert("Cann't Create Group less than 3 members");
+                } else {
+                    groupMembersIds.add(currentUserId);
+                    for (User user : selectedUsers) {
+                        System.out.println(user);
+                        groupMembersIds.add(user.getUserId());
+                    }
+                    for (Long ids : groupMembersIds) {
+                        System.out.println("Mem= " + ids);
+                    }
+                    Group newGroup = new Group(groupName, null, groupDesc, null);
+                    Group after = groupService.createNewGroup(newGroup, groupMembersIds);
+                    if (after.getGroupId() < 0) {
+                        System.out.println("No group created!");
+                    } else {
+                        System.out.println("Group created succesfully");
+                        System.out.println("Group id= " + after.getGroupId() + " chatId= " + after.getChatId());
+                        try {
+                            msgService.sendMessageToUser(new Message(currentUserId, after.getChatId(),
+                                    "Hello new Group", MessageStatus.Sent, null));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        LoadingFXML.showSuccessMessage("Group Created Successfully");
+                        Node currentNode = (Node) event.getSource();
+                        Stage owner = (Stage) currentNode.getScene().getWindow();
+                        owner.getOwner().getScene().getRoot().setEffect(null);
+                        owner.close();
+                        Stage mainStage = (Stage) owner.getOwner();
+                        if (mainStage != null) {
+                            mainStage.setIconified(false);
+                            mainStage.requestFocus();
+                        }
+                    }
                 }
             }
+
         }
-        
-            
-        }
-        Node currentNode = (Node) event.getSource();
-        Stage owner = (Stage) currentNode.getScene().getWindow();
-        owner.getOwner().getScene().getRoot().setEffect(null);
-        owner.close();
-        Stage mainStage = (Stage) owner.getOwner();
-        if (mainStage != null) {
-            mainStage.setIconified(false);
-            mainStage.requestFocus();
-        }
+
     }
 
     @FXML

@@ -27,7 +27,7 @@ public class AddNewFriendService {
         if (serverService.getUserByPhoneNumber(phoneNumber) != null) {
             receiverId = serverService.getUserByPhoneNumber(phoneNumber).getUserId();
         }                                  /////////// ////////////////////////////////////
-        if (receiverId != -1)  return serverService.sendFriendRequest(/*getCurUser().getUserId()*/ 5, receiverId);
+        if (receiverId != -1)  return serverService.sendFriendRequest(/*getCurUser().getUserId()*/ 1, receiverId);
         return true;
     }
 }

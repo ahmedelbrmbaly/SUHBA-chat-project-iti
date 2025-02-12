@@ -4,6 +4,7 @@ import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.exceptions.*;
 import com.suhba.services.client.implementaions.ChatServiceImpl;
 import com.suhba.services.client.implementaions.ContactServiceImpl;
@@ -298,6 +299,13 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
                 clients.remove(client); // Remove disconnected clients
             }
         }
+    }
+
+    @Override
+    public boolean updateUserStatus(long userId, UserStatus newStatus) throws RemoteException {
+        // When update -> update in table
+        // Notify all users about this update in contacts screen
+        return updateUserStatus(userId, newStatus);
     }
 
 

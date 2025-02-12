@@ -166,7 +166,7 @@ public class ChatScreenController implements Initializable {
 
     long currentChatId = -1;
 
-    long currentUserId;
+    long currentUserId = 1;
 
     User currentUserInChatWith;
 
@@ -198,7 +198,7 @@ public class ChatScreenController implements Initializable {
             // 8- Receiving messages -> update in gui
 
             chatScreenService = new ChatScreenService(this);
-            currentUserId = chatScreenService.getCurUser().getUserId();
+            // currentUserId = chatScreenService.getCurUser().getUserId();
             System.out.println("ChatService= " + chatScreenService);
             System.out.println("Controller= " + this);
             currentUser = chatScreenService.getUserInfoById(currentUserId);
@@ -320,29 +320,7 @@ public class ChatScreenController implements Initializable {
 
     }
 
-    @FXML
-    void goToGroups(MouseEvent event) {
-        try {
-            // Load Groups FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientGroupScreen.fxml"));
-            // Get the GroupsController
-
-            loader.setControllerFactory(param -> {
-                ClientGroupScreenController controller = new ClientGroupScreenController();
-                controller.setCurrentUserId(currentUserId);
-                return controller;
-            });
-            Parent root = loader.load();
-            // Switch Scene
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     private void updateChatList() {
         ObservableList<User> userList = FXCollections.observableArrayList(allChats.keySet());
@@ -395,16 +373,6 @@ public class ChatScreenController implements Initializable {
         }
     }
 
-    public void goToScene(String fxmlName) {
-        // FXMLLoader loader = new FXMLLoader(App.class.getResource(
-        // "/gov/iti/jets/ChatUI.fxml"));
-        // Parent root = loader.load();
-        // ClientController ch = loader.getController();
-        // ch.setName(getName());
-        // Stage stage = (Stage) nameTextField.getScene().getWindow();
-        // stage.setScene(new Scene(root));
-        // stage.show();
-    }
 
     public boolean receiveNewMessage(Message msg) {
         Platform.runLater(() -> {
@@ -433,24 +401,64 @@ public class ChatScreenController implements Initializable {
         }
     }
 
-    public void moveToNextPage(MouseEvent event, String destinationPage) {
-        Parent parent = null;
-        try {
-            parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));
-        } catch (IOException e) {
-            System.out.println("Page not found!");
-        }
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void handleLogout (MouseEvent event) throws IOException {
         chatScreenService.unregister(currentUserId);
         chatScreenService.logoutService();
-        moveToNextPage(event, "signInPage1.fxml");
+        LoadingFXML.moveToNextPage(event, "signInPage1.fxml");
+    }
+
+    @FXML
+    void goToSettings(MouseEvent event) {
+        
+    }
+
+    @FXML
+    void goToContacts(MouseEvent event) {
+        try {
+            // Load Groups FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientContactScreen.fxml"));
+            // Get the Settings Controller
+            loader.setControllerFactory(param -> {
+                ClientContactScreenController controller = new ClientContactScreenController();
+                // controller.setCurrentUserId(currentUserId);
+                return controller;
+            });
+            Parent root = loader.load();
+            // Switch Scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void goToGroups(MouseEvent event) {
+        try {
+            // Load Groups FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/suhba/ClientGroupScreen.fxml"));
+            // Get the GroupsController
+
+            loader.setControllerFactory(param -> {
+                ClientGroupScreenController controller = new ClientGroupScreenController();
+                controller.setCurrentUserId(currentUserId);
+                return controller;
+            });
+            Parent root = loader.load();
+            // Switch Scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,13 +1,18 @@
 package com.suhba.controllers;
 
 import com.suhba.database.entities.User;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.services.controllers.ClientContactScreenService;
 import com.suhba.utils.FXMLHelper;
+import com.suhba.utils.LoadingFXML;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,9 +35,6 @@ public class ClientContactScreenController implements Initializable {
 
     @FXML
     private Label GroupsLabel;
-
-    @FXML
-    private Label RequestsLabel;
 
     @FXML
     private Button addNewBtn;
@@ -103,12 +106,6 @@ public class ClientContactScreenController implements Initializable {
     private Label logoutLabel;
 
     @FXML
-    private VBox requestBoxBar;
-
-    @FXML
-    private ImageView requestIconView;
-
-    @FXML
     private TextField searchField;
 
     @FXML
@@ -132,9 +129,15 @@ public class ClientContactScreenController implements Initializable {
     @FXML
     private FlowPane friendsContainer;
 
+    
+    @FXML
+    private Button viewReqBtn;
+
     ClientContactScreenService myServices = new ClientContactScreenService();
 
     List<User> friends;
+
+    long currentUserId = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -167,19 +170,26 @@ public class ClientContactScreenController implements Initializable {
                     String phoneNumber = user.getPhone();
                     String bio = user.getBio();
                     String email = user.getUserEmail();
-                    String status = user.getUserStatus().name();
+                    UserStatus status = user.getUserStatus();
                     Color circleColor;
                     switch (status) {
-                        case "Offline":
+                        case UserStatus.Available:
+                            circleColor = Color.GREEN;
+                            break;
+                        case UserStatus.Offline:
+                            circleColor = Color.GRAY;
+                            break;
+                        case UserStatus.Busy:
                             circleColor = Color.RED;
                             break;
-                        case "Available":
-                            circleColor = Color.GREEN;
+                        case UserStatus.Away:
+                            circleColor = Color.YELLOW;
                             break;
-                        case "Busy":
-                            circleColor = Color.GREEN;
+                        default:
+                            circleColor = Color.WHITE;
+                            break;
                     }
-                    controller.setNewFriendData(Color.BLUE, friendName, bio, email, phoneNumber);
+                    controller.setNewFriendData(circleColor, friendName, bio, email, phoneNumber);
                     curView.setUserData(phoneNumber);
                 } else {
                     System.out.println("Error: Controller is null!");
@@ -191,7 +201,12 @@ public class ClientContactScreenController implements Initializable {
 
     @FXML
     void handleAddNewFriend(ActionEvent event) {
-        myServices.moveToNextPage(event, "ClientAddContactScreen.fxml");
+        // myServices.moveToNextPage(event, "ClientAddContactScreen.fxml");
+        Node currentNode = (Node)event.getSource();
+        Stage owner = (Stage)currentNode.getScene().getWindow();
+        // load the popup content
+        URL fxmlURL = getClass().getResource("/com/suhba/ClientAddContactScreen.fxml");
+        LoadingFXML.showPopupWithIdAddFriend(owner, fxmlURL,500,500, 1);
     }
 
     @FXML
@@ -199,5 +214,30 @@ public class ClientContactScreenController implements Initializable {
 
     }
 
+    @FXML
+    void goToChat(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToGroups(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToSettings(MouseEvent event) {
+
+    }
+
+    @FXML
+    void handleViewReq(ActionEvent event) {
+        Node currentNode = (Node)event.getSource();
+        Stage owner = (Stage)currentNode.getScene().getWindow();
+        // load the popup content
+        URL fxmlURL = getClass().getResource("/com/suhba/ClientRequestScreen.fxml");
+        LoadingFXML.showPopupWithIdReqFriend(owner, fxmlURL,500,500, 1);
+    }
+
+    
 }
 

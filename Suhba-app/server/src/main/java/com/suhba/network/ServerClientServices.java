@@ -15,6 +15,7 @@ import com.suhba.database.entities.*;
 import com.suhba.database.enums.ContactStatus;
 import com.suhba.database.enums.Country;
 import com.suhba.database.enums.Gender;
+import com.suhba.database.enums.UserStatus;
 import com.suhba.exceptions.*;
 
 
@@ -122,6 +123,8 @@ public interface ServerClientServices extends Remote {
 
     public boolean updateUserProfile(User user) throws RemoteException, InvalidPhoneException, InvalidPasswordException, NoSuchAlgorithmException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException;
     public boolean updateUserPassword(long userId, String newPassword) throws RemoteException, InvalidPasswordException, NoSuchAlgorithmException; // Password must be hashed
+
+    public boolean updateUserStatus(long userId, UserStatus newStatus) throws RemoteException;
 
 
     public User getUserByPhoneNumber(String phoneNumber) throws RemoteException;
