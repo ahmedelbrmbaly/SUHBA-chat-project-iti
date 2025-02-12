@@ -4,7 +4,6 @@ import com.suhba.database.enums.Gender;
 import com.suhba.database.enums.UserStatus;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDate;
 
 public class User implements Serializable {
@@ -13,7 +12,7 @@ public class User implements Serializable {
     private String phone;
     private String displayName;
     private String userEmail;
-    private Blob picture;
+    private byte[] picture;
     private String password;
     private Gender gender;
     private Country country;
@@ -30,8 +29,8 @@ public class User implements Serializable {
     public void setDisplayName(String displayName) { this.displayName = displayName; }
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
-    public Blob getPicture() { return picture; }
-    public void setPicture(Blob picture) { this.picture = picture; }
+    public byte[] getPicture() { return picture; }
+    public void setPicture(byte[] picture) { this.picture = picture; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     public Gender getGender() { return gender; }
@@ -61,4 +60,5 @@ public class User implements Serializable {
                 ", userStatus='" + userStatus + '\'' +
                 '}';
     }
+
 }

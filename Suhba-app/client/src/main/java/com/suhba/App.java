@@ -16,12 +16,18 @@ public class App extends Application {
 
     private static Scene scene;
 
+    public static Stage myStage;
+
     @Override
     public void start(Stage stage) throws IOException {
+
         scene = new Scene(loadFXML("signInPage1"), 980, 600);
         stage.setScene(scene);
         stage.show();
+
+        myStage = stage;
         ServerService.startServerService();
+
     }
 
     static void setRoot(String fxml) throws IOException {

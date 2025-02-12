@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="signUpScreen1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignUpScreen1Controller">
+<BorderPane fx:id="signUpScreen1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignUpScreen1Controller">
    <center>
       <GridPane prefHeight="489.0" prefWidth="480.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -47,7 +47,7 @@
                   <Insets left="110.0" top="40.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="PhoneSignUpField" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
+            <TextField fx:id="phoneSignUpField" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="110.0" left="110.0" right="100.0" top="30.0" />
                </GridPane.margin>
@@ -74,17 +74,12 @@
             </PasswordField>
             <Label prefHeight="17.0" prefWidth="119.0" text="Confirm Password *" textFill="#112d4e" GridPane.rowIndex="8">
                <GridPane.margin>
-                  <Insets bottom="75.0" left="110.0" />
+                  <Insets bottom="75.0" left="110.0" top="55.0" />
                </GridPane.margin>
                <padding>
                   <Insets bottom="30.0" />
                </padding>
             </Label>
-            <TextField fx:id="confirmPassSignUpField" prefWidth="260.0" GridPane.rowIndex="9">
-               <GridPane.margin>
-                  <Insets bottom="50.0" left="110.0" right="100.0" />
-               </GridPane.margin>
-            </TextField>
             <GridPane prefHeight="93.0" prefWidth="480.0" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="110.0" top="50.0" />
@@ -98,12 +93,12 @@
                   <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="continueSignUpBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleContinueSignUpBtn" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="continueSignUpBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleContinueSignUpBtn" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Continue" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <Label fx:id="signIpLabel" onMouseClicked="#handleSignIp" prefHeight="17.0" prefWidth="181.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
+                  <Label fx:id="signInLabel" onMouseClicked="#handleSignIn" prefHeight="17.0" prefWidth="181.0" style="-fx-cursor: hand;" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="50.0" />
                      </GridPane.margin>
@@ -113,6 +108,19 @@
                   </Label>
                </children>
             </GridPane>
+            <PasswordField fx:id="confirmPassSignUpField" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="110.0" right="100.0" top="70.0" />
+               </GridPane.margin>
+            </PasswordField>
+            <Label prefHeight="73.0" prefWidth="253.0" text="The password must contain at least 8 characters including one uppercase letter, one lowercase letter, one digit, one special character" textFill="#d30b08" wrapText="true" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="-135.0" left="110.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children>
          <BorderPane.margin>
             <Insets bottom="30.0" left="60.0" right="240.0" top="30.0" />

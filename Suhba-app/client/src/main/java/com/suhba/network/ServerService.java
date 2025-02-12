@@ -31,10 +31,10 @@ public class ServerService {
         return instance;
     }
 
+
     public static void startServerService()
     {
         try {
-            // Get the server instance
             ServerClientServices serverService = ServerService.getInstance();
 
             // Create and register the client
@@ -42,11 +42,19 @@ public class ServerService {
             serverService.register(client);
             System.out.println("Client registered with the server.");
 
-        } catch (RemoteException e) {
+
+        }  catch (RemoteException e) {
             System.err.println("Failed to register client: " + e.getMessage());
             e.printStackTrace();
 
+
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+
+            // Get the server instance
+
         }
+
     }
     public static void main(String[] args) {
         startServerService();
