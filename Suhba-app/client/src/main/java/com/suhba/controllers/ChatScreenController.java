@@ -380,7 +380,7 @@ public class ChatScreenController implements Initializable {
                 }else{
                     userChatStatusCircle.setStyle("-fx-fill: red;");
                 }
-                Circle circle = new Circle(30, 30, 30);
+                Circle circle = new Circle(25, 25, 25);
                 chatPicture.setClip(circle);
             });
         }
@@ -409,7 +409,7 @@ public class ChatScreenController implements Initializable {
                 Image image = new Image(new ByteArrayInputStream(userPhoto));
                 userProfilePic.setImage(image);
             } else {
-                userProfilePic.setImage(null);
+                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
             }
             userNameLabel.setText(currentUser.getDisplayName());
         } catch (RemoteException e) {

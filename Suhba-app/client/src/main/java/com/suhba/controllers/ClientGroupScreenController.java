@@ -379,7 +379,7 @@ public class ClientGroupScreenController implements Initializable {
                 Image image = new Image(new ByteArrayInputStream(userPhoto));
                 userProfilePic.setImage(image);
             } else {
-                userProfilePic.setImage(null);
+                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
             }
 
             userNameLabel.setText(currentUser.getDisplayName());
