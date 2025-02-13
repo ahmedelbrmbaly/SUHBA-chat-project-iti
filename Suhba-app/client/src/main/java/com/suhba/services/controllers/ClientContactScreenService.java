@@ -22,7 +22,7 @@ public class ClientContactScreenService {
 
     ServerClientServices serverService = ServerService.getInstance();
 
-    private User getCurUser () {
+    public User getCurUser () {
         if (SignIn1Service.curUser != null) {
             System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
             return SignIn1Service.curUser;
@@ -66,6 +66,10 @@ public class ClientContactScreenService {
 
     private String getMacAddress () throws SocketException, RemoteException {
         return ServerService.getInstance().getMacAddress();
+    }
+
+    public User getUserByPhone (String phone) throws RemoteException {
+        return serverService.getUserByPhoneNumber(phone);
     }
 
     public void logoutService () throws IOException {

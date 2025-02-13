@@ -6,6 +6,8 @@ import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 
@@ -50,5 +52,15 @@ public class PasswordSettingsService {
 
     public User getUserById() throws RemoteException {
         return serverService != null ? serverService.getUserById(getCurUser().getUserId()) : null;
+    }
+
+    private String getMacAddress () throws SocketException, RemoteException {
+        return ServerService.getInstance().getMacAddress();
+    }
+
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        System.out.println(getCurUser().getUserId());
+        ServerService.getInstance().logout(getMacAddress(), getCurUser().getUserId());
     }
 }

@@ -2,6 +2,7 @@ package com.suhba.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -26,8 +27,8 @@ public class FriendContactInfoController {
     @FXML
     private Label friendPhone;
 
-    public void setNewFriendData(Color color, String name, String bio, String email, String phoneNumber) {
-        //imageFriend = new ImageView(new Image(imageURL));
+    public void setNewFriendData(Image image, Color color, String name, String bio, String email, String phoneNumber) {
+        friendImage.setImage(image);
         friendStatus.setFill(color);
         friendName.setText(name);
         friendBio.setText(bio);

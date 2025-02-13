@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
+import java.io.ByteArrayInputStream;
+
 public class ChatUserBoxController{
 
     @FXML
@@ -54,6 +56,13 @@ public class ChatUserBoxController{
             userChatImg.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
         }else{
            // userChatImg.setImage((Image) user.getPicture());
+            byte[] userPhoto = user.getPicture();
+            if (userPhoto != null && userPhoto.length > 0) {
+                Image image = new Image(new ByteArrayInputStream(userPhoto));
+                userChatImg.setImage(image);
+            } else {
+                userChatImg.setImage(null);
+            }
         }
         userChatName.setText(user.getDisplayName());
         userLastMessageLabel.setText(lastMessage.getContent());

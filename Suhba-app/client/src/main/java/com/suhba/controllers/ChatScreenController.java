@@ -1,6 +1,7 @@
 package com.suhba.controllers;
 
 import java.awt.event.ActionEvent;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 // import com.suhba.models.*;
@@ -360,6 +361,13 @@ public class ChatScreenController implements Initializable {
                     chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
                 } else {
                    // chatPicture.setImage((Image) currentUserInChatWith.getPicture());
+                    byte[] userPhoto = currentUserInChatWith.getPicture();
+                    if (userPhoto != null && userPhoto.length > 0) {
+                        Image image = new Image(new ByteArrayInputStream(userPhoto));
+                        chatPicture.setImage(image);
+                    } else {
+                        chatPicture.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+                    }
                 }
                 chatNameLabel.setText(currentUserInChatWith.getDisplayName());
                 userChatStatusLabel.setText(currentUserInChatWith.getUserStatus().name());
@@ -395,10 +403,13 @@ public class ChatScreenController implements Initializable {
     public void setUserInfo() {
         try {
             User currentUser = chatScreenService.getUserInfoById(currentUserId);
-            if (currentUser.getPicture() == null) {
-                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+            byte[] userPhoto = currentUser.getPicture();
+
+            if (userPhoto != null && userPhoto.length > 0) {
+                Image image = new Image(new ByteArrayInputStream(userPhoto));
+                userProfilePic.setImage(image);
             } else {
-                // userProfilePic.setImage();
+                userProfilePic.setImage(null);
             }
             userNameLabel.setText(currentUser.getDisplayName());
         } catch (RemoteException e) {

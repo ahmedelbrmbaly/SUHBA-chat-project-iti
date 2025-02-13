@@ -37,8 +37,8 @@ public class AddNewFriendController {
 
     AddNewFriendService myServices = new AddNewFriendService();
 
-    public void setNewFriendData(String name, String phoneNumber) {
-        //imageFriend = new ImageView(new Image(imageURL));
+    public void setNewFriendData(Image picture, String name, String phoneNumber) {
+        imageFriend.setImage(picture);
         nameFriend.setText(name);
         phoneFriend.setText(phoneNumber);
     }

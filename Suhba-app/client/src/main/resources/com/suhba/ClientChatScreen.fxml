@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatScreenController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatScreenController">
    <left>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="130.0" spacing="6.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
          <children>
@@ -133,7 +133,6 @@
                   <Image url="@../../images/white.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchTextField" focusTraversable="false" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
          </children>
          <BorderPane.margin>
             <Insets />

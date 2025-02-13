@@ -6,6 +6,8 @@ import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,6 +15,18 @@ public class ProfileSettingsService {
     private final ServerClientServices serverService = ServerService.getInstance();
 
     private static final int PRESET_USER_ID = 5;
+
+    public User getCurUser () {
+        if (SignIn1Service.curUser != null) {
+            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
+            return SignIn1Service.curUser;
+        }
+        else if (SignUp2Service.curRegisterdUser != null) {
+            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
+            return SignUp2Service.curRegisterdUser;
+        }
+        return null;
+    }
 
     public User loadUserProfile() {
         User currentUser = getCurUser();
@@ -25,19 +39,6 @@ public class ProfileSettingsService {
             }
         } else {
             showErrorAlert("No user is currently logged in.");
-        }
-        return null;
-    }
-
-
-    public User getCurUser () {
-        if (SignIn1Service.curUser != null) {
-            System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
-            return SignIn1Service.curUser;
-        }
-        else if (SignUp2Service.curRegisterdUser != null) {
-            System.out.println("If from signup: The cur user id = " + SignUp2Service.curRegisterdUser.getUserId());
-            return SignUp2Service.curRegisterdUser;
         }
         return null;
     }
@@ -76,5 +77,15 @@ public class ProfileSettingsService {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private String getMacAddress () throws SocketException, RemoteException {
+        return ServerService.getInstance().getMacAddress();
+    }
+
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        System.out.println(getCurUser().getUserId());
+        ServerService.getInstance().logout(getMacAddress(), getCurUser().getUserId());
     }
 }

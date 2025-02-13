@@ -1,5 +1,6 @@
 package com.suhba.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -371,12 +372,16 @@ public class ClientGroupScreenController implements Initializable {
 
     public void setUserInfo() {
         try {
-            User currentUser = userService.getUserInfoById(currentUserId);
-            if (currentUser.getPicture() == null) {
-                userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+            User currentUser = userService.getUserInfoById(new GroupScreenService().getCurUser().getUserId());
+            byte[] userPhoto = currentUser.getPicture();
+
+            if (userPhoto != null && userPhoto.length > 0) {
+                Image image = new Image(new ByteArrayInputStream(userPhoto));
+                userProfilePic.setImage(image);
             } else {
-                // userProfilePic.setImage();
+                userProfilePic.setImage(null);
             }
+
             userNameLabel.setText(currentUser.getDisplayName());
         } catch (RemoteException e) {
             e.printStackTrace();
