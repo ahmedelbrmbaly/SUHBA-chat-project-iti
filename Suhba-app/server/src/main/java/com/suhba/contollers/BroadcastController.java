@@ -26,6 +26,8 @@ public class BroadcastController {
         alert.showAndWait();
     }
 
+
+
     @FXML
     void goToBrodcastingScreen(MouseEvent event) {
         ScreenNavigator.loadScreen(event, "Broadcast.fxml");
