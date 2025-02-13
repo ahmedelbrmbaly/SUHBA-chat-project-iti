@@ -10,6 +10,7 @@ import com.suhba.database.entities.Group;
 import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.MessageStatus;
+import com.suhba.network.ClientImplementation;
 import com.suhba.services.MessagingService;
 import com.suhba.services.UserService;
 import com.suhba.services.controllers.ChatScreenService;
@@ -176,6 +177,8 @@ public class ClientGroupScreenController implements Initializable {
 
     private static ClientGroupScreenController instance;
 
+    ClientImplementation clientImplementation;
+
     public ClientGroupScreenController() {
         if (instance == null) {
             instance = this;
@@ -229,6 +232,8 @@ public class ClientGroupScreenController implements Initializable {
 
             // 2- Load Groups
             groupService = new GroupScreenService(this);
+            clientImplementation = new ClientImplementation(groupService);
+
             currentUserId = groupService.getCurUser().getUserId();
             groupService.registerToReceive(currentUserId);
             allChats = groupService.loadUserGroups(currentUserId);

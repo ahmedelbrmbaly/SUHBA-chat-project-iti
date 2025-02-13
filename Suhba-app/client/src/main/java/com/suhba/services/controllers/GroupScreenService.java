@@ -26,7 +26,7 @@ public class GroupScreenService {
     
     public GroupScreenService(ClientGroupScreenController controller) {
         try {
-            client = (ClientInterface) new ClientImplementation();
+            client = (ClientInterface) new ClientImplementation(this);
             this.controller = controller;
         } catch (RemoteException e) {
             e.printStackTrace();

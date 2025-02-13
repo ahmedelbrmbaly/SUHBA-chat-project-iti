@@ -14,6 +14,7 @@ import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.MessageStatus;
 import com.suhba.database.enums.UserStatus;
+import com.suhba.network.ClientImplementation;
 import com.suhba.services.controllers.ChatScreenService;
 import com.suhba.utils.LoadingFXML;
 import com.suhba.views.cells.ChatUserCell;
@@ -174,6 +175,8 @@ public class ChatScreenController implements Initializable {
 
     User currentUser;
 
+    ClientImplementation clientImplementation;
+
     private static ChatScreenController instance;
 
     public ChatScreenController() {
@@ -200,6 +203,7 @@ public class ChatScreenController implements Initializable {
             // 8- Receiving messages -> update in gui
 
             chatScreenService = new ChatScreenService(this);
+            clientImplementation = new ClientImplementation(chatScreenService);
             currentUserId = chatScreenService.getCurUser().getUserId();
             System.out.println("ChatService= " + chatScreenService);
             System.out.println("Controller= " + this);
