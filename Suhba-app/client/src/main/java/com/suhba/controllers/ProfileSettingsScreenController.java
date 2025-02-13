@@ -139,6 +139,7 @@ public class ProfileSettingsScreenController implements Initializable {
                 ImageIO.write(bufferedImage, "png", outputStream);
                 byte[] imageBytes = outputStream.toByteArray();
                 currentUser.setPicture(imageBytes);
+
             } catch (IOException e) {
                 e.printStackTrace();
                 profileService.showErrorAlert("Failed to convert image to byte array.");
@@ -147,9 +148,9 @@ public class ProfileSettingsScreenController implements Initializable {
         } else {
             currentUser.setPicture(null);
         }
-
         boolean isUpdated = profileService.updateUserProfile(currentUser);
         if (isUpdated) {
+            setUserInfo();
             profileService.showSuccessAlert("User profile updated successfully.");
         } else {
             profileService.showErrorAlert("Failed to update user profile.");
