@@ -145,5 +145,7 @@ public interface ServerClientServices extends Remote {
     public void register(ClientService client) throws RemoteException;
     public void unregister(ClientService client) throws RemoteException;
 
+    public boolean isChatBotActive(User user) throws RemoteException;
+    public void setChatBotActive(User user,boolean chatBotActive) throws RemoteException;
 
 }

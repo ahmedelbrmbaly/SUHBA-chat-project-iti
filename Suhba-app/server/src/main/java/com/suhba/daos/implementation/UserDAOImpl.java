@@ -502,6 +502,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setBirthday(rs.getDate("birthday") != null ? rs.getDate("birthday").toLocalDate() : null);
                     user.setBio(rs.getString("bio"));
                     user.setUserStatus(rs.getString("userStatus") == null ? null : UserStatus.valueOf(rs.getString("userStatus")));
+                    user.setChatBotActive(rs.getBoolean("isChatBotActive"));
                     users.add(user);
                 }
             }
@@ -620,4 +621,7 @@ public class UserDAOImpl implements UserDAO {
         }
         return false; 
     }
+    public boolean isChatBotActive(User user) { return user.isChatBotActive(); }
+    public void setChatBotActive(User user,boolean chatBotActive) { user.setChatBotActive(chatBotActive);}
+
 }

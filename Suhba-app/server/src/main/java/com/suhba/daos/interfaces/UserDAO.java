@@ -42,5 +42,11 @@ public interface UserDAO {  //CRUD
 
     //Delete
     boolean deleteUserById(long userId);
+
+    public boolean isChatBotActive(User user);
+    public void setChatBotActive(User user,boolean chatBotActive);
+
+
+
 }
 

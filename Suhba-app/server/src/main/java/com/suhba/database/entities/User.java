@@ -19,6 +19,8 @@ public class User implements Serializable {
     private LocalDate birthday;
     private String bio;
     private UserStatus userStatus;
+    private boolean isChatBotActive; // New field
+
 
     // Getters and Setters
     public long getUserId() { return userId; }
@@ -43,6 +45,8 @@ public class User implements Serializable {
     public void setBio(String bio) { this.bio = bio; }
     public UserStatus getUserStatus() { return userStatus; }
     public void setUserStatus(UserStatus userStatus) { this.userStatus = userStatus; }
+    public boolean isChatBotActive() { return isChatBotActive; }
+    public void setChatBotActive(boolean chatBotActive) { isChatBotActive = chatBotActive; }
 
     @Override
     public String toString() {

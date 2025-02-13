@@ -11,14 +11,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         ServerClientServicesImpl hi= new ServerClientServicesImpl();
-        // hi.createPrivateChat(1, 4);
 
-        ContactServiceImpl contactDAOImpl = new ContactServiceImpl();
-        List<User> contacts = contactDAOImpl.getAllFriends(1);
-
-        for(User user: contacts){
-            System.out.println(user);
-        }
+        System.out.println(hi.getUserById(1));
         
         
     }

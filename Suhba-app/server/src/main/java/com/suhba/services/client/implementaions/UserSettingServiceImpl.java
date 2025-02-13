@@ -39,4 +39,10 @@ public class UserSettingServiceImpl implements UserSettingService {
     public boolean updateUserStatus(long userId, UserStatus newStatus) {
         return (myUserDao.updateUserStatus(userId, newStatus));
     }
+
+    public boolean isChatBotActive(User user) { return myUserDao.isChatBotActive(user); }
+    public void setChatBotActive(User user,boolean chatBotActive) {
+
+        myUserDao.setChatBotActive(user, chatBotActive);
+        System.out.println("Setting chat bot: " + chatBotActive);}
 }

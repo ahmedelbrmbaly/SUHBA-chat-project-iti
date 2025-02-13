@@ -65,6 +65,8 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
 
     @Override
     public User getUserById(long userId) throws RemoteException {
+        System.out.println("user id is " + userId);
+        System.out.println("user" + myChatImpl.getUserById(userId));
         return myChatImpl.getUserById(userId);
     }
 
@@ -324,6 +326,8 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
         return updateUserStatus(userId, newStatus);
     }
 
+    public boolean isChatBotActive(User user) { return mySettingImpl.isChatBotActive(user); }
+    public void setChatBotActive(User user,boolean chatBotActive) { mySettingImpl.setChatBotActive(user, chatBotActive); }
 
 
 }
