@@ -12,5 +12,7 @@ public interface ClientInterface extends Remote {
     boolean receiveMessage(Message msg, ChatType type) throws RemoteException;
 
     void notifyUserStatusChanged(long userId, UserStatus available) throws RemoteException;
-    
+    public void chatBotMessage(long senderId, long reciverId, Message oldMessage) throws RemoteException;
+
+
 }

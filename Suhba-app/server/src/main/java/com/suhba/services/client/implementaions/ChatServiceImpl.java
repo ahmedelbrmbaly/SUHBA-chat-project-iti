@@ -66,6 +66,14 @@ public class ChatServiceImpl implements ChatService {
                             if (client != null) {
                                 client.receiveMessage(newMsg,ChatType.Direct);
                             } else {
+                                User revciver = userDAOImpl.getUserById(clientId);
+                                if(revciver.getUserStatus() == UserStatus.Offline && revciver.isChatBotActive() )
+                                {
+                                    client.chatBotMessage(revciver.getUserId(), msg.getSenderId(), msg) ;
+
+                                    System.out.println("Chat bot is active and user is offline");
+                                }
+
                                 System.out.println("Client with ID " + clientId + " is not online.");
                             }
                         }
