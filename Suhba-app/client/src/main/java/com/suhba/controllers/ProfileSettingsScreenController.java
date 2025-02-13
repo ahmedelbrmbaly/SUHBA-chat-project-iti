@@ -19,7 +19,6 @@ import javafx.stage.FileChooser;
 
 import java.rmi.RemoteException;
 
-public class ProfileSettingsScreenController {
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

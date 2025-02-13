@@ -623,6 +623,23 @@ public class UserDAOImpl implements UserDAO {
         return false; 
     }
     public boolean isChatBotActive(User user) { return user.isChatBotActive(); }
-    public void setChatBotActive(User user,boolean chatBotActive) { user.setChatBotActive(chatBotActive);}
+    public void setChatBotActive(User user,boolean chatBotActive) {
 
-}
+            String query = "UPDATE Users SET isChatBotActive = ? WHERE userId = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                int state ;
+                if (chatBotActive) { state = 1;
+                }else { state = 0;}
+                stmt.setInt(1, state);
+                stmt.setLong(2, user.getUserId());
+                stmt.executeUpdate();
+                user.setChatBotActive(chatBotActive); // Update object state
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle exception properly in real applications
+            }
+        user.setChatBotActive(chatBotActive);}
+        }
+
+
+
+
