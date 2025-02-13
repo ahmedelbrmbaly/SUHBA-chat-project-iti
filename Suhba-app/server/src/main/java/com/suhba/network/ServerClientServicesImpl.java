@@ -329,5 +329,18 @@ public class ServerClientServicesImpl extends UnicastRemoteObject implements Ser
     public boolean isChatBotActive(User user) { return mySettingImpl.isChatBotActive(user); }
     public void setChatBotActive(User user,boolean chatBotActive) { mySettingImpl.setChatBotActive(user, chatBotActive); }
 
+    @Override
+    public void notifyServerShutdown() throws RemoteException {
+        for (ClientService client : clients) {
+            client.onServerShutdown();
+        }
+    }
+
+    @Override
+    public void notifyClientsShutdown() throws RemoteException {
+        for (ClientService client : clients) {
+            client.onServerShutdown(); // Notify each client
+        }
+    }
 
 }

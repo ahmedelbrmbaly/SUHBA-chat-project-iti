@@ -10,9 +10,8 @@ import com.suhba.services.client.implementaions.ContactServiceImpl;
 public class Main {
 
     public static void main(String[] args) throws Exception{
-        ServerClientServicesImpl hi= new ServerClientServicesImpl();
-
-        System.out.println(hi.getUserById(1));
+        App app = new App();
+        app.main(args);
         
         
     }

@@ -35,22 +35,22 @@
             <version>5.10.0</version> <!-- Specify a valid version -->
             <scope>test</scope>
         </dependency>
+        <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>4.12.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20250107</version>
+    </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.10.0</version> <!-- Specify a valid version -->
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.12.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20250107</version>
         </dependency>
 
         <!-- MySQL JDBC Dependency -->
@@ -90,7 +90,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <!-- Exec Maven Plugin -->
         <plugin>
             <groupId>org.codehaus.mojo</groupId>

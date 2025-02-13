@@ -148,4 +148,8 @@ public interface ServerClientServices extends Remote {
     public boolean isChatBotActive(User user) throws RemoteException;
     public void setChatBotActive(User user,boolean chatBotActive) throws RemoteException;
 
+    void notifyServerShutdown() throws RemoteException;
+
+
+    void notifyClientsShutdown() throws RemoteException;
 }
