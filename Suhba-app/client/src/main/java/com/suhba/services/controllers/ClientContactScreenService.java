@@ -10,9 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class ClientContactScreenService {
 
     ServerClientServices serverService = ServerService.getInstance();
 
-    private User getCurUser () {
+    public User getCurUser () {
         if (SignIn1Service.curUser != null) {
             System.out.println("If from login: The cur user id = " + SignIn1Service.curUser.getUserId());
             return SignIn1Service.curUser;
@@ -45,9 +47,34 @@ public class ClientContactScreenService {
         stage.show();
     }
 
-    public List<User> showFriends () throws RemoteException {
-        return serverService.getAllFriends(/*getCurUser().getUserId()*/ 1);
+    public void moveToNextPage (MouseEvent event, String destinationPage) {
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("/com/suhba/" + destinationPage));
+        } catch (IOException e) {
+            System.out.println("Page not found!");
+        }
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
-   
+    public List<User> showFriends () throws RemoteException {
+        return serverService.getAllFriends(getCurUser().getUserId());
+    }
+
+    private String getMacAddress () throws SocketException, RemoteException {
+        return ServerService.getInstance().getMacAddress();
+    }
+
+    public User getUserByPhone (String phone) throws RemoteException {
+        return serverService.getUserByPhoneNumber(phone);
+    }
+
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        System.out.println(getCurUser().getUserId());
+        ServerService.getInstance().logout(getMacAddress(), getCurUser().getUserId());
+    }
 }

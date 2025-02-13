@@ -23,9 +23,24 @@ public class UserSettingServiceImpl implements UserSettingService {
 
     @Override
     public boolean updateUserProfile(User user) throws InvalidPhoneException, RepeatedPhoneException, InvalidEmailException, RepeatedEmailException {
-        if (myValidation.validatePhone((user.getPhone())))  user.setPhone(user.getPhone());
-        if (myValidation.validateEmail((user.getUserEmail())))  user.setUserEmail(user.getUserEmail());
+        // احصل على بيانات المستخدم الحالية من قاعدة البيانات
+        User existingUser = myUserDao.getUserById(user.getUserId());
 
+        if (existingUser == null) {
+            throw new IllegalArgumentException("User not found!");
+        }
+
+        // التحقق من رقم الهاتف فقط إذا تغير
+        if (!user.getPhone().equals(existingUser.getPhone())) {
+            myValidation.validatePhone(user.getPhone());
+        }
+
+        // التحقق من البريد الإلكتروني فقط إذا تغير
+        if (!user.getUserEmail().equals(existingUser.getUserEmail())) {
+            myValidation.validateEmail(user.getUserEmail());
+        }
+
+        // تحديث الملف الشخصي
         return myUserDao.updateUserProfile(user);
     }
 

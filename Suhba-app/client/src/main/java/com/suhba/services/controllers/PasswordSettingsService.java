@@ -6,12 +6,14 @@ import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordSettingsService {
     private final ServerClientServices serverService;
-    private final long userId = 1; // Pre-set userId
+    //private final long userId = 5; // Pre-set userId
 
     public PasswordSettingsService() {
         serverService = ServerService.getInstance();
@@ -41,17 +43,24 @@ public class PasswordSettingsService {
     }
 
     public boolean checkIfMatch(String password) throws NoSuchAlgorithmException, RemoteException {
-        return serverService != null && serverService.isPasswordMatchUser(userId, password);//edit it here by getCurUser().getUserId()
+        return serverService != null && serverService.isPasswordMatchUser(getCurUser().getUserId(), password);
     }
 
     public boolean updatePassword(String newPassword) throws NoSuchAlgorithmException, RemoteException, InvalidPasswordException {
-        return serverService != null && serverService.updateUserPassword(userId, newPassword);//edit it here by getCurUser().getUserId()
+        return serverService != null && serverService.updateUserPassword(getCurUser().getUserId(), newPassword);
     }
 
     public User getUserById() throws RemoteException {
-        System.out.println("getUserById");
-        return serverService != null ? serverService.getUserById(userId) : null;//edit it here by getCurUser().getUserId()
+        return serverService != null ? serverService.getUserById(getCurUser().getUserId()) : null;
     }
 
+    private String getMacAddress () throws SocketException, RemoteException {
+        return ServerService.getInstance().getMacAddress();
+    }
 
+    public void logoutService () throws IOException {
+        System.out.println("In logout");
+        System.out.println(getCurUser().getUserId());
+        ServerService.getInstance().logout(getMacAddress(), getCurUser().getUserId());
+    }
 }

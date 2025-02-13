@@ -2,10 +2,13 @@ package com.suhba.services.controllers;
 
 import com.suhba.database.entities.Chat;
 import com.suhba.database.entities.Contact;
+import com.suhba.database.entities.Message;
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.ContactStatus;
+import com.suhba.database.enums.MessageStatus;
 import com.suhba.network.ServerClientServices;
 import com.suhba.network.ServerService;
+import com.suhba.services.MessagingService;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -26,12 +29,15 @@ public class FriendRequestBoxService {
         return null;
     }
 
-    public boolean acceptInvitation (String senderPhoneNumber) throws SQLException, RemoteException {
+    public boolean acceptInvitation (String senderPhoneNumber) throws Exception {
         User user = serverService.getUserByPhoneNumber(senderPhoneNumber);
         if (user != null) {
             long senderId = user.getUserId();
-            Contact contact = new Contact(senderId, /*getCurUser().getUserId()*/ 12, ContactStatus.ACCEPTED);
-            return (serverService.acceptRequest(contact) != null);
+            Contact contact = new Contact(senderId, getCurUser().getUserId(), ContactStatus.ACCEPTED);
+            Chat newChat = serverService.acceptRequest(contact);
+            Message firstMsg = new Message(getCurUser().getUserId(),newChat.getChatId(),"Hi", MessageStatus.Sent,null);
+            serverService.sendMessage(firstMsg);
+            return ( newChat != null);
         }
         return false;
     }
@@ -40,7 +46,7 @@ public class FriendRequestBoxService {
         User user = serverService.getUserByPhoneNumber(senderPhoneNumber);
         if (user != null) {
             long senderId = user.getUserId();
-            Contact contact = new Contact(senderId, /*getCurUser().getUserId()*/ 12, ContactStatus.ACCEPTED);
+            Contact contact = new Contact(senderId, getCurUser().getUserId(), ContactStatus.ACCEPTED);
             return serverService.updateRequestStatusFromPendingToDeclined(contact, ContactStatus.DECLINED);
         }
         return false;

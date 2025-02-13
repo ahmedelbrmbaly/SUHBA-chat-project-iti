@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addNewFriendScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.AddNewGroupController">
+<BorderPane fx:id="addNewFriendScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.AddNewGroupController">
    <top>
-      <GridPane prefHeight="190.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="158.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.20001220703125" minWidth="10.0" prefWidth="393.60003662109375" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.39996337890625" minWidth="10.0" prefWidth="206.39996337890625" />
@@ -27,14 +27,8 @@
             <RowConstraints maxHeight="29.599996948242186" minHeight="10.0" prefHeight="19.200006103515626" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.19999389648437" minHeight="10.0" prefHeight="50.19999389648437" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="39.20000305175781" minHeight="10.0" prefHeight="32.799993896484374" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="39.20000305175781" minHeight="10.0" prefHeight="32.799993896484374" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="searchField" focusTraversable="false" onAction="#handleSearch" prefHeight="28.0" prefWidth="174.0" promptText="Enter Contact Name" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="120.0" right="10.0" />
-               </GridPane.margin>
-            </TextField>
             <Label prefHeight="19.0" prefWidth="98.0" text="Group Name" textFill="#112d4e" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <font>
                   <Font name="Times New Roman Bold" size="16.0" />
@@ -43,19 +37,11 @@
                   <Insets bottom="5.0" left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="groupNameField" focusTraversable="false" onAction="#handleGroupName" prefHeight="26.0" prefWidth="205.0" promptText="Name" GridPane.rowIndex="2">
+            <TextField fx:id="groupNameField" focusTraversable="false" onAction="#handleGroupName" prefHeight="26.0" prefWidth="205.0" promptText="Enter group name" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="3.0" left="120.0" right="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label prefHeight="19.0" prefWidth="123.0" text="Add" textFill="#112d4e" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Times New Roman Bold" size="16.0" />
-               </font>
-            </Label>
             <Label prefHeight="23.0" prefWidth="123.0" text="Create Group" textFill="#112d4e" GridPane.halignment="CENTER">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
@@ -73,7 +59,7 @@
                </GridPane.margin>
             </ImageView>
             <Button fx:id="chooseImageGroup" mnemonicParsing="false" onAction="#handleChooseImageGroup" prefHeight="26.0" prefWidth="122.0" style="-fx-background-color: #112d4e; -fx-cursor: hand;" text="Choose Picture" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label layoutX="20.0" layoutY="131.0" prefHeight="19.0" prefWidth="109.0" text="Description:" textFill="#112d4e" GridPane.rowIndex="4">
+            <Label layoutX="20.0" layoutY="131.0" prefHeight="19.0" prefWidth="109.0" text=" Description" textFill="#112d4e" GridPane.rowIndex="3">
                <font>
                   <Font name="Times New Roman Bold" size="16.0" />
                </font>
@@ -81,7 +67,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextArea fx:id="descriptionArea" focusTraversable="false" prefHeight="65.0" prefWidth="224.0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <TextArea fx:id="descriptionArea" focusTraversable="false" prefHeight="14.0" prefWidth="213.0" promptText="Enter group description" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0" left="120.0" right="10.0" />
                </GridPane.margin>
@@ -92,7 +78,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="67.0" prefWidth="500.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="createBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createNewGroup" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #112d4e;" text="Create" textFill="WHITE">
+            <Button fx:id="createBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createNewGroup" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #112d4e; -fx-cursor: hand;" text="Create" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -101,6 +87,6 @@
       </HBox>
    </bottom>
    <center>
-      <ListView fx:id="groupListView" prefHeight="240.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="groupListView" prefHeight="264.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

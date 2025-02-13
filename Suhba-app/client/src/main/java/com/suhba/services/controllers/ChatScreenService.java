@@ -51,7 +51,7 @@ public class ChatScreenService {
 
     public ChatScreenService (ChatScreenController chatScreenController){
         try{
-            client = (ClientInterface) new ClientImplementation();
+            client = (ClientInterface) new ClientImplementation(this);
             controller= chatScreenController;
             System.out.println("controler ==="+ controller);
         } catch (RemoteException e) {

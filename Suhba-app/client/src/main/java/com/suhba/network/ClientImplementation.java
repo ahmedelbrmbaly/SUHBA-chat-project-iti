@@ -26,6 +26,16 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
     //     super();
     // }
 
+    public ClientImplementation(ChatScreenService chatScreenService2) throws RemoteException {
+        super();
+        this.chatScreenService=chatScreenService2;
+    }
+
+    public ClientImplementation(GroupScreenService groupService) throws RemoteException {
+        super();
+        this.groupScreenService = groupService;
+    }
+
     @Override
     public boolean receiveMessage(Message msg, ChatType type) throws RemoteException {
         System.out.println("Received Msg: "+ msg);

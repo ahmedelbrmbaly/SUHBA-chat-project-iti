@@ -7,10 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -78,7 +80,13 @@ public class ClientAddContactScreenController implements Initializable {
                     searchField.clear();
                     return;
                 }
-                controller.setNewFriendData(friendName, phoneNumber);
+
+                byte[] userPhoto = myServices.getUserByPhone(phoneNumber).getPicture();
+                Image curUserPic = new Image(getClass().getResourceAsStream("/images/defaultUser.png"));
+                if (userPhoto != null && userPhoto.length > 0) {
+                    curUserPic = new Image(new ByteArrayInputStream(userPhoto));
+                }
+                controller.setNewFriendData(curUserPic, friendName, phoneNumber);
 
                 curView.setUserData(phoneNumber);
             } else {

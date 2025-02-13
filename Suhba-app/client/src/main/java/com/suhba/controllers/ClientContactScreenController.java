@@ -2,6 +2,8 @@ package com.suhba.controllers;
 
 import com.suhba.database.entities.User;
 import com.suhba.database.enums.UserStatus;
+import com.suhba.services.UserService;
+import com.suhba.services.controllers.ChatScreenService;
 import com.suhba.services.controllers.ClientContactScreenService;
 import com.suhba.utils.FXMLHelper;
 import com.suhba.utils.LoadingFXML;
@@ -16,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -23,7 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -137,12 +140,12 @@ public class ClientContactScreenController implements Initializable {
 
     List<User> friends;
 
-    long currentUserId = 1;
+    UserService userService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         friendsContainer.setOrientation(Orientation.HORIZONTAL);
-
+        setUserInfo();
         friends = new ArrayList<>();
         try {
             friends = myServices.showFriends();
@@ -189,7 +192,19 @@ public class ClientContactScreenController implements Initializable {
                             circleColor = Color.WHITE;
                             break;
                     }
-                    controller.setNewFriendData(circleColor, friendName, bio, email, phoneNumber);
+
+                    byte[] userPhoto = null;
+                    try {
+                        userPhoto = myServices.getUserByPhone(phoneNumber).getPicture();
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Image curUserPic = new Image(getClass().getResourceAsStream("/images/defaultUser.png"));
+                    if (userPhoto != null && userPhoto.length > 0) {
+                        curUserPic = new Image(new ByteArrayInputStream(userPhoto));
+                    }
+
+                    controller.setNewFriendData(curUserPic, circleColor, friendName, bio, email, phoneNumber);
                     curView.setUserData(phoneNumber);
                 } else {
                     System.out.println("Error: Controller is null!");
@@ -216,17 +231,17 @@ public class ClientContactScreenController implements Initializable {
 
     @FXML
     void goToChat(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "ClientChatScreen.fxml");
     }
 
     @FXML
     void goToGroups(MouseEvent event) {
-
+        LoadingFXML.moveToNextPage(event, "ClientGroupScreen.fxml");
     }
 
     @FXML
     void goToSettings(MouseEvent event) {
-
+        myServices.moveToNextPage(event, "ProfileSettingsScreen.fxml");
     }
 
     @FXML
@@ -238,6 +253,32 @@ public class ClientContactScreenController implements Initializable {
         LoadingFXML.showPopupWithIdReqFriend(owner, fxmlURL,500,500, 1);
     }
 
-    
+
+    public void setUserInfo() {
+        try {
+            userService = new UserService();
+            User currentUser = userService.getUserInfoById(myServices.getCurUser().getUserId());
+
+            if (currentUser != null) {
+                byte[] userPhoto = currentUser.getPicture();
+                if (userPhoto != null && userPhoto.length > 0) {
+                    Image image = new Image(new ByteArrayInputStream(userPhoto));
+                    userProfilePic.setImage(image);
+                } else {
+                    userProfilePic.setImage(new Image(getClass().getResourceAsStream("/images/defaultUser.png")));
+                }
+            }
+
+            userNameLabel.setText(currentUser.getDisplayName());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleLogout(MouseEvent mouseEvent) throws IOException {
+        new ChatScreenService().unregister(myServices.getCurUser().getUserId());
+        myServices.logoutService();
+        LoadingFXML.moveToNextPage(mouseEvent, "signInPage1.fxml");
+    }
 }
 

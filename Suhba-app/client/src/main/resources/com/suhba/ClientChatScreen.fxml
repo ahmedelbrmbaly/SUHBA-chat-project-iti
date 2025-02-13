@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatScreenController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.ChatScreenController">
    <left>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="130.0" spacing="6.0" style="-fx-background-color: #112D4E;" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +28,7 @@
             <Line endX="90.0" stroke="WHITE" />
             <VBox alignment="CENTER" spacing="9.0">
                <children>
-                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
+                  <VBox fx:id="chatBoxBar" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105; -fx-background-color: white;">
                      <children>
                         <ImageView fx:id="chatIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,23 +70,6 @@
                            </image>
                         </ImageView>
                         <Label fx:id="contactsLabel" text="Contacts" textFill="WHITE">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="chatbotBoxBar" alignment="CENTER" layoutX="40.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" spacing="3.0" style="-fx-cursor: hand; -fx-background-radius: 105;">
-                     <children>
-                        <ImageView fx:id="chatbotIconView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/chatbot-white.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="chatbotLabel" text="Chatbot" textFill="WHITE">
                            <font>
                               <Font size="8.0" />
                            </font>
@@ -150,7 +133,6 @@
                   <Image url="@../../images/white.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchTextField" focusTraversable="false" prefHeight="25.0" prefWidth="224.0" promptText="Search" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -177,7 +159,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="200.0" text="People" textFill="#112d4e">
+                        <Label contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="200.0" text="Chats" textFill="#112d4e">
                            <font>
                               <Font size="25.0" />
                            </font>
