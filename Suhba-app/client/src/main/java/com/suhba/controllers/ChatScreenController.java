@@ -167,7 +167,7 @@ public class ChatScreenController implements Initializable {
 
     long currentChatId = -1;
 
-    long currentUserId = 4;
+    long currentUserId = 5;
 
     User currentUserInChatWith;
 

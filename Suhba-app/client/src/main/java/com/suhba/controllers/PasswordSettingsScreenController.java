@@ -22,6 +22,8 @@ public class PasswordSettingsScreenController {
     @FXML
     private Button editBtn;
 
+
+
     private final PasswordSettingsService myServices = new PasswordSettingsService();
 
     private User currentUser;
@@ -39,6 +41,7 @@ public class PasswordSettingsScreenController {
 
         try {
             currentUser = myServices.getUserById();
+            System.out.println("Current user: " + currentUser);
             if (currentUser == null) {
                 myServices.showAlert(Alert.AlertType.ERROR, "Error", "User not found.");
                 return;
@@ -82,4 +85,5 @@ public class PasswordSettingsScreenController {
         newPasswordField.clear();
         confirmNewPasswordField.clear();
     }
+
 }

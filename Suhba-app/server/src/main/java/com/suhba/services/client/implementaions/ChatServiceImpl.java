@@ -46,57 +46,74 @@ public class ChatServiceImpl implements ChatService {
 
         return chatMessages;
     }
-
     @Override
     public Message sendMessage(Message msg) {
         Message newMsg = null;
         if (msg.getChatId() > 0 && msg.getSenderId() > 0 && msg != null) {
             try {
+                // Save the message to the database
                 newMsg = messageDAOImpl.sendMessage(msg);
                 if (msg.getMessageId() == 0) {
                     System.out.println("No message added to DB!");
                 } else {
                     System.out.println("msg after added: " + newMsg);
+
+                    // Check if the chat is a direct chat
                     if (chatDAO.getChatById(msg.getChatId()).getChatType() == ChatType.Direct) {
-                        long clientId = chatDAO.getDirectChatPartner(msg.getChatId(), msg.getSenderId()).getUserId();
-                        System.out.println("Receiver id:" + clientId);
-                        if (clients.containsKey(clientId)) {
-                            ClientInterface client = clients.get(clientId);
-                            System.out.println("ClientInterface: " + client);
-                            if (client != null) {
-                                client.receiveMessage(newMsg,ChatType.Direct);
+                        long receiverId = chatDAO.getDirectChatPartner(msg.getChatId(), msg.getSenderId()).getUserId();
+                        System.out.println("Receiver id:" + receiverId);
+
+                        // Check if the receiver is online
+                        if (clients.containsKey(receiverId)) {
+                            ClientInterface receiverClient = clients.get(receiverId);
+                            System.out.println("ClientInterface: " + receiverClient);
+                            if (receiverClient != null) {
+                                // Deliver the message to the receiver
+                                receiverClient.receiveMessage(newMsg, ChatType.Direct);
                             } else {
-                                User revciver = userDAOImpl.getUserById(clientId);
-                                if(revciver.getUserStatus() == UserStatus.Offline && revciver.isChatBotActive() )
-                                {
-                                    client.chatBotMessage(revciver.getUserId(), msg.getSenderId(), msg) ;
+                                System.out.println("Client with ID " + receiverId + " is not online.");
+                            }
+                        } else {
+                            // Receiver is offline, check if chatbot is active
+                            User receiver = userDAOImpl.getUserById(receiverId);
+                            System.out.println(receiver.isChatBotActive());
+                            if (receiver.getUserStatus() == UserStatus.Offline && receiver.isChatBotActive()) {
 
-                                    System.out.println("Chat bot is active and user is offline");
+                                System.out.println("Chat bot is active and user is offline");
+
+                                // Notify the sender's client to handle the chatbot response
+                                if (clients.containsKey(msg.getSenderId())) {
+                                    ClientInterface senderClient = clients.get(msg.getSenderId());
+                                    if (senderClient != null) {
+                                        // Trigger the chatbot response on the sender's client
+                                        senderClient.chatBotMessage(receiverId, msg.getSenderId(), msg);
+                                    }
                                 }
-
-                                System.out.println("Client with ID " + clientId + " is not online.");
+                            } else {
+                                System.out.println("Client with ID " + receiverId + " is offline and chatbot is not active.");
                             }
                         }
                     } else {
+                        // Handle group messages
                         List<User> members = chatDAO.getChatParticipants(msg.getChatId());
                         for (User member : members) {
-                            if(member.getUserId()==msg.getSenderId()) continue;
+                            if (member.getUserId() == msg.getSenderId()) continue; // Skip the sender
                             if (clients.containsKey(member.getUserId())) {
                                 ClientInterface client = clients.get(member.getUserId());
                                 System.out.println("ClientInterface: " + client);
                                 if (client != null) {
-                                    client.receiveMessage(newMsg,ChatType.Group);
+                                    client.receiveMessage(newMsg, ChatType.Group);
                                 } else {
                                     System.out.println("Client with ID " + member.getUserId() + " is not online.");
                                 }
                             }
                         }
                     }
-
                 }
 
+                // Handle file attachments (if any)
                 if (msg.getAttachment() != null) {
-                    // Handle if there is a File Transfer
+                    // Handle file transfer logic here
                 }
             } catch (SQLException e) {
                 System.out.println("Send Messages Service Exception!");
@@ -108,7 +125,6 @@ public class ChatServiceImpl implements ChatService {
         }
         return newMsg;
     }
-
     @Override
     public long createPrivateChat(long userId1, long userId2) throws Exception {
         Chat newChat;

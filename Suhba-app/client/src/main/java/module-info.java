@@ -8,6 +8,8 @@ module com.suhba {
     requires java.desktop;
     requires java.sql.rowset;
     requires java.base;
+    requires okhttp3;
+    requires org.json;
 
     opens com.suhba.controllers to javafx.fxml, javafx.base;
     opens com.suhba to javafx.fxml;

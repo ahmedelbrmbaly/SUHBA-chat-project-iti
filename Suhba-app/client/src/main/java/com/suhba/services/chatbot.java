@@ -1,13 +1,10 @@
-package com.suhba.services.client.implementaions;
+package com.suhba.services;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
-import okhttp3.*;
+import java.io.IOException;
 
 public class chatbot {
     private static String key = "AIzaSyBvqAM8BGP2hOu1z6dqjVDvnalvCyU-NRM";

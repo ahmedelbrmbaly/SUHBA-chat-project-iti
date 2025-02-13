@@ -77,6 +77,7 @@ public class UserDAOImpl implements UserDAO {
                 user.setBirthday(rs.getDate("birthday") == null ? null : rs.getDate("birthday").toLocalDate());
                 user.setBio(rs.getString("bio"));
                 user.setUserStatus(rs.getString("userStatus") == null ? null : UserStatus.valueOf(rs.getString("userStatus")));
+                user.setChatBotActive(rs.getBoolean("isChatBotActive"));
                 return user;
             }
         } catch (SQLException e) {

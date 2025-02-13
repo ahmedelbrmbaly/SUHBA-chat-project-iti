@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
+import java.rmi.RemoteException;
+
 public class ProfileSettingsScreenController {
 
     @FXML
@@ -29,6 +31,9 @@ public class ProfileSettingsScreenController {
     @FXML
     private ImageView userProfilePic;
 
+    @FXML
+    private Button chatBtn;
+
     private User currentUser;
     ProfileSettingsService profileService = new ProfileSettingsService();
 
@@ -46,6 +51,20 @@ public class ProfileSettingsScreenController {
             statusComboBox.getItems().setAll(UserStatus.values());
         } else {
             profileService.showErrorAlert("No user data found!");
+        }
+        try {
+//            currentUser = myServices.getUserById(1);
+            currentUser = profileService.getUserById(1);
+            System.out.println(currentUser);
+            boolean isActive = profileService.isChatBotActive(currentUser);
+            updateChatButton(isActive);
+        } catch (RemoteException e) {
+            handleRemoteError("Connection to server failed.");
+            chatBtn.setText("Chatbot: Error");
+        } catch (Exception e) {
+
+            profileService.showAlert(Alert.AlertType.ERROR, "Error", "Unable to load chatbot status.");
+            chatBtn.setText("Chatbot: Error");
         }
     }
 
@@ -92,5 +111,46 @@ public class ProfileSettingsScreenController {
             return false;
         }
         return true;
+    }
+
+
+
+    private void updateChatButton(boolean isActive) {
+        if (isActive) {
+            chatBtn.setText("Chatbot: ON");
+            chatBtn.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #3f72af;");
+        } else {
+            chatBtn.setText("Chatbot: OFF");
+            chatBtn.setStyle("-fx-background-color: #3f72af; -fx-text-fill: white;");
+        }
+    }
+
+    @FXML
+    private void changeBotStatus() {
+        if (currentUser == null) {
+            System.out.println("Error User not found.");
+            return;
+        }
+
+        try {
+            boolean currentStatus = profileService.isChatBotActive(currentUser);
+            boolean newStatus = !currentStatus;
+            profileService.setChatBotActive(currentUser, newStatus);
+            currentUser.setChatBotActive(newStatus);
+            updateChatButton(newStatus);
+        } catch (RemoteException e) {
+            profileService.showAlert(Alert.AlertType.ERROR, "Remote Error", "Failed to toggle chatbot status.");
+            try {
+                boolean currentStatus = profileService.isChatBotActive(currentUser);
+                updateChatButton(currentStatus);
+            } catch (RemoteException ex) {
+                handleRemoteError("Connection to server failed.");
+                chatBtn.setText("Chatbot: Error");
+            }
+        }
+    }
+
+    private void handleRemoteError(String message) {
+        profileService.showAlert(Alert.AlertType.ERROR, "Remote Error", message);
     }
 }

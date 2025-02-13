@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class PasswordSettingsService {
     private final ServerClientServices serverService;
-    //private final long userId = 5; // Pre-set userId
+    private final long userId = 1; // Pre-set userId
 
     public PasswordSettingsService() {
         serverService = ServerService.getInstance();
@@ -41,14 +41,17 @@ public class PasswordSettingsService {
     }
 
     public boolean checkIfMatch(String password) throws NoSuchAlgorithmException, RemoteException {
-        return serverService != null && serverService.isPasswordMatchUser(getCurUser().getUserId(), password);
+        return serverService != null && serverService.isPasswordMatchUser(userId, password);//edit it here by getCurUser().getUserId()
     }
 
     public boolean updatePassword(String newPassword) throws NoSuchAlgorithmException, RemoteException, InvalidPasswordException {
-        return serverService != null && serverService.updateUserPassword(getCurUser().getUserId(), newPassword);
+        return serverService != null && serverService.updateUserPassword(userId, newPassword);//edit it here by getCurUser().getUserId()
     }
 
     public User getUserById() throws RemoteException {
-        return serverService != null ? serverService.getUserById(getCurUser().getUserId()) : null;
+        System.out.println("getUserById");
+        return serverService != null ? serverService.getUserById(userId) : null;//edit it here by getCurUser().getUserId()
     }
+
+
 }

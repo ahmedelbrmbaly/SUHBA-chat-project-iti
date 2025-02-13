@@ -70,11 +70,24 @@ public class ProfileSettingsService {
         showAlert(Alert.AlertType.ERROR, "Error", message);
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    public void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public boolean isChatBotActive(User user) throws RemoteException {
+        return serverService.isChatBotActive(user);
+    }
+
+    public User getUserById(long userID) throws RemoteException {
+        return serverService.getUserById(userID);
+    }
+
+    public void setChatBotActive(User user, boolean active) throws RemoteException {
+        serverService.setChatBotActive(user, active);
+    }
+
 }

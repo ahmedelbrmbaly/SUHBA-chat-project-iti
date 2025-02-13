@@ -376,6 +376,7 @@
                            </GridPane.margin>
                         </Label>
                         <ComboBox fx:id="statusComboBox" prefWidth="180.0" promptText="Select..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Button fx:id="chatBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#changeBotStatus" prefHeight="26.0" prefWidth="122.0" style="-fx-cursor: hand; -fx-background-color: #3f72af;" text="Chatbot: ON" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </center>
