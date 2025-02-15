@@ -6,17 +6,21 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="signUpScreen2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="980.0" style="-fx-background-color: linear-gradient(to bottom right, #3f72af, #112d4e);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.SignUpScreen2Controller">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <left>
@@ -51,7 +55,7 @@
                         <Insets left="40.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
+                  <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="110.0" left="40.0" top="30.0" />
                      </GridPane.margin>
@@ -61,11 +65,6 @@
                         <Insets bottom="60.0" left="40.0" top="60.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="100.0" left="40.0" />
-                     </GridPane.margin>
-                  </TextField>
                   <Label prefHeight="17.0" prefWidth="182.0" text="Date of Bitrh" textFill="#112d4e" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets bottom="180.0" left="40.0" top="40.0" />
@@ -92,7 +91,7 @@
                         <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="213.0" text="Terms of Service &amp; Privacy Policy" textFill="#3f72af">
+                        <CheckBox fx:id="termsCheckBox" mnemonicParsing="false" prefHeight="17.0" prefWidth="213.0" text="Terms of Service &amp; Privacy Policy" textFill="#3f72af">
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
@@ -100,12 +99,12 @@
                               <Font size="11.0" />
                            </font>
                         </CheckBox>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af;" text="Sign up" textFill="WHITE" GridPane.rowIndex="1">
+                        <Button fx:id="signUpBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Sign up" textFill="WHITE" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
                         </Button>
-                        <Label prefHeight="16.0" prefWidth="164.0" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
+                        <Label fx:id="signInLabel" onMouseClicked="#navigateToSignIn" prefHeight="16.0" prefWidth="164.0" style="-fx-cursor: hand;" text="Already have an accout?  Sign in " textFill="#3f72af" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="50.0" />
                            </GridPane.margin>
@@ -115,16 +114,32 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <DatePicker prefWidth="260.0" GridPane.rowIndex="5">
+                  <DatePicker fx:id="dateOfBirthPicker" onAction="#handleDateOfBirth" prefWidth="260.0" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="40.0" top="50.0" />
                      </GridPane.margin>
                   </DatePicker>
-                  <ComboBox prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="7">
+                  <ComboBox fx:id="countryComboBox" onAction="#handleCountrySelection" prefHeight="25.0" prefWidth="260.0" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="40.0" top="10.0" />
                      </GridPane.margin>
                   </ComboBox>
+                  <HBox prefHeight="124.0" prefWidth="160.0" GridPane.rowIndex="5">
+                     <children>
+                        <RadioButton fx:id="maleRadiobtn" mnemonicParsing="false" text="Male">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="genderChoise" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="femaleRadiobtn" mnemonicParsing="false" text="Female" toggleGroup="$genderChoise">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </RadioButton>
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="110.0" left="40.0" right="100.0" top="10.0" />
+                     </GridPane.margin>
+                  </HBox>
                </children>
             </GridPane>
          </left>
@@ -141,19 +156,16 @@
                 <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="241.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3f72af;" text="Choose" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="chooseImageBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleChooseImage" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3f72af; -fx-cursor: hand;" text="Choose" textFill="WHITE" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="450.0" left="20.0" />
+                        <Insets bottom="450.0" left="22.0" />
                      </GridPane.margin>
                   </Button>
-                  <ImageView fitHeight="94.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@defaultProfilePhoto.png" />
-                     </image>
+                  <Circle fx:id="pictureImageview" fill="DODGERBLUE" radius="44.0" stroke="BLACK" strokeType="INSIDE">
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="20.0" />
+                        <Insets bottom="40.0" left="20.0" />
                      </GridPane.margin>
-                  </ImageView>
+                  </Circle>
                </children>
                <BorderPane.margin>
                   <Insets right="30.0" />
@@ -170,7 +182,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@projectName.png" />
+                  <Image url="@../../images/projectName.png" />
                </image>
                <VBox.margin>
                   <Insets left="20.0" top="20.0" />

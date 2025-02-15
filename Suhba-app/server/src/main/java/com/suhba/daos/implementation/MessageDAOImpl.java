@@ -58,7 +58,7 @@ public class MessageDAOImpl implements MessageDAO {
                     }
                 }
             }
-
+            
         return message;
     }
 
@@ -136,6 +136,27 @@ public class MessageDAOImpl implements MessageDAO {
         }
 
         return count;
+    }
+
+    @Override
+    public Message getLastMessageInChat(long chatId) throws SQLException {
+        Message msg = null;
+        String sql = """
+            SELECT * FROM Messages
+            WHERE chatId = ?
+            ORDER BY timeStamp DESC
+            LIMIT 1
+            """;
+            try(PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setLong(1, chatId);
+                try(ResultSet rs= statement.executeQuery()){
+                    if(rs.next()){
+                        msg= mapMessage(rs);
+                    }
+                     
+                }
+            }
+        return msg;
     }
 
     

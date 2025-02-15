@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.suhba.controllers.components.GroupMessageBubbleController">
+   <children>
+      <VBox fx:id="messageContainer" spacing="3.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label fx:id="senderName" text="Aya">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="messageContent" alignment="CENTER" contentDisplay="CENTER" maxWidth="400.0" style="-fx-background-color: #3F72AF; -fx-background-radius: 10;" text=" Hey Hey Hey Hey Hey Hey Hey Hey Hey v Heyv Hey Hey Hey hey hey hey hey hey hey  H mmm ey Hey Hey Hey Hey" textFill="WHITE" wrapText="true">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="messageTime" text="Today, 8:00pm">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</HBox>
